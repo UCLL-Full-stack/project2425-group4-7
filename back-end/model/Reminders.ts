@@ -34,16 +34,33 @@ export class Reminder {
         return this._plant;
     }
 
+    set reminderId(value: number) {
+        if (value <= 0) {
+            throw new Error("Reminder ID must be a positive number.");
+        }
+        this._reminderId = value;
+    }
+
     set email(value: string) {
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(value)) {
+            throw new Error("Invalid email format.");
+        }
         this._email = value;
     }
 
     set gsmNumber(value: number) {
-        this._gsmNumber = value
+        if (value <= 0) {
+            throw new Error("GSM number must be a positive number.");
+        }
+        this._gsmNumber = value;
     }
 
     set plantId(value: number) {
-        this._plantId = value
+        if (value <= 0) {
+            throw new Error("Plant ID must be a positive number.");
+        }
+        this._plantId = value;
     }
 
     set plant(value: Plant | undefined) {

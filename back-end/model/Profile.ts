@@ -46,23 +46,46 @@ export class Profile{
         return this._user;
     }
 
+    set profileId(value: number) {
+        if (value <= 0) {
+            throw new Error("Profile ID must be a positive number.");
+        }
+        this._profileId = value;
+    }
+
     set firstName(value: string) {
+        if (!value) {
+            throw new Error("First name cannot be empty.");
+        }
         this._firstName = value;
     }
 
     set lastName(value: string) {
+        if (!value) {
+            throw new Error("Last name cannot be empty.");
+        }
         this._lastName = value;
     }
 
     set email(value: string) {
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(value)) {
+            throw new Error("Invalid email format.");
+        }
         this._email = value;
     }
 
     set phoneNumber(value: number) {
+        if (value <= 0) {
+            throw new Error("Phone number must be a positive number.");
+        }
         this._phoneNumber = value;
     }
 
     set userId(value: number) {
+        if (value <= 0) {
+            throw new Error("User ID must be a positive number.");
+        }
         this._userId = value;
     }
 

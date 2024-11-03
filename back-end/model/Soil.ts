@@ -40,19 +40,38 @@ export class Soil {
         return this._plant;
     }
 
+    set soilId(value: number) {
+        if (value <= 0) {
+            throw new Error("Soil ID must be a positive number.");
+        }
+        this._soilId = value;
+    }
+
     set type(value: string) {
-        this._type = value
+        if (!value || value.trim() === "") {
+            throw new Error("Soil type must not be empty.");
+        }
+        this._type = value;
     }
 
     set refreshing(value: Date) {
+        if (!(value instanceof Date) || isNaN(value.getTime())) {
+            throw new Error("Refreshing date must be a valid date.");
+        }
         this._refreshing = value;
     }
-
+    
     set fertilizing(value: Date) {
-        this._fertilizing = value
+        if (!(value instanceof Date) || isNaN(value.getTime())) {
+            throw new Error("Fertilizing date must be a valid date.");
+        }
+        this._fertilizing = value;
     }
-
+      
     set plantId(value: number) {
+        if (value <= 0) {
+            throw new Error("Plant ID must be a positive number.");
+        }
         this._plantId = value;
     }
 

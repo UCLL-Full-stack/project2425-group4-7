@@ -66,10 +66,16 @@ export class Plant {
     }
 
     set familie(value: string) {
+        if (value === '') {
+            throw new Error("Familie cannot be empty.");
+        }
         this._familie = value;
     }
 
     set userId(value: number) {
+        if (value <= 0) {
+            throw new Error("User ID must be a positive number.");
+        }
         this._userId = value;
     }
 

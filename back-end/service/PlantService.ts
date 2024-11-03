@@ -9,6 +9,9 @@ export class PlantService {
     }
 
     async addPlant(plant: Plant): Promise<Plant> {
+        if (!plant.soort || !plant.familie || plant.userId <= 0) {
+            throw new Error("Invalid plant data. Please provide a valid soort, familie, and user ID.");
+        }
         return await this.plantRepository.add(plant);
     }
 
@@ -20,12 +23,16 @@ export class PlantService {
         return await this.plantRepository.getAll();
     }
 
-    async updatePlant(plantId: number, date:any): Promise<Plant | undefined> {
+    async updatePlant(plantId: number, data:any): Promise<Plant | undefined> {
         const existingPlant = await this.getPlant(plantId);
         if (existingPlant) {
-            existingPlant.soort = date.soort || existingPlant.soort;
-            existingPlant.familie = date.familie || existingPlant.familie;
-            return await this.plantRepository.update(existingPlant)
+            if (data.soort) {
+                existingPlant.soort = data.soort; // Validatie gebeurt in de setter
+            }
+            if (data.familie) {
+                existingPlant.familie = data.familie; // Validatie gebeurt in de setter
+            }
+            return await this.plantRepository.update(existingPlant);
         }
         return undefined;
     }
