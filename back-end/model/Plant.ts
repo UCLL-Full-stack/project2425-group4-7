@@ -1,101 +1,80 @@
-import { Reminder } from "./Reminders";
-import { Soil } from "./Soil";
-import { Sunlight } from "./Sunlight";
-import { User } from "./User";
-import { Water } from "./Water";
-
 export class Plant {
     private _plantId: number;
-    private _soort: string;
-    private _familie: string;
-    private _userId: number;
-    private _user?: User;
-    private _sunlight?: Sunlight;
-    private _soil?: Soil;
-    private _water?: Water;
-    private _reminders: Reminder[] = [];
+    private _plantType: string;
+    private _family: string;
+    private _wateringFreq: string;
+    private _sunlight: string;
+    private _reminders: { email: boolean; sms: boolean };
 
-    constructor(plantId: number, soort: string, familie: string, userId:number) {
+    constructor(plantId: number, plantType: string, family: string, wateringFreq: string, sunlight: string, reminders: { email: boolean; sms: boolean }) {
         this._plantId = plantId;
-        this._soort = soort;
-        this._familie = familie;
-        this._userId = userId;
+        this._plantType = plantType;
+        this._family = family;
+        this._wateringFreq = wateringFreq;
+        this._sunlight = sunlight;
+        this._reminders = reminders;
     }
 
     get plantId(): number {
         return this._plantId;
     }
 
-    get soort(): string {
-        return this._soort;
-    }   
-
-    get familie(): string {
-        return this._familie;
-    }   
-
-    get userId(): number {
-        return this._userId
+    get plantType(): string {
+        return this._plantType;
     }
 
-    get user(): User | undefined {
-        return this._user
-    }   
+    get family(): string {
+        return this._family;
+    }
 
-    get sunlight(): Sunlight | undefined {
+    get wateringFreq(): string {
+        return this._wateringFreq;
+    }
+
+    get sunlight(): string {
         return this._sunlight;
-    }  
-
-    get soil(): Soil | undefined {
-        return this._soil;
-    }  
-
-    get water(): Water | undefined {
-        return this._water;
     }
 
-    get reminders(): Reminder[] {
+    get reminders(): { email: boolean; sms: boolean } {
         return this._reminders;
     }
 
-    set soort(value: string) {
-        if (value === '') {
-            throw new Error("Soort cannot be empty.")
-        }
-        this._soort = value
-    }
-
-    set familie(value: string) {
-        if (value === '') {
-            throw new Error("Familie cannot be empty.");
-        }
-        this._familie = value;
-    }
-
-    set userId(value: number) {
+    set plantId(value: number) {
         if (value <= 0) {
-            throw new Error("User ID must be a positive number.");
+            throw new Error("Plant ID must be a positive number.");
         }
-        this._userId = value;
+        this._plantId = value;
     }
 
-    set user(value: User | undefined) {
-        this._user = value;
+    set plantType(value: string) {
+        if (!value) {
+            throw new Error("Plant type cannot be empty.");
+        }
+        this._plantType = value;
     }
 
-    set sunlight(value: Sunlight | undefined) {
+    set family(value: string) {
+        if (!value) {
+            throw new Error("Family cannot be empty.");
+        }
+        this._family = value;
+    }
+
+    set wateringFreq(value: string) {
+        if (!value) {
+            throw new Error("Watering frequency cannot be empty.");
+        }
+        this._wateringFreq = value;
+    }
+
+    set sunlight(value: string) {
+        if (!value) {
+            throw new Error("Sunlight cannot be empty.");
+        }
         this._sunlight = value;
     }
 
-    set soil(value: Soil | undefined) {
-        this._soil = value
-    }
-
-    set water(value:Water | undefined) {
-        this._water = value;
-    }
-
-    addReminder(reminder: Reminder) {
-        this._reminders.push(reminder)
+    set reminders(value: { email: boolean; sms: boolean }) {
+        this._reminders = value;
     }
 }

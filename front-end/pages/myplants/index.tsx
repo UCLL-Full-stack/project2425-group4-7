@@ -20,7 +20,7 @@ const MyPlants = () => {
     <>
       <div className={`${styles.container}`}>
         <Head>
-          <title>Rootz</title>
+          <title>Rootz | My Plants</title>
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link rel="icon" href="/favicon.ico" />
         </Head>

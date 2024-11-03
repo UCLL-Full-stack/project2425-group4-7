@@ -1,9 +1,13 @@
 import styles from "@/styles/myplants.module.css";
 import { ChangeEvent, FormEvent, useState } from "react";
 import PlantService from "@/services/PlantService";
-import { Plant } from "@/types/types";
 
-const AddPlant: React.FC = () => {
+type AddPlantProps = {
+  onAddPlant: () => void;
+  onClose: () => void;
+};
+
+const AddPlant: React.FC<AddPlantProps> = ({ onAddPlant, onClose }) => {
   const [plantType, setPlantType] = useState("");
   const [family, setFamily] = useState("");
   const [wateringFreq, setWateringFreq] = useState("");
@@ -35,6 +39,8 @@ const AddPlant: React.FC = () => {
 
     try {
       await PlantService.addPlant(plantData);
+      onAddPlant();
+      onClose();
       setPlantType("");
       setFamily("");
       setWateringFreq("");
@@ -74,7 +80,7 @@ const AddPlant: React.FC = () => {
         <option value="weekly">Once a week</option>
         <option value="biweekly">Once in 2 weeks</option>
         <option value="monthly">Once a month</option>
-        <option value="monthly">Never</option>
+        <option value="never">Never</option>
       </select>
 
       <label>Amount of Sunlight:</label>

@@ -136,6 +136,30 @@
   transition: ease-in-out 0.1s;
 }
 
+.plantitem > div {
+  width: 100%;
+  height: 40%;
+  margin-top: 10%;
+  background: url(../public/plant.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-bottom: 10%;
+}
+
+.plantitem > h4 {
+  text-align: center;
+  font-family: "Jua", sans-serif;
+  font-size: 18px;
+}
+
+.plantitem > h5 {
+  text-align: center;
+  font-family: "Jua", sans-serif;
+  font-size: 14px;
+  font-weight: 100;
+}
+
 .addContainer>button:hover {
   background-color: #e6e6e6;
 }

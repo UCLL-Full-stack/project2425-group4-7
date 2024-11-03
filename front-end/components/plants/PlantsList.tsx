@@ -1,10 +1,34 @@
 import styles from "@/styles/myplants.module.css";
+import { useEffect, useState } from "react";
+import PlantService from "@/services/PlantService";
+import { Plant } from "@/types/types";
 
 type PlantsProps = {
   onToggleAddPlant: () => void;
+  onAddPlant: () => void;
 };
 
-function PlantsList({ onToggleAddPlant }: PlantsProps) {
+function PlantsList({ onToggleAddPlant, onAddPlant }: PlantsProps) {
+  const [plants, setPlants] = useState<Plant[]>([]);
+
+  const fetchPlants = async () => {
+    try {
+      const plantList = await PlantService.getPlants();
+      setPlants(plantList);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchPlants();
+  }, []);
+
+  const handleAddPlant = async () => {
+    await fetchPlants();
+    onAddPlant();
+  };
+
   return (
     <>
       <section className={`${styles.myPlants}`}>
@@ -13,14 +37,13 @@ function PlantsList({ onToggleAddPlant }: PlantsProps) {
           <button onClick={onToggleAddPlant}>Nieuwe Plant</button>
         </div>
         <div className={`${styles.plantlist}`}>
-          <div className={`${styles.plantitem}`}></div>
-          <div className={`${styles.plantitem}`}></div>
-          <div className={`${styles.plantitem}`}></div>
-          <div className={`${styles.plantitem}`}></div>
-          <div className={`${styles.plantitem}`}></div>
-          <div className={`${styles.plantitem}`}></div>
-          <div className={`${styles.plantitem}`}></div>
-          <div className={`${styles.plantitem}`}></div>
+          {plants.map((plant) => (
+            <div key={plant._plantId} className={styles.plantitem}>
+              <div></div>
+              <h4>{plant._plantType || "No Type"}</h4>
+              <h5>{plant._family || "No Family"}</h5>
+            </div>
+          ))}
         </div>
       </section>
     </>
