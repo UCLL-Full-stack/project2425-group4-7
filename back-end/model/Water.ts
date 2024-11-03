@@ -8,6 +8,13 @@ export class Water {
     private _plant?: Plant;
 
     constructor(waterId: number, quantity: number, when: Date, plantId: number) {
+        if (quantity <= 0) {
+            throw new Error("Quantity must be a positive number.");
+        }
+        if (!(when instanceof Date) || isNaN(when.getTime())) {
+            throw new Error("Invalid date for 'when'.");
+        }
+
         this._waterId = waterId;
         this._quantity = quantity;
         this._when = when;
@@ -36,11 +43,17 @@ export class Water {
     }
 
     set quantity(value: number) {
-        this.quantity = value
+        if (value <= 0) {
+            throw new Error("Quantity must be a positive number.");
+        }
+        this._quantity = value;
     }
 
     set when(value: Date) {
-        this._when = value
+        if (!(value instanceof Date) || isNaN(value.getTime())) {
+            throw new Error("Invalid date for 'when'.");
+        }
+        this._when = value;
     }
 
     set plant(value: Plant | undefined) {
