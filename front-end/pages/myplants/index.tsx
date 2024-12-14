@@ -1,4 +1,4 @@
-import NavigationBar from "@/components/utils/NavigationBar";
+import NavigationBar from "@/components/utils/header";
 import Head from "next/head";
 import styles from "@/styles/myplants.module.css";
 import React, { useState } from "react";
@@ -24,10 +24,23 @@ const MyPlants = () => {
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        <NavigationBar />
         <main className={`${styles.main}`}>
-          <PlantsList onToggleAddPlant={toggleAddPlant} />
-          {isAddingPlant && <AddPlant />}
+          <PlantsList
+            onToggleAddPlant={toggleAddPlant}
+            onAddPlant={function (): void {
+              throw new Error("Function not implemented.");
+            }}
+          />
+          {isAddingPlant && (
+            <AddPlant
+              onAddPlant={function (): void {
+                throw new Error("Function not implemented.");
+              }}
+              onClose={function (): void {
+                throw new Error("Function not implemented.");
+              }}
+            />
+          )}
         </main>
       </div>
     </>

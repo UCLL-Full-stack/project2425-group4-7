@@ -33,7 +33,7 @@ function PlantsList({ onToggleAddPlant, onAddPlant }: PlantsProps) {
     <>
       <section className={`${styles.myPlants}`}>
         <div className={`${styles.topList}`}>
-          <h2>My Plants</h2>
+          <h2>My Plants (oude versie)</h2>
           <button onClick={onToggleAddPlant}>Nieuwe Plant</button>
         </div>
         <div className={`${styles.plantlist}`}>

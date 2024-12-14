@@ -1,80 +1,103 @@
 export class Plant {
-    private _plantId: number;
-    private _plantType: string;
-    private _family: string;
-    private _wateringFreq: string;
-    private _sunlight: string;
-    private _reminders: { email: boolean; sms: boolean };
+    private id: number;
+    private name: string;
+    private type: string;
+    private family: string;
+    private wateringFreq: string;
+    private sunlight: string;
+    private reminders: { email: boolean; sms: boolean };
 
-    constructor(plantId: number, plantType: string, family: string, wateringFreq: string, sunlight: string, reminders: { email: boolean; sms: boolean }) {
-        this._plantId = plantId;
-        this._plantType = plantType;
-        this._family = family;
-        this._wateringFreq = wateringFreq;
-        this._sunlight = sunlight;
-        this._reminders = reminders;
+    constructor(id: number, name: string, type: string, family: string, wateringFreq: string, sunlight: string, reminders: { email: boolean; sms: boolean }) {
+        this.validate(name, type, family);
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.family = family;
+        this.wateringFreq = wateringFreq;
+        this.sunlight = sunlight;
+        this.reminders = reminders;
     }
 
-    get plantId(): number {
-        return this._plantId;
+    validate(name: string, type: string, family: string) {
+        if (!name || name.trim().length === 0) {
+            this.setName("Unknown Plant");
+        }
+        if (!type || type.trim().length === 0) {
+            throw new Error("Type of the plant is required");
+        }
+        if (!family || family.trim().length === 0) {
+            throw new Error("Family of the plant is required");
+        }
     }
 
-    get plantType(): string {
-        return this._plantType;
+    getId(): number {
+        return this.id;
     }
 
-    get family(): string {
-        return this._family;
+    getName(): string {
+        return this.name;
     }
 
-    get wateringFreq(): string {
-        return this._wateringFreq;
+    getType(): string {
+        return this.type;
     }
 
-    get sunlight(): string {
-        return this._sunlight;
+    getFamily(): string {
+        return this.family;
     }
 
-    get reminders(): { email: boolean; sms: boolean } {
-        return this._reminders;
+    getWateringFreq(): string {
+        return this.wateringFreq;
     }
 
-    set plantId(value: number) {
+    getSunlight(): string {
+        return this.sunlight;
+    }
+
+    getReminders(): { email: boolean; sms: boolean } {
+        return this.reminders;
+    }
+
+    setId(value: number) {
         if (value <= 0) {
             throw new Error("Plant ID must be a positive number.");
         }
-        this._plantId = value;
+        this.id = value;
     }
 
-    set plantType(value: string) {
+    setName(value: string) {
+        this.name = value;
+    }
+
+    setType(value: string) {
         if (!value) {
             throw new Error("Plant type cannot be empty.");
         }
-        this._plantType = value;
+        this.type = value;
     }
 
-    set family(value: string) {
+    setFamily(value: string) {
         if (!value) {
             throw new Error("Family cannot be empty.");
         }
-        this._family = value;
+        this.family = value;
     }
 
-    set wateringFreq(value: string) {
+    setWateringFreq(value: string) {
         if (!value) {
             throw new Error("Watering frequency cannot be empty.");
         }
-        this._wateringFreq = value;
+        this.wateringFreq = value;
     }
 
-    set sunlight(value: string) {
+    setSunlight(value: string) {
         if (!value) {
             throw new Error("Sunlight cannot be empty.");
         }
-        this._sunlight = value;
+        this.sunlight = value;
     }
 
-    set reminders(value: { email: boolean; sms: boolean }) {
-        this._reminders = value;
+    setReminders(value: { email: boolean; sms: boolean }) {
+        this.reminders = value;
     }
 }

@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { PlantService } from '../service/PlantService';
-import { Plant } from '../model/Plant';
+import { Plant } from '../model/plant';
 
 const router = Router();
 const plantService = new PlantService();

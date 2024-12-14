@@ -1,5 +1,5 @@
-import { Plant } from "../model/Plant";
-import { Reminder } from "../model/Reminders";
+import { Plant } from "../model/plant";
+import { Reminder } from "../model/old/Reminders";
 
 describe("Reminder Class", () => {
     let reminder: Reminder;

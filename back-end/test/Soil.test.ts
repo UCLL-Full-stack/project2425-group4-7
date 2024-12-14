@@ -1,4 +1,4 @@
-import { Plant } from "../model/Plant";
+import { Plant } from "../model/plant";
 import { Soil } from "../model/Soil";
 
 describe("Soil Class", () => {

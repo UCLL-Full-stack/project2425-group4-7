@@ -1,4 +1,4 @@
-import { Plant } from "../model/Plant";
+import { Plant } from "../model/plant";
 
 export class PlantRepository {
     private plants: Plant[] = [];

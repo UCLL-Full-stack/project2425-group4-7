@@ -1,67 +1,85 @@
-import { Plant } from "./Plant";
-import { Profile } from "./Profile";
+import { Plant } from "./plant";
+import { Profile } from "./profile";
 
 
 export class User {
-    private _userId: number;
-    private _username: string;
-    private _password: string;
-    private _profile?: Profile;
-    private _plants : Plant[] = [];
+    private id?: number;
+    private username: string;
+    private email: string;
+    private password: string;
+    private profile?: Profile;
+    private plants?: Plant[];
 
-    constructor(userId: number, username: string, password:string) {
-        if (username.length < 3) {
+    constructor(user: {
+        id?: number;
+        username: string;
+        email: string;
+        password: string;
+        profile?: Profile;
+        plants?: Plant[];
+    }) {
+        this.validate(user);
+
+        this.id = user.id;
+        this.username = user.username;
+        this.email = user.email;
+        this.password = user.password;
+        this.profile = user.profile;
+        this.plants = user.plants || [];
+    }
+
+    validate(user: {
+        username: string;
+        email: string;
+        password: string;
+    }) {
+        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+        if (!user.username?.trim()) {
+            throw new Error('Username is required');
+        }
+        if (user.username.length < 3) {
             throw new Error("Username must be at least 3 characters long.");
         }
-        if (password.length < 6) {
+        if (user.password.length < 6) {
             throw new Error("Password must be at least 6 characters long.");
         }
-        
-        this._userId = userId;
-        this._username = username;
-        this._password = password;
-    }
-
-    get userId(): number {
-        return this._userId;
-    }
-
-    get username(): string {
-        return this._username
-    }
-
-    get password(): string {
-        return this._password;
-    }
-
-    get profile(): Profile | undefined {
-        return this._profile;
-    }
-
-    get plants(): Plant[] {
-        return this._plants;
-    }
-
-    set username(value: string) {
-        if (value.length < 3) {
-            throw new Error("Username must be at least 3 characters long.")
+        if (!user.email?.trim()) {
+            throw new Error('Email is required');
         }
-        this._username = value;
-    }
-
-    set password(value: string) {
-        if (value.length < 6) {
-            throw new Error("Password must be at least 6 characters long.")
+        if (!emailRegex.test(user.email)) {
+            throw new Error("Email must have the correct format");
         }
-        this._password = value;
+        if (!user.password?.trim()) {
+            throw new Error('Password is required');
+        }
     }
 
-    set profile(value: Profile | undefined) {
-        this._profile = value;
+    getId(): number | undefined {
+        return this.id;
+    }
+
+    getUsername(): string {
+        return this.username;
+    }
+
+    getEmail(): string {
+        return this.email;
+    }
+
+    getPassword(): string {
+        return this.password;
+    }
+
+    getProfile(): Profile | undefined {
+        return this.profile;
+    }
+
+    getPlants(): Plant[] {
+        return this.plants ?? [];
     }
 
     addPlant(plant: Plant) {
-        this._plants.push(plant);
+        this.plants?.push(plant);
     }
 
 }
