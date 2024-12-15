@@ -1,4 +1,4 @@
-import { Router } from 'express';
+/*import { Router } from 'express';
 import { PlantService } from '../service/PlantService';
 import { Plant } from '../model/plant';
 
@@ -6,8 +6,8 @@ const router = Router();
 const plantService = new PlantService();
 
 router.post('/', async (req, res) => {
-    const { plantId, plantType, family, wateringFreq, sunlight, reminders } = req.body;
-    const newPlant = new Plant(plantId, plantType, family, wateringFreq, sunlight, reminders);
+    const { plantId, plantName, plantType, family, wateringFreq, sunlight, reminders } = req.body;
+    const newPlant = new Plant(plantId, plantName, plantType, family, wateringFreq, sunlight, reminders);
 
     try {
         const addedPlant = await plantService.addPlant(newPlant);
@@ -69,4 +69,4 @@ router.delete('/:plantId', async (req, res) => {
     }
 });
 
-export default router;
+export default router;*/

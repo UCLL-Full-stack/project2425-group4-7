@@ -9,3 +9,17 @@ export interface Plant {
     };
     _reminders: number;
   }
+
+  export type User = {
+    username: string;
+    password: string;
+    email?: string;
+    profile?: Profile;
+};
+
+export type Profile = {
+    firstName?: string;
+    lastName?: string;
+    phoneNumber?: string;
+    user: User;
+}

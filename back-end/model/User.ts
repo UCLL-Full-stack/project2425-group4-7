@@ -1,12 +1,14 @@
 import { Plant } from "./plant";
 import { Profile } from "./profile";
-
+import { Role } from '../types';
+import { User as UserPrisma } from '@prisma/client';
 
 export class User {
     private id?: number;
     private username: string;
     private email: string;
     private password: string;
+    private role: Role;
     private profile?: Profile;
     private plants?: Plant[];
 
@@ -15,6 +17,7 @@ export class User {
         username: string;
         email: string;
         password: string;
+        role: Role;
         profile?: Profile;
         plants?: Plant[];
     }) {
@@ -26,6 +29,7 @@ export class User {
         this.password = user.password;
         this.profile = user.profile;
         this.plants = user.plants || [];
+        this.role = user.role;
     }
 
     validate(user: {
@@ -78,8 +82,22 @@ export class User {
         return this.plants ?? [];
     }
 
+    getRole(): Role {
+        return this.role;
+    }
+
     addPlant(plant: Plant) {
         this.plants?.push(plant);
+    }
+
+    static from({ id, username, email, password, role }: UserPrisma) {
+        return new User({
+            id,
+            username,
+            email,
+            password,
+            role: role as Role,
+        });
     }
 
 }

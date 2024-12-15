@@ -18,6 +18,7 @@ model User {
   username  String   @unique
   email     String   @unique
   password  String
+  role      String
   profile   Profile? @relation("UserProfile")
   plants    Plant[]  @relation("UserPlants")
 }

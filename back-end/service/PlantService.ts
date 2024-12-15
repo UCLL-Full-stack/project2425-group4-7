@@ -1,4 +1,4 @@
-import { Plant } from "../model/plant";
+/*import { Plant } from "../model/plant";
 import { PlantRepository } from "../repository/PlantRepository";
 
 export class PlantService {
@@ -40,4 +40,4 @@ export class PlantService {
     async deletePlant(plantId: number): Promise<void> {
         await this.plantRepository.delete(plantId);
     }
-}
+}*/
