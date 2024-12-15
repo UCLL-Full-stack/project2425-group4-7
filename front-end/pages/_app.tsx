@@ -2,8 +2,9 @@ import Header from "@/components/utils/header";
 import Notifications from "@/components/utils/notifications";
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
+import { appWithTranslation } from "next-i18next";
 
-export default function App({ Component, pageProps }: AppProps) {
+function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Notifications>
@@ -13,3 +14,5 @@ export default function App({ Component, pageProps }: AppProps) {
     </>
   );
 }
+
+export default appWithTranslation(App);

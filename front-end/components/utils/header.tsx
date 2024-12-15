@@ -3,6 +3,8 @@ import { FaCog, FaHome, FaLeaf } from "react-icons/fa";
 import LoginForm from "../login/loginform";
 import { FaArrowRightToBracket } from "react-icons/fa6";
 import LanguageDropdown from "./langdrop";
+import { useRouter } from "next/router";
+import { useTranslation } from "react-i18next";
 
 const Header: React.FC = () => {
   return (
@@ -23,7 +25,6 @@ const Header: React.FC = () => {
             className="px-6 pb-2 text-[20px] font-semibold rounded-lg flex flex-row after:bg-white relative after:absolute after:h-0.5 after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-300"
           >
             <FaHome className="mt-[4.1px] mr-2 text-[23px]" />
-            Home
           </Link>
           <Link
             href="/myplants"
