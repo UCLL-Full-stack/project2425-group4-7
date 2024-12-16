@@ -1,6 +1,7 @@
 import styles from "@/styles/myplants.module.css";
 import { ChangeEvent, FormEvent, useState } from "react";
 import PlantService from "@/services/PlantService";
+import { useTranslation } from "react-i18next";
 
 type AddPlantProps = {
   onAddPlant: () => void;
@@ -14,6 +15,7 @@ const AddPlant: React.FC<AddPlantProps> = ({ onAddPlant, onClose }) => {
   const [sunlight, setSunlight] = useState("");
   const [emailReminder, setEmailReminder] = useState(false);
   const [smsReminder, setSmsReminder] = useState(false);
+  const { t } = useTranslation();
 
   const handleReminderChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = event.target;
@@ -54,45 +56,45 @@ const AddPlant: React.FC<AddPlantProps> = ({ onAddPlant, onClose }) => {
 
   return (
     <form className={`${styles.addContainer}`} onSubmit={handleSubmit}>
-      <h3>Adding a new plant</h3>
-      <label>Type of Plant:</label>
+      <h3>{t("addPlant.add_plant")}</h3>
+      <label>{t("addPlant.type_plant")}</label>
       <input
         type="text"
         value={plantType}
         onChange={(e) => setPlantType(e.target.value)}
         required
       />
-      <label>Family:</label>
+      <label>{t("addPlant.family")}</label>
       <input
         type="text"
         value={family}
         onChange={(e) => setFamily(e.target.value)}
         required
       />
-      <label>Watering Frequency:</label>
+      <label>{t("addPlant.watering_frequency")}</label>
       <select
         value={wateringFreq}
         onChange={(e) => setWateringFreq(e.target.value)}
         required
       >
-        <option value="">Select watering frequency</option>
-        <option value="daily">Every day</option>
-        <option value="weekly">Once a week</option>
-        <option value="biweekly">Once in 2 weeks</option>
-        <option value="monthly">Once a month</option>
-        <option value="never">Never</option>
+        <option value="">{t("addPlant.select_frequency")}</option>
+        <option value="daily">{t("addPlant.every_day")}</option>
+        <option value="weekly">{t("addPlant.once_week")}</option>
+        <option value="biweekly">{t("addPlant.once_two_week")}</option>
+        <option value="monthly">{t("addPlant.once_month")}</option>
+        <option value="never">{t("addPlant.never")}</option>
       </select>
 
-      <label>Amount of Sunlight:</label>
+      <label>{t("addPlant.amount_sunlight")}</label>
       <select
         value={sunlight}
         onChange={(e) => setSunlight(e.target.value)}
         required
       >
-        <option value="">Select amount of sunlight</option>
-        <option value="low">Low</option>
-        <option value="medium">Medium</option>
-        <option value="high">High</option>
+        <option value="">{t("addPlant.select_sunlight")}</option>
+        <option value="low">{t("addPlant.low")}</option>
+        <option value="medium">{t("addPlant.medium")}</option>
+        <option value="high">{t("addPlant.high")}</option>
       </select>
 
       <div className={`${styles.checkboxContainer}`}>
@@ -103,7 +105,7 @@ const AddPlant: React.FC<AddPlantProps> = ({ onAddPlant, onClose }) => {
             checked={emailReminder}
             onChange={handleReminderChange}
           />
-          Email
+          {t("addPlant.email")}
         </label>
 
         <label>
@@ -113,10 +115,10 @@ const AddPlant: React.FC<AddPlantProps> = ({ onAddPlant, onClose }) => {
             checked={smsReminder}
             onChange={handleReminderChange}
           />
-          SMS
+          {t("addPlant.sms")}
         </label>
       </div>
-      <button type="submit">Add Plant</button>
+      <button type="submit">{t("addPlant.add_plant")}</button>
     </form>
   );
 };

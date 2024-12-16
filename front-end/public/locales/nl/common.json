@@ -1,5 +1,16 @@
 {
-    "home" : {
-        "title" : "Rootz"
+    "homepage" : {
+        "title" : "Rootz",
+        "home_tekst" : "Home moet nog gemaakt worden, MyPlants is wel al voor een stuk af."
+    },
+
+    "header": {
+        "notification": "Succesvol uitgelogd van je account",
+        "myPlants": "Mijn Planten",
+        "settings": "Instellingen",
+        "logout": "Uitloggen",
+        "home": "Home",
+        "login": "Inloggen"
     }
+
 }

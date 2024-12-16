@@ -10,18 +10,13 @@ export default function LanguageDropdown() {
   const handleToggle = () => setIsOpen(!isOpen);
   const handleSelect = (value: string) => {
     setLocale(value);
-    setIsOpen(false);
 
-    if (i18n) {
+    if (i18n && i18n.language !== value) {
       i18n.changeLanguage(value);
-    } else {
-      console.error("i18n is not initialized");
+      const { pathname, asPath, query } = router;
+      router.push({ pathname, query }, asPath, { locale: value });
     }
-
-    i18n?.changeLanguage(value);
-    const new_locale = value;
-    const { pathname, asPath, query } = router;
-    router.push({ pathname, query }, asPath, { locale: new_locale });
+    setIsOpen(false);
   };
 
   return (

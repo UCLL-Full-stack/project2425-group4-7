@@ -10,13 +10,14 @@ import { useNotifications } from "./notifications";
 
 const Header: React.FC = () => {
   const authenticated = useAuth();
+  const { t } = useTranslation();
   const router = useRouter();
   const { sendNotification } = useNotifications();
 
   const handleLogout = () => {
     logout();
     router.push("/");
-    sendNotification("Successfully logged out of your account", "success");
+    sendNotification(`${t("header.notification")}`, "success");
     setTimeout(() => {
       window.location.reload();
     }, 2000);
@@ -42,7 +43,7 @@ const Header: React.FC = () => {
                 className="px-6 pb-2 text-[20px] font-semibold rounded-lg flex flex-row after:bg-white relative after:absolute after:h-0.5 after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-300"
               >
                 <FaLeaf className="mt-[4.1px] mr-2 text-[23px]" />
-                My Plants
+                {t("header.myPlants")}
               </Link>
               <LanguageDropdown />
               <Link
@@ -50,14 +51,14 @@ const Header: React.FC = () => {
                 className="px-6 pb-2 text-[20px] font-semibold rounded-lg flex flex-row after:bg-white relative after:absolute after:h-0.5 after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-300"
               >
                 <FaCog className="mt-[4.1px] mr-2 text-[23px]" />
-                Settings
+                {t("header.settings")}
               </Link>
               <button
                 onClick={handleLogout}
                 className="px-6 pb-2 text-[20px] font-semibold rounded-lg flex flex-row after:bg-white relative after:absolute after:h-0.5 after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-300"
               >
                 <FaRightFromBracket className="mt-[4.1px] mr-2 text-[23px]" />
-                Logout
+                {t("header.logout")}
               </button>
             </>
           ) : (
@@ -67,7 +68,7 @@ const Header: React.FC = () => {
                 className="px-6 pb-2 text-[20px] font-semibold rounded-lg flex flex-row after:bg-white relative after:absolute after:h-0.5 after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-300"
               >
                 <FaHome className="mt-[4.1px] mr-2 text-[23px]" />
-                Home
+                {t("header.home")}
               </Link>
               <LanguageDropdown />
               <Link
@@ -75,7 +76,7 @@ const Header: React.FC = () => {
                 className="px-6 pb-2 text-[20px] font-semibold rounded-lg flex flex-row after:bg-white relative after:absolute after:h-0.5 after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-300"
               >
                 <FaArrowRightToBracket className="mt-[4.1px] mr-2 text-[23px]" />
-                Login
+                {t("header.login")}
               </Link>
             </>
           )}

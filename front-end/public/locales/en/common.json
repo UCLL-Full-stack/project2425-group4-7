@@ -1,5 +1,38 @@
 {
-    "home" : {
-        "title" : "Rootz"
+    "homepage" : {
+        "title" : "Rootz",
+        "home_tekst" : "Home still needs to be created, MyPlants is already partially completed."
+        
+    },
+
+    "header" : {
+        "notification" : "Succesfully logged out of your account",
+        "myPlants" : "My Plants",
+        "settings" : "Settings",
+        "logout" : "Logout",
+        "home" : "Home",
+        "login" : "Login"
+    },
+
+    "addPlant" : {
+        "add_plant" : "Adding a new plant",
+        "type_plant" : "Type of Plant:",
+        "family" : "Family:",
+        "watering_frequency" : "Watering Frequency:",
+        "select_frequency" : "Select watering frequency",
+        "every_day" : "Every day",
+        "once_week" : "Once a week",
+        "once_two_week" : "Once in 2 weeks",
+        "once_month" : "Once a month",
+        "never" : "Never",
+        "amount_sunlight" : "Amount of Sunlight:",
+        "select_sunlight" : "Select amount of sunlight",
+        "low" : "Low",
+        "medium" : "Medium",
+        "high" : "High",
+        "email" : "Email",
+        "sms" : "SMS",
+        "add_plant" : "Add Plant"
     }
+
 }
