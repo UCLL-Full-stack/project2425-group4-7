@@ -1,14 +1,13 @@
-export interface Plant {
-    _plantId: string;
-    _plantType: string;
-    _family: string;
-    _wateringFreq: string;
-    _sunlight: {
-      email: boolean;
-      sms: boolean;
-    };
-    _reminders: number;
-  }
+export type Plant = {
+    id?: number;
+    name: string;
+    type: string;
+    family: string;
+    wateringFreq: string;
+    sunlight: string;
+    email: boolean;
+    sms: boolean;
+}
 
 export type Role = 'user' | 'premium' | 'admin';
 

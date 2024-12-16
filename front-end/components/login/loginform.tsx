@@ -4,7 +4,11 @@ import UserService from "@/services/UserService";
 import { useRouter } from "next/router";
 import { User } from "@/types/types";
 
-const LoginForm = () => {
+interface LoginFormProps {
+  toggleForm: () => void;
+}
+
+const LoginForm: React.FC<LoginFormProps> = ({ toggleForm }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { sendNotification } = useNotifications();
@@ -86,7 +90,10 @@ const LoginForm = () => {
         </form>
         <p className="font-light text-sm mt-3 text-center">
           Don't have an account yet?{" "}
-          <button className="font-semibold"> Register here</button>
+          <button className="font-semibold" onClick={toggleForm}>
+            {" "}
+            Register here
+          </button>
         </p>
       </div>
     </div>

@@ -7,6 +7,7 @@ import swaggerUi from 'swagger-ui-express';
 /*import plantRoutes from './controller/plant.routes';¨*/
 import { expressjwt } from 'express-jwt';
 import { userRouter } from './controller/user.routes';
+import plantRouter from './controller/plant.routes';
 
 const app = express();
 dotenv.config();
@@ -14,8 +15,6 @@ const port = process.env.APP_PORT || 3000;
 
 app.use(cors());
 app.use(bodyParser.json());
-
-/*app.use('/plants', plantRoutes);*/
 
 const swaggerOpts = {
     definition: {
@@ -38,11 +37,16 @@ app.use(
         path: [
             '/login',
             '/users/login',
+            '/users/register',
+            '/plants/all',
+            '/plants/user/:username',
+            '/plants/add'
         ],
     })
 );
 
 app.use('/users', userRouter);
+app.use('/plants', plantRouter);
 
 app.get('/status', (req, res) => {
     res.json({ message: 'Back-end is running...' });

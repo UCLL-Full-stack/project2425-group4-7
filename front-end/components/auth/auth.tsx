@@ -19,11 +19,18 @@ export const useAuth = () => {
 };
 
 export const getUserRole = (): string | null => {
-  if (typeof window !== "undefined") {
-    const user = localStorage.getItem("loggedInUser");
-    if (user) {
+  if (typeof window === "undefined") {
+    return null;
+  }
+
+  const user = localStorage.getItem("loggedInUser");
+  if (user) {
+    try {
       const parsed = JSON.parse(user);
       return parsed.role || null;
+    } catch (error) {
+      console.error("Fout bij het parsen van de gebruiker:", error);
+      return null;
     }
   }
   return null;

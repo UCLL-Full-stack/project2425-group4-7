@@ -1,43 +1,53 @@
-/*import { Plant } from "../model/plant";
-import { PlantRepository } from "../repository/PlantRepository";
+import { Plant } from "../model/plant";
+import { User } from "../model/user";
+import { PlantInput } from '../types/index'
+import plantDB from '../repository/plant.db';
+import userDB from '../repository/user.db';
 
-export class PlantService {
-    private plantRepository: PlantRepository;
+const getAllPlants = async (): Promise<Plant[]> => {
+    return await plantDB.getAllPlants();
+};
 
-    constructor() {
-        this.plantRepository = new PlantRepository();
+const getPlantById = async (plantId: number): Promise<Plant | undefined> => {
+    const plant = await plantDB.getPlantById({id: plantId});
+    if (!plant) {
+        throw new Error(`Plant with ID: ${plantId} does not exist.`);
+    }
+    return plant;
+};
+
+const getUserPlants = async (username: string): Promise<Plant[]> => {
+    try {
+      const user = await userDB.getUserByUsername({ username });
+      if (!user) {
+        throw new Error(`User: ${username} not found`);
+      }
+      const userId = user.getId();
+      if (userId === undefined) {
+        throw new Error('User ID required');
+      }
+      const plants = await plantDB.getPlantsByUserId(userId);
+      return plants;
+    } catch (error) {
+      console.error(error);
+      throw new Error('Error fetching user plants');
+    }
+  };
+
+const addPlant = async (name: string, type: string, family: string, wateringFreq: string, sunlight: string, email: boolean, sms: boolean, user: User): Promise<Plant> => {
+    const userId = user.getId();
+    if (userId === undefined) {
+        throw new Error('User ID required');
+    }
+    const existingPlant = await plantDB.getPlantByNameAndUser({name, userId});
+
+    if (existingPlant) {
+        throw new Error(`Plant with the name ${name} already exists for this user.`);
     }
 
-    async addPlant(plant: Plant): Promise<Plant> {
-        if (!plant.plantType || !plant.family) {
-            throw new Error("Invalid plant data. Please provide a valid plant type and family.");
-        }
-        return await this.plantRepository.add(plant);
-    }
+    const plant = new Plant({name, type, family, wateringFreq, sunlight, email, sms, user});
 
-    async getPlant(plantId: number): Promise<Plant | undefined> {
-        return await this.plantRepository.getById(plantId);
-    }
+    return await plantDB.addPlant(plant);
+};
 
-    async getAllPlants(): Promise<Plant[]> {
-        return await this.plantRepository.getAll();
-    }
-
-    async updatePlant(plantId: number, data: Partial<Plant>): Promise<Plant | undefined> {
-        const existingPlant = await this.getPlant(plantId);
-        if (existingPlant) {
-            if (data.plantType !== undefined) {
-                existingPlant.plantType = data.plantType;
-            }
-            if (data.family !== undefined) {
-                existingPlant.family = data.family;
-            }
-            return await this.plantRepository.update(existingPlant);
-        }
-        return undefined;
-    }
-
-    async deletePlant(plantId: number): Promise<void> {
-        await this.plantRepository.delete(plantId);
-    }
-}*/
+export default { getAllPlants, getPlantById, addPlant, getUserPlants };

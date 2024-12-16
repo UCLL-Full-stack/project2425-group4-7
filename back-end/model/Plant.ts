@@ -1,21 +1,27 @@
+import { User } from "./user";
+
 export class Plant {
-    private id: number;
+    private id?: number;
     private name: string;
     private type: string;
     private family: string;
     private wateringFreq: string;
     private sunlight: string;
-    private reminders: { email: boolean; sms: boolean };
+    private email: boolean;
+    private sms: boolean;
+    private user: User;
 
-    constructor(id: number, name: string, type: string, family: string, wateringFreq: string, sunlight: string, reminders: { email: boolean; sms: boolean }) {
-        this.validate(name, type, family);
-        this.id = id;
-        this.name = name;
-        this.type = type;
-        this.family = family;
-        this.wateringFreq = wateringFreq;
-        this.sunlight = sunlight;
-        this.reminders = reminders;
+    constructor(plant: {id?: number, name: string, type: string, family: string, wateringFreq: string, sunlight: string, email: boolean, sms: boolean, user: User}) {
+        this.validate(plant.name, plant.type, plant.family);
+        this.id = plant.id;
+        this.name = plant.name;
+        this.type = plant.type;
+        this.family = plant.family;
+        this.wateringFreq = plant.wateringFreq;
+        this.sunlight = plant.sunlight;
+        this.email = plant.email;
+        this.sms = plant.sms;
+        this.user = plant.user;
     }
 
     validate(name: string, type: string, family: string) {
@@ -30,7 +36,7 @@ export class Plant {
         }
     }
 
-    getId(): number {
+    getId(): number | undefined {
         return this.id;
     }
 
@@ -54,8 +60,16 @@ export class Plant {
         return this.sunlight;
     }
 
-    getReminders(): { email: boolean; sms: boolean } {
-        return this.reminders;
+    getEmail(): boolean {
+        return this.email;
+    }
+
+    getSms(): boolean {
+        return this.sms;
+    }
+
+    getUser(): User {
+        return this.user;
     }
 
     setId(value: number) {
@@ -97,7 +111,32 @@ export class Plant {
         this.sunlight = value;
     }
 
-    setReminders(value: { email: boolean; sms: boolean }) {
-        this.reminders = value;
+    setEmail(value: boolean) {
+        this.email = value;
+    }
+
+    setSms(value: boolean) {
+        this.sms = value;
+    }
+
+    setUser(value: User) {
+        this.user = value;
+    }
+
+    static from({ id, name, type, family, wateringFreq, sunlight, email, sms, userId }: any): Plant {
+        const user = new User(userId);
+        return new Plant(
+            {
+            id,
+            name,
+            type,
+            family,
+            wateringFreq,
+            sunlight,
+            email,
+            sms,
+            user
+        }
+        );
     }
 }

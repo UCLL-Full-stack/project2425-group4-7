@@ -1,7 +1,12 @@
 import LoginForm from "@/components/login/loginform";
+import RegisterForm from "@/components/login/registerform";
 import Head from "next/head";
+import { useState } from "react";
 
 const Login = () => {
+  const [isRegistering, setIsRegistering] = useState(true);
+  const toggleForm = () => setIsRegistering(!isRegistering);
+
   return (
     <>
       <Head>
@@ -10,7 +15,11 @@ const Login = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="min-h-screen flex justify-center mt-20">
-        <LoginForm></LoginForm>
+        {isRegistering ? (
+          <LoginForm toggleForm={toggleForm} />
+        ) : (
+          <RegisterForm toggleForm={toggleForm} />
+        )}
       </main>
     </>
   );
