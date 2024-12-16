@@ -10,10 +10,13 @@ export interface Plant {
     _reminders: number;
   }
 
-  export type User = {
+export type Role = 'user' | 'premium' | 'admin';
+
+export type User = {
     username: string;
     password: string;
     email?: string;
+    role?: Role;
     profile?: Profile;
 };
 
