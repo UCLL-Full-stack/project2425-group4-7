@@ -2,28 +2,69 @@ import { Plant } from "@/types/types";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-const getPlants = async (): Promise<Plant[]> => {
-  const response = await fetch(`${API_URL}/plants`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  return await response.json();
+const getAllPlants = async (): Promise<any> => {
+  try {
+    const response = await fetch(`${API_URL}/plants`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (!response.ok) {
+      throw new Error("Failed to fetch plants");
+    }
+    return await response.json();
+  } catch (error) {
+    throw error;
+  }
 };
 
-const addPlant = async (plant: Plant): Promise<void> => {
-  const response = await fetch(`${API_URL}/plants`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(plant),
-  });
+const getUserPlants = async (username: string): Promise<any> => {
+  try {
+    const token = localStorage.getItem("loggedInUser");
+    const response = await fetch(`${API_URL}/plants/user/${username}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token ? `Bearer ${token}` : "",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch plants for ${username}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    throw error;
+  }
+};
+
+const addPlant = async (plant: any): Promise<any> => {
+  try {
+    const token = localStorage.getItem("loggedInUser");
+    const response = await fetch(`${API_URL}/plants/add`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token ? `Bearer ${token}` : "",
+      },
+      body: JSON.stringify(plant),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to add plant");
+    }
+
+    return await response.json();
+  } catch (error) {
+    throw error;
+  }
 };
 
 const PlantService = {
-  getPlants,
+  getAllPlants,
+  getUserPlants,
   addPlant,
 };
 

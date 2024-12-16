@@ -23,6 +23,24 @@ const login = async (user: User) => {
   }
 };
 
+const register = async (user: User) => {
+  try {
+    const response = await fetch(
+      process.env.NEXT_PUBLIC_API_URL + "/users/register",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      }
+    );
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
 const logout = (): void => {
   localStorage.removeItem("token");
 };
@@ -30,6 +48,7 @@ const logout = (): void => {
 const UserService = {
   login,
   logout,
+  register,
 };
 
 export default UserService;

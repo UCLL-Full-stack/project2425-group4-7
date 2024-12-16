@@ -123,3 +123,32 @@ userRouter.post('/login', async (req: Request, res: Response, next: NextFunction
         next(error);
     }
 });
+
+/**
+ * @swagger
+ * /users/register:
+ *   post:
+ *      summary: Create a user
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/UserInput'
+ *      responses:
+ *         200:
+ *            description: The created user object
+ *            content:
+ *              application/json:
+ *                schema:
+ *                  $ref: '#/components/schemas/User'
+ */
+userRouter.post('/register', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const userInput = <UserInput>req.body;
+        const user = await userService.createUser(userInput);
+        res.status(200).json(user);
+    } catch (error) {
+        next(error);
+    }
+});

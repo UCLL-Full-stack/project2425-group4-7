@@ -2,13 +2,16 @@ import { Profile } from "@prisma/client";
 
 export type Role = 'user' | 'premium' | 'admin';
 
-export interface PlantDTO {
-    plantType: string;
+export type PlantInput = {
+    id?: number;
+    name?: string;
+    type: string;
     family: string;
-    wateringFreq: number;
-    sunlight: string;
-    reminders: string[];
-    userId: number;
+    wateringFreq?: string;
+    sunlight?: string;
+    email: boolean;
+    sms: boolean;
+    user: UserInput;
 }
 
 export type UserInput = {

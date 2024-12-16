@@ -1,5 +1,7 @@
 import jwt from 'jsonwebtoken';
 import { Role } from '../types';
+import { NextFunction } from 'express';
+
 
 const generateJwtToken = ({ username, role }: { username: string; role: Role }): string => {
     const options = { expiresIn: `${process.env.JWT_EXPIRES_HOURS}h`, issuer: 'courses_app' };
@@ -12,4 +14,9 @@ const generateJwtToken = ({ username, role }: { username: string; role: Role }):
     }
 };
 
-export { generateJwtToken };
+interface JwtPayload {
+    username: string;
+    role: Role;
+}
+
+export { generateJwtToken};

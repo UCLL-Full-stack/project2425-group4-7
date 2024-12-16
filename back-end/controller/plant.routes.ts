@@ -1,24 +1,12 @@
-/*import { Router } from 'express';
-import { PlantService } from '../service/PlantService';
+import express, { NextFunction, Request, Response } from 'express';
+import plantService from '../service/PlantService';
+import { PlantInput, UserInput } from '../types/index';
 import { Plant } from '../model/plant';
+import UserService from '../service/UserService';
 
-const router = Router();
-const plantService = new PlantService();
+export const plantRouter = express.Router();
 
-router.post('/', async (req, res) => {
-    const { plantId, plantName, plantType, family, wateringFreq, sunlight, reminders } = req.body;
-    const newPlant = new Plant(plantId, plantName, plantType, family, wateringFreq, sunlight, reminders);
-
-    try {
-        const addedPlant = await plantService.addPlant(newPlant);
-        res.status(201).json(addedPlant);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Error adding plant' });
-    }
-});
-
-router.get('/', async (req, res) => {
+plantRouter.get('/all', async (req, res) => {
     try {
         const plants = await plantService.getAllPlants();
         res.status(200).json(plants);
@@ -28,45 +16,26 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.get('/:plantId', async (req, res) => {
-    const plantId = Number(req.params.plantId);
+plantRouter.get('/user/:username', async (req, res) => {
+    const { username } = req.params;
     try {
-        const plant = await plantService.getPlant(plantId);
-        if (plant) {
-            res.status(200).json(plant);
-        } else {
-            res.status(404).json({ message: 'Plant not found' });
-        }
+        const plants = await plantService.getUserPlants(username);
+        res.status(200).json(plants);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: 'Error fetching plant' });
+        res.status(500).json({ message: 'Error fetching plants' });
     }
 });
 
-router.put('/:plantId', async (req, res) => {
-    const plantId = Number(req.params.plantId);
+plantRouter.post('/add', async (req: Request, res: Response, next: NextFunction) => {
+    const { name, type, family, wateringFreq, sunlight, email, sms, username } = req.body;
     try {
-        const updatedPlant = await plantService.updatePlant(plantId, req.body);
-        if (updatedPlant) {
-            res.status(200).json(updatedPlant);
-        } else {
-            res.status(404).json({ message: 'Plant not found' });
-        }
+        const user = await UserService.getUserByUsername(username);
+        const newPlant = await plantService.addPlant(name, type, family, wateringFreq, sunlight, email, sms, user);
+        res.status(200).json(newPlant);
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Error updating plant' });
+        next(error);
     }
 });
 
-router.delete('/:plantId', async (req, res) => {
-    const plantId = Number(req.params.plantId);
-    try {
-        await plantService.deletePlant(plantId);
-        res.status(204).send();
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Error deleting plant' });
-    }
-});
-
-export default router;*/
+export default plantRouter;
