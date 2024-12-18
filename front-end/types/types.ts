@@ -7,6 +7,8 @@ export type Plant = {
     sunlight: string;
     email: boolean;
     sms: boolean;
+    user: User;
+    created: Date;
 }
 
 export type Role = 'user' | 'premium' | 'admin';

@@ -3,7 +3,9 @@ import database from './database';
 
 const getAllPlants = async (): Promise<Plant[]> => {
     try {
-        const plantsPrisma = await database.plant.findMany();
+        const plantsPrisma = await database.plant.findMany({
+            include: { user: true }
+        });
         return plantsPrisma.map((plantPrisma) => Plant.from(plantPrisma));
     } catch (error) {
         console.error(error);
@@ -69,6 +71,7 @@ const getPlantsByUserId = async (userId: number): Promise<Plant[]> => {
     try {
       const plantsPrisma = await database.plant.findMany({
         where: { userId },
+        include: { user: true },
       });
       return plantsPrisma.map((plantPrisma) => Plant.from(plantPrisma));
     } catch (error) {

@@ -42,5 +42,6 @@ model Plant {
   userId    Int
   reminderEmail Boolean
   reminderSms   Boolean
+  created   DateTime @default(now())
   user      User     @relation("UserPlants", fields: [userId], references: [id])
 }

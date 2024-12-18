@@ -10,8 +10,9 @@ export class Plant {
     private email: boolean;
     private sms: boolean;
     private user: User;
+    private created: Date;
 
-    constructor(plant: {id?: number, name: string, type: string, family: string, wateringFreq: string, sunlight: string, email: boolean, sms: boolean, user: User}) {
+    constructor(plant: {id?: number, name: string, type: string, family: string, wateringFreq: string, sunlight: string, email: boolean, sms: boolean, user: User, created: Date}) {
         this.validate(plant.name, plant.type, plant.family);
         this.id = plant.id;
         this.name = plant.name;
@@ -22,6 +23,7 @@ export class Plant {
         this.email = plant.email;
         this.sms = plant.sms;
         this.user = plant.user;
+        this.created = plant.created || new Date();
     }
 
     validate(name: string, type: string, family: string) {
@@ -70,6 +72,10 @@ export class Plant {
 
     getUser(): User {
         return this.user;
+    }
+
+    getCreated(): Date {
+        return this.created;
     }
 
     setId(value: number) {
@@ -123,10 +129,15 @@ export class Plant {
         this.user = value;
     }
 
-    static from({ id, name, type, family, wateringFreq, sunlight, email, sms, userId }: any): Plant {
-        const user = new User(userId);
-        return new Plant(
-            {
+    setCreated(value: Date) {
+        this.created = value;
+    }
+
+    static from({ id, name, type, family, wateringFreq, sunlight, email, sms, user, created }: any): Plant {
+        if (!user) {
+            throw new Error("Plant doesnt have a user");
+        }
+        return new Plant({
             id,
             name,
             type,
@@ -135,8 +146,9 @@ export class Plant {
             sunlight,
             email,
             sms,
-            user
-        }
-        );
+            user: User.from(user),
+            created,
+        });
     }
+    
 }

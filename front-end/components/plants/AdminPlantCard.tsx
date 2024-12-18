@@ -6,9 +6,8 @@ import { useNotifications } from "../utils/notifications";
 type PlantCardProps = {
   plant: Plant;
 };
-const { t } = useTranslation();
 
-const PlantCard: React.FC<PlantCardProps> = ({ plant }) => {
+const AdminPlantCard: React.FC<PlantCardProps> = ({ plant }) => {
   const [timeLeft, setTimeLeft] = useState<string>("");
   const { sendNotification } = useNotifications();
 
@@ -57,9 +56,7 @@ const PlantCard: React.FC<PlantCardProps> = ({ plant }) => {
       const seconds = Math.floor((remainingTime % (60 * 1000)) / 1000);
 
       setTimeLeft(
-        `${
-          days > 0 ? `${days} days, ` : ""
-        }${hours} hours, ${minutes} minutes, ${seconds} seconds`
+        `${days > 0 ? `${days}d ` : ""}${hours}h, ${minutes}m, ${seconds}s`
       );
     };
 
@@ -69,12 +66,13 @@ const PlantCard: React.FC<PlantCardProps> = ({ plant }) => {
   }, [plant.wateringFreq, plant.created]);
 
   return (
-    <div className="bg-white border-[3px] border-white py-5 px-4 bg-opacity-15 shadow-md rounded-md flex flex-row">
-      <img src="/plant-icon.png" className="h-[8.1rem] my-auto" alt="" />
-      <div className="ml-4">
-        <div className="flex flex-row">
-          <h2 className="text-white font-bold text-lg my-1">{plant.name}</h2>
-          <div className="ml-10 flex flex-row mt-[8px]">
+    <div className="bg-white border border-white py-4 px-3 bg-opacity-15 shadow-md rounded-md flex flex-row w-full">
+      <div className="mx-4 w-full">
+        <div className="flex flex-row justify-between">
+          <h2 className="text-white font-bold text-md my-1">
+            {plant.user.username} ({plant.user.email})
+          </h2>
+          <div className=" flex flex-row mt-[7px]">
             <button className="flex flex-row text-sm hover:underline">
               <FaPenToSquare className="mt-[3px] mr-1" />
               Edit
@@ -88,6 +86,10 @@ const PlantCard: React.FC<PlantCardProps> = ({ plant }) => {
         <hr className="my-1.5" />
         <div className="flex flex-row gap-6">
           <div className="text-sm">
+            <strong>Name</strong>
+            <p>{plant.name}</p>
+          </div>
+          <div className="text-sm">
             <strong>Type</strong>
             <p>{plant.type}</p>
           </div>
@@ -99,15 +101,14 @@ const PlantCard: React.FC<PlantCardProps> = ({ plant }) => {
             <strong>Sunlight</strong>
             <p>{plant.sunlight}</p>
           </div>
-        </div>
-        <hr className="my-1.5" />
-        <div className="text-sm">
-          <strong>Next Watering</strong>
-          <p>{timeLeft}</p>
+          <div className="text-sm">
+            <strong>Next Watering</strong>
+            <p>{timeLeft}</p>
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-export default PlantCard;
+export default AdminPlantCard;

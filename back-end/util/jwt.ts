@@ -14,9 +14,4 @@ const generateJwtToken = ({ username, role }: { username: string; role: Role }):
     }
 };
 
-interface JwtPayload {
-    username: string;
-    role: Role;
-}
-
 export { generateJwtToken};

@@ -12,7 +12,7 @@ plantRouter.get('/all', async (req, res) => {
         res.status(200).json(plants);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: 'Error fetching plants' });
+        res.status(500).json({ message: 'Error fetching plants (router)' });
     }
 });
 
@@ -23,7 +23,7 @@ plantRouter.get('/user/:username', async (req, res) => {
         res.status(200).json(plants);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: 'Error fetching plants' });
+        res.status(500).json({ message: error });
     }
 });
 
@@ -31,7 +31,8 @@ plantRouter.post('/add', async (req: Request, res: Response, next: NextFunction)
     const { name, type, family, wateringFreq, sunlight, email, sms, username } = req.body;
     try {
         const user = await UserService.getUserByUsername(username);
-        const newPlant = await plantService.addPlant(name, type, family, wateringFreq, sunlight, email, sms, user);
+        const created = new Date();
+        const newPlant = await plantService.addPlant(name, type, family, wateringFreq, sunlight, email, sms, user, created);
         res.status(200).json(newPlant);
     } catch (error) {
         next(error);

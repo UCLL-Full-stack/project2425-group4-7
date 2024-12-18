@@ -90,15 +90,17 @@ export class User {
         this.plants?.push(plant);
     }
 
-    static from({ id, username, email, password, role }: UserPrisma) {
+    static from(userPrisma: UserPrisma & { plants?: Plant[]; profile?: Profile }): User {
         return new User({
-            id,
-            username,
-            email,
-            password,
-            role: role as Role,
+            id: userPrisma.id,
+            username: userPrisma.username,
+            email: userPrisma.email,
+            password: userPrisma.password,
+            role: userPrisma.role as Role,
+            plants: userPrisma.plants?.map(Plant.from),
+            profile: userPrisma.profile,
         });
-    }
+    }    
 
 }
 

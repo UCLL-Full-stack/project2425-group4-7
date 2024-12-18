@@ -6,8 +6,8 @@ import AddPlant from "@/components/plants/AddPlant";
 import { Plant } from "@/types/types";
 import PlantService from "@/services/PlantService";
 import { useNotifications } from "@/components/utils/notifications";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { useTranslation } from "react-i18next";
+import PlantCard from "@/components/plants/PlantCard";
+import { FaMagnifyingGlass, FaPlus } from "react-icons/fa6";
 
 const MyPlants = () => {
   const [isAddingPlant, setIsAddingPlant] = useState(false);
@@ -17,32 +17,24 @@ const MyPlants = () => {
   const [plants, setPlants] = useState<Plant[]>([]);
   const { sendNotification } = useNotifications();
   const [isClient, setIsClient] = useState(false);
-  const { t } = useTranslation();
+  const [searchInput, setSearchInput] = useState("");
 
   const fetchPlants = async () => {
-    const token = localStorage.getItem("loggedInUser");
+    const loggedInUser = localStorage.getItem("loggedInUser");
 
-    if (!token) {
-      sendNotification(`${t("myPlants.notification_authorized")}`, "error");
+    if (!loggedInUser) {
+      sendNotification("Not authorized to fetch plants", "error");
       return;
     }
 
     try {
-      const response = await PlantService.getUserPlants(token);
-      if (response.ok) {
-        const plants = await response.json();
-        setPlants(plants);
-      } else {
-        sendNotification(
-          `${t("myPlants.notification_failed_to_fetch_unauthorized")}`,
-          "error"
-        );
-      }
+      const parsedUser = JSON.parse(loggedInUser);
+      const username = parsedUser.username;
+      const plants = await PlantService.getUserPlants(username);
+      setPlants(plants);
     } catch (error) {
-      sendNotification(
-        `${t("myPlants.notification_failed_to_fetch")}`,
-        "error"
-      );
+      console.error(error);
+      sendNotification("Failed to fetch plants", "error");
     }
   };
 
@@ -55,6 +47,19 @@ const MyPlants = () => {
     setIsAddingPlant(false);
   };
 
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchInput(event.target.value);
+  };
+
+  const filteredPlants = plants.filter((plant) => {
+    const lowerCaseQuery = searchInput.toLowerCase();
+    return (
+      plant.name.toLowerCase().includes(lowerCaseQuery) ||
+      plant.type.toLowerCase().includes(lowerCaseQuery) ||
+      plant.family.toLowerCase().includes(lowerCaseQuery)
+    );
+  });
+
   return (
     <>
       <div className={`${styles.container}`}>
@@ -63,33 +68,51 @@ const MyPlants = () => {
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        <main className="min-h-screen flex justify-center mt-5">
+        <main className="min-h-screen flex flex-col items-center mt-5 text-white">
+          <h1 className="font-bold text-lg">My Plants</h1>
+          <hr className="mb-3 mt-2 bg-white w-[26.8rem]" />
+          <div className="flex flex-row gap-4 mb-3">
+            <div className="px-6 pb-2 font-semibold rounded-lg flex flex-row after:bg-white relative after:absolute after:h-[1px] after:w-0 after:bottom-0 after:left-0 focus-within:after:w-full after:transition-all after:duration-300">
+              <FaMagnifyingGlass className="mt-1 mr-2" />
+              <input
+                className="bg-transparent placeholder:text-white outline-none"
+                type="text"
+                placeholder="Search a plant"
+                value={searchInput}
+                onChange={handleSearchChange}
+              />
+            </div>
+            <button className="px-6 pb-2 font-semibold rounded-lg flex flex-row after:bg-white relative after:absolute after:h-[1px] after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-300">
+              <FaPlus className="mt-1 mr-1" />
+              New Plant
+            </button>
+          </div>
+
           {isClient ? (
-            plants.length > 0 ? (
-              <ul>
-                {plants.map((plant) => (
+            filteredPlants.length > 0 ? (
+              <ul
+                className={`w-fit items-center ${
+                  filteredPlants.length === 1
+                    ? "flex-col"
+                    : "grid grid-cols-2 gap-5"
+                }`}
+              >
+                {filteredPlants.map((plant) => (
                   <li key={plant.id}>
-                    <h3>{plant.name}</h3>
-                    <p>
-                      {t("myPlants.type")} {plant.type}
-                    </p>
-                    <p>
-                      {t("myPlants.family")} {plant.family}
-                    </p>
-                    <p>
-                      {t("myPlants.watering_frequency")} {plant.wateringFreq}
-                    </p>
-                    <p>
-                      {t("myPlants.sunlight")} {plant.sunlight}
-                    </p>
-                    <p>
-                      {t("myPlants.sms_reminder")}{" "}
-                      {plant.sms ? "Enabled" : "Disabled"}
-                    </p>
-                    <p>
-                      {t("myPlants.email_reminder")}{" "}
-                      {plant.email ? "Enabled" : "Disabled"}
-                    </p>
+                    <PlantCard
+                      plant={{
+                        id: plant.id,
+                        name: plant.name,
+                        type: plant.type,
+                        family: plant.family,
+                        wateringFreq: plant.wateringFreq,
+                        sunlight: plant.sunlight,
+                        user: plant.user,
+                        email: plant.email,
+                        sms: plant.sms,
+                        created: plant.created,
+                      }}
+                    />
                   </li>
                 ))}
               </ul>

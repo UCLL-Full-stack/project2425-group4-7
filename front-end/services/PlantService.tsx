@@ -3,11 +3,22 @@ import { Plant } from "@/types/types";
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const getAllPlants = async (): Promise<any> => {
+  const loggedInUser = localStorage.getItem("loggedInUser");
+  let token = "";
+  if (loggedInUser) {
+    try {
+      const parsedUser = JSON.parse(loggedInUser);
+      token = parsedUser.token || "";
+    } catch (error) {
+      throw error;
+    }
+  }
   try {
-    const response = await fetch(`${API_URL}/plants`, {
+    const response = await fetch(`${API_URL}/plants/all`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+        Authorization: token ? `Bearer ${token}` : "",
       },
     });
     if (!response.ok) {
@@ -20,8 +31,17 @@ const getAllPlants = async (): Promise<any> => {
 };
 
 const getUserPlants = async (username: string): Promise<any> => {
+  const loggedInUser = localStorage.getItem("loggedInUser");
+  let token = "";
+  if (loggedInUser) {
+    try {
+      const parsedUser = JSON.parse(loggedInUser);
+      token = parsedUser.token || "";
+    } catch (error) {
+      throw error;
+    }
+  }
   try {
-    const token = localStorage.getItem("loggedInUser");
     const response = await fetch(`${API_URL}/plants/user/${username}`, {
       method: "GET",
       headers: {

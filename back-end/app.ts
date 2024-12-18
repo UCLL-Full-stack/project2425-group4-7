@@ -40,7 +40,7 @@ app.use(
             '/users/register',
             '/plants/all',
             '/plants/user/:username',
-            '/plants/add'
+            '/plants/add',
         ],
     })
 );
