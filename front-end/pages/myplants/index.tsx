@@ -8,6 +8,8 @@ import PlantService from "@/services/PlantService";
 import { useNotifications } from "@/components/utils/notifications";
 import PlantCard from "@/components/plants/PlantCard";
 import { FaMagnifyingGlass, FaPlus } from "react-icons/fa6";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "react-i18next";
 
 const MyPlants = () => {
   const [isAddingPlant, setIsAddingPlant] = useState(false);
@@ -16,6 +18,7 @@ const MyPlants = () => {
   };
   const [plants, setPlants] = useState<Plant[]>([]);
   const { sendNotification } = useNotifications();
+  const { t } = useTranslation();
   const [isClient, setIsClient] = useState(false);
   const [searchInput, setSearchInput] = useState("");
 

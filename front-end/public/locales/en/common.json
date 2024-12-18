@@ -107,5 +107,21 @@
         "register" : "Register",
         "already_have_an_account" : "Already have an account?",
         "login_here" : "Login here"
-    }
+    },
+
+    "settings": {
+        "title": "Settings",
+        "update_profile": "Update Profile",
+        "username": "Enter your new username:",
+        "password": "Enter your new password:",
+        "phone": "Enter your new phone number:",
+        "update_button": "Update",
+        "notification_username_empty": "Username cannot be empty.",
+        "notification_password_empty": "Password cannot be empty.",
+        "notification_phone_empty": "Phone number cannot be empty.",
+        "notification_update_success": "Your profile has been updated successfully!",
+        "notification_email_empty" : "Email cannot be empty.",
+        "email" : "Enter your new email:"
+        
+  }
 }
