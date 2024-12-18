@@ -1,5 +1,5 @@
 import { Profile } from "../model/profile";
-import { User } from "../model/user";
+import { User } from "../model/User";
 
 describe("Profile Class", () => {
     let profile: Profile;

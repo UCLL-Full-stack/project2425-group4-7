@@ -57,14 +57,14 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ toggleForm }) => {
             sendNotification(error.message, "error");
           } catch {
             sendNotification(
-              `${t("registerform.notification_registration_failed")}`,
+              `${t("registerForm.notification_registration_failed")}`,
               "error"
             );
           }
           return;
         }
         sendNotification(
-          `${t("registerform.notification_successfully_created")}`,
+          `${t("registerForm.notification_successfully_created")}`,
           "success"
         );
         if (response.ok) {
@@ -80,7 +80,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ toggleForm }) => {
                 sendNotification(error.message, "error");
               } catch {
                 sendNotification(
-                  `${t("registerform.notification_failed_login")}`,
+                  `${t("registerForm.notification_failed_login")}`,
                   "error"
                 );
               }
@@ -97,24 +97,24 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ toggleForm }) => {
               }, 2000);
             } catch (error) {
               sendNotification(
-                `${t("registerform.notification_failed_try_again")}`,
+                `${t("registerForm.notification_failed_try_again")}`,
                 "error"
               );
             }
           } catch (error) {
             sendNotification(
-              `${t("registerform.notification_error")} ${error}`,
+              `${t("registerForm.notification_error")} ${error}`,
               "error"
             );
           }
         }
       } catch (error) {
         sendNotification(
-          `${t("registerform.notification_registration_failed_try_again")}`,
+          `${t("registerForm.notification_registration_failed_try_again")}`,
           "error"
         );
         sendNotification(
-          `${t("registerform.notification_error")} ${error}`,
+          `${t("registerForm.notification_error")} ${error}`,
           "error"
         );
       }
@@ -132,7 +132,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ toggleForm }) => {
           <h1 className="font-semibold text-center text-lg mb-3">Register</h1>
           <div className="flex flex-col">
             <input
-              placeholder={t("registerform.placeholder_username")}
+              placeholder={t("registerForm.placeholder_username")}
               type="username"
               onChange={(e) => setUsername(e.target.value)}
               className="bg-transparent rounded-md border border-white placeholder:text-white p-0.5 mb-3 pl-2"
@@ -140,7 +140,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ toggleForm }) => {
           </div>
           <div className="flex flex-col">
             <input
-              placeholder={t("registerform.placeholder_email")}
+              placeholder={t("registerForm.placeholder_email")}
               type="email"
               onChange={(e) => setEmail(e.target.value)}
               className="bg-transparent rounded-md border border-white placeholder:text-white p-0.5 mb-3 pl-2"
@@ -148,7 +148,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ toggleForm }) => {
           </div>
           <div className="flex flex-col">
             <input
-              placeholder={t("registerform.placeholder_password")}
+              placeholder={t("registerForm.placeholder_password")}
               type="password"
               onChange={(e) => setPassword(e.target.value)}
               className="bg-transparent rounded-md border border-white placeholder:text-white p-0.5 mb-3 pl-2"
@@ -156,7 +156,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ toggleForm }) => {
           </div>
           <div className="flex flex-col">
             <input
-              placeholder={t("registerform.placeholder_repeat_password")}
+              placeholder={t("registerForm.placeholder_repeat_password")}
               type="password"
               onChange={(e) => setVerifyPassword(e.target.value)}
               className="bg-transparent rounded-md border border-white placeholder:text-white pl-2 p-0.5"
@@ -166,14 +166,14 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ toggleForm }) => {
             onClick={onRegister}
             className="bg-white w-full hover:bg-slate-200 text-gray-900 font-semibold mt-4 rounded-md p-1 text-sm"
           >
-            {t("registerform.register")}
+            {t("registerForm.register")}
           </button>
         </form>
         <p className="font-light text-sm mt-3 text-center">
-          {t("registerform.already_have_an_account")}{" "}
+          {t("registerForm.already_have_an_account")}{" "}
           <button className="font-semibold" onClick={toggleForm}>
             {" "}
-            {t("registerform.login_here")}
+            {t("registerForm.login_here")}
           </button>
         </p>
       </div>

@@ -1,5 +1,5 @@
 import { Water } from "../model/old/Water";
-import { Plant } from "../model/plant";
+import { Plant } from "../model/Plant";
 
 describe("Water Class", () => {
     let water: Water;

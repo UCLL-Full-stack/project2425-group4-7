@@ -24,13 +24,19 @@ const Header: React.FC = () => {
     logout();
     router.push("/");
     sendNotification(`${t("header.notification")}`, "success");
-    setTimeout(() => {
-      window.location.reload();
-    }, 2000);
   };
 
   useEffect(() => {
-    setRole(getUserRole());
+    const updateRole = () => {
+      setRole(getUserRole());
+    };
+    updateRole();
+
+    window.addEventListener("storage", updateRole);
+
+    return () => {
+      window.removeEventListener("storage", updateRole);
+    };
   }, []);
 
   return (

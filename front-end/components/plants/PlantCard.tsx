@@ -2,15 +2,16 @@ import { Plant, User } from "@/types/types";
 import { useEffect, useState } from "react";
 import { FaPenToSquare, FaTrash } from "react-icons/fa6";
 import { useNotifications } from "../utils/notifications";
+import { useTranslation } from "react-i18next";
 
 type PlantCardProps = {
   plant: Plant;
 };
-const { t } = useTranslation();
 
 const PlantCard: React.FC<PlantCardProps> = ({ plant }) => {
   const [timeLeft, setTimeLeft] = useState<string>("");
   const { sendNotification } = useNotifications();
+  const { t } = useTranslation();
 
   const wateringIntervals: Record<string, number | null> = {
     daily: 24 * 60 * 60 * 1000,

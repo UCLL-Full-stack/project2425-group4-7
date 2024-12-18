@@ -152,3 +152,14 @@ userRouter.post('/register', async (req: Request, res: Response, next: NextFunct
         next(error);
     }
 });
+
+userRouter.get('/name/:username', async (req, res) => {
+    const { username } = req.params;
+    try {
+        const user = await userService.getUserByUsername({username});
+        res.status(200).json(user);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: error });
+    }
+});

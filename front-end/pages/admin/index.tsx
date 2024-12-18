@@ -35,7 +35,8 @@ const Settings = () => {
     return (
       plant.name.toLowerCase().includes(lowerCaseQuery) ||
       plant.type.toLowerCase().includes(lowerCaseQuery) ||
-      plant.family.toLowerCase().includes(lowerCaseQuery)
+      plant.family.toLowerCase().includes(lowerCaseQuery) ||
+      plant.user.username.toLowerCase().includes(lowerCaseQuery)
     );
   });
 

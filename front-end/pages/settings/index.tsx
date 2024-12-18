@@ -5,8 +5,8 @@ import React from "react";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "react-i18next";
 
-const { t } = useTranslation();
 const Settings = () => {
+  const { t } = useTranslation();
   return (
     <>
       <Head>

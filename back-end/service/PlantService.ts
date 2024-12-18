@@ -1,5 +1,5 @@
-import { Plant } from "../model/plant";
-import { User } from "../model/user";
+import { Plant } from "../model/Plant";
+import { User } from "../model/User";
 import { PlantInput } from '../types/index'
 import plantDB from '../repository/plant.db';
 import userDB from '../repository/user.db';
@@ -35,16 +35,11 @@ const getUserPlants = async (username: string): Promise<Plant[]> => {
   };
 
 const addPlant = async (name: string, type: string, family: string, wateringFreq: string, sunlight: string, email: boolean, sms: boolean, user: User, created: Date): Promise<Plant> => {
-    const userId = user.getId();
-    if (userId === undefined) {
-        throw new Error('User ID required');
-    }
-    const existingPlant = await plantDB.getPlantByNameAndUser({name, userId});
 
-    if (existingPlant) {
-        throw new Error(`Plant with the name ${name} already exists for this user.`);
+    if (user == null) {
+      throw new Error('User may not be null')
     }
-
+    
     const plant = new Plant({name, type, family, wateringFreq, sunlight, email, sms, user, created});
 
     return await plantDB.addPlant(plant);

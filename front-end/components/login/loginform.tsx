@@ -57,8 +57,9 @@ const LoginForm: React.FC<LoginFormProps> = ({ toggleForm }) => {
             "success"
           );
           localStorage.setItem("loggedInUser", JSON.stringify(token));
+          window.dispatchEvent(new Event("storage"));
           setTimeout(() => {
-            router.push("/");
+            router.push("/myplants");
           }, 1000);
         } catch (error) {
           sendNotification(

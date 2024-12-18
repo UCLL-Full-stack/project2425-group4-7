@@ -4,15 +4,23 @@ import { useEffect, useState } from "react";
 export const useAuth = () => {
   const [authenticated, setAuthenticated] = useState<boolean | null>(null);
 
+  const checkAuthStatus = () => {
+    const user = localStorage.getItem("loggedInUser");
+    setAuthenticated(!!user);
+  };
+
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const user = localStorage.getItem("loggedInUser");
-      if (user) {
-        setAuthenticated(true);
-      } else {
-        setAuthenticated(false);
-      }
-    }
+    checkAuthStatus();
+
+    const handleStorageChange = () => {
+      checkAuthStatus();
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
   }, []);
 
   return authenticated;
@@ -39,5 +47,6 @@ export const getUserRole = (): string | null => {
 export const logout = (): void => {
   if (typeof window !== "undefined") {
     localStorage.removeItem("loggedInUser");
+    window.dispatchEvent(new Event("storage"));
   }
 };

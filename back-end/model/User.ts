@@ -1,4 +1,4 @@
-import { Plant } from "./plant";
+import { Plant } from "./Plant";
 import { Profile } from "./profile";
 import { Role } from '../types';
 import { User as UserPrisma } from '@prisma/client';

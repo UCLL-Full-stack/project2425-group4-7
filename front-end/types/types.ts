@@ -14,6 +14,7 @@ export type Plant = {
 export type Role = 'user' | 'premium' | 'admin';
 
 export type User = {
+    id?: number;
     username: string;
     password: string;
     email?: string;

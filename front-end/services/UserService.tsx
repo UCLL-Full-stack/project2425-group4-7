@@ -45,10 +45,43 @@ const logout = (): void => {
   localStorage.removeItem("token");
 };
 
+const getLoggedInUser = async (): Promise<any> => {
+  const loggedInUser = localStorage.getItem("loggedInUser");
+  let token = "";
+  let username = "";
+  if (loggedInUser) {
+    try {
+      const parsedUser = JSON.parse(loggedInUser);
+      token = parsedUser.token || "";
+      username = parsedUser.username || "";
+    } catch (error) {
+      throw error;
+    }
+  }
+  try {
+    const response = await fetch(`${API_URL}/users/name/${username}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token ? `Bearer ${token}` : "",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch information for ${username}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    throw error;
+  }
+};
+
 const UserService = {
   login,
   logout,
   register,
+  getLoggedInUser,
 };
 
 export default UserService;

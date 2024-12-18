@@ -8,16 +8,16 @@ import PlantService from "@/services/PlantService";
 import { useNotifications } from "@/components/utils/notifications";
 import PlantCard from "@/components/plants/PlantCard";
 import { FaMagnifyingGlass, FaPlus } from "react-icons/fa6";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "react-i18next";
 
 const MyPlants = () => {
   const [isAddingPlant, setIsAddingPlant] = useState(false);
-  const toggleAddPlant = () => {
-    setIsAddingPlant((prev) => !prev);
-  };
   const [plants, setPlants] = useState<Plant[]>([]);
   const { sendNotification } = useNotifications();
   const [isClient, setIsClient] = useState(false);
   const [searchInput, setSearchInput] = useState("");
+  const { t } = useTranslation();
 
   const fetchPlants = async () => {
     const loggedInUser = localStorage.getItem("loggedInUser");
@@ -60,6 +60,10 @@ const MyPlants = () => {
     );
   });
 
+  const toggleAddPlant = () => {
+    setIsAddingPlant((prev) => !prev);
+  };
+
   return (
     <>
       <div className={`${styles.container}`}>
@@ -82,7 +86,10 @@ const MyPlants = () => {
                 onChange={handleSearchChange}
               />
             </div>
-            <button className="px-6 pb-2 font-semibold rounded-lg flex flex-row after:bg-white relative after:absolute after:h-[1px] after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-300">
+            <button
+              onClick={toggleAddPlant}
+              className="px-6 pb-2 font-semibold rounded-lg flex flex-row after:bg-white relative after:absolute after:h-[1px] after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-300"
+            >
               <FaPlus className="mt-1 mr-1" />
               New Plant
             </button>
@@ -94,7 +101,7 @@ const MyPlants = () => {
                 className={`w-fit items-center ${
                   filteredPlants.length === 1
                     ? "flex-col"
-                    : "grid grid-cols-2 gap-5"
+                    : "grid grid-cols-2 gap-6"
                 }`}
               >
                 {filteredPlants.map((plant) => (
@@ -121,6 +128,9 @@ const MyPlants = () => {
             )
           ) : (
             <p>{t("myPlants.loading")}</p>
+          )}
+          {isAddingPlant && (
+            <AddPlant onAddPlant={toggleAddPlant} onClose={toggleAddPlant} />
           )}
         </main>
       </div>

@@ -41,6 +41,7 @@ app.use(
             '/plants/all',
             '/plants/user/:username',
             '/plants/add',
+            '/users/name/:username',
         ],
     })
 );

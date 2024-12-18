@@ -1,8 +1,8 @@
-import { Plant } from "../model/plant";
+import { Plant } from "../model/Plant";
 import { Reminder } from "../model/old/Reminders";
 import { Soil } from "../model/Soil";
 import { Sunlight } from "../model/Sunlight";
-import { User } from "../model/user";
+import { User } from "../model/User";
 import { Water } from "../model/old/Water";
 
 describe("Plant Class", () => {

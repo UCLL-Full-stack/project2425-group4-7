@@ -1,4 +1,4 @@
-import { Plant } from "../model/plant";
+import { Plant } from "../model/Plant";
 import { Reminder } from "../model/old/Reminders";
 
 describe("Reminder Class", () => {

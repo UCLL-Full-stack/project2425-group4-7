@@ -1,5 +1,5 @@
-import { Plant } from "../model/plant";
-import { User } from "../model/user";
+import { Plant } from "../model/Plant";
+import { User } from "../model/User";
 
 describe("User Class", () => {
     let user: User;

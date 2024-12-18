@@ -1,7 +1,7 @@
 import express, { NextFunction, Request, Response } from 'express';
 import plantService from '../service/PlantService';
 import { PlantInput, UserInput } from '../types/index';
-import { Plant } from '../model/plant';
+import { Plant } from '../model/Plant';
 import UserService from '../service/UserService';
 
 export const plantRouter = express.Router();
@@ -28,9 +28,9 @@ plantRouter.get('/user/:username', async (req, res) => {
 });
 
 plantRouter.post('/add', async (req: Request, res: Response, next: NextFunction) => {
-    const { name, type, family, wateringFreq, sunlight, email, sms, username } = req.body;
+    const { name, type, family, wateringFreq, sunlight, user, email, sms } = req.body;
+    console.log(req.body);
     try {
-        const user = await UserService.getUserByUsername(username);
         const created = new Date();
         const newPlant = await plantService.addPlant(name, type, family, wateringFreq, sunlight, email, sms, user, created);
         res.status(200).json(newPlant);

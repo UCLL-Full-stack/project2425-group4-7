@@ -77,7 +77,9 @@ const addPlant = async (plant: any): Promise<any> => {
     }
 
     return await response.json();
+    // console.log(plant);
   } catch (error) {
+    // console.log(plant);
     throw error;
   }
 };

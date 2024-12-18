@@ -1,4 +1,4 @@
-import { User } from '../model/user';
+import { User } from '../model/User';
 import database from './database';
 
 const getAllUsers = async (): Promise<User[]> => {
@@ -7,7 +7,7 @@ const getAllUsers = async (): Promise<User[]> => {
         return usersPrisma.map((userPrisma) => User.from(userPrisma));
     } catch (error) {
         console.error(error);
-        throw new Error('Database error. See server log for details.');
+        throw new Error('Database error');
     }
 };
 
@@ -20,7 +20,7 @@ const getUserById = async ({ id }: { id: number }): Promise<User | null> => {
         return userPrisma ? User.from(userPrisma) : null;
     } catch (error) {
         console.error(error);
-        throw new Error('Database error. See server log for details.');
+        throw new Error('Database error');
     }
 };
 
@@ -33,7 +33,7 @@ const getUserByUsername = async ({ username }: { username: string }): Promise<Us
         return userPrisma ? User.from(userPrisma) : null;
     } catch (error) {
         console.error(error);
-        throw new Error('Database error. See server log for details.');
+        throw new Error('Database error');
     }
 };
 
@@ -50,7 +50,7 @@ const createUser = async (user: User): Promise<User> => {
         return User.from(userPrisma);
     } catch (error) {
         console.error(error);
-        throw new Error('Database error. See server log for details.');
+        throw new Error('Database error');
     }
 };
 

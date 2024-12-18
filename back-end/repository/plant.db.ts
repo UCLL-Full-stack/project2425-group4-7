@@ -1,4 +1,4 @@
-import { Plant } from '../model/plant';
+import { Plant } from '../model/Plant';
 import database from './database';
 
 const getAllPlants = async (): Promise<Plant[]> => {
@@ -29,8 +29,8 @@ const getPlantById = async ({ id }: { id: number }): Promise<Plant | null> => {
 const addPlant = async (plant: Plant): Promise<Plant> => {
     try {
         const userId = plant.getUser().getId();
-        if (!userId) {
-            throw new Error();
+        if (userId === undefined) {
+            throw new Error('User ID is required');
         }
         const plantPrisma = await database.plant.create({
             data: {
