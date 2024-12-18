@@ -119,6 +119,7 @@ const MyPlants = () => {
                         sms: plant.sms,
                         created: plant.created,
                       }}
+                      onDelete={fetchPlants}
                     />
                   </li>
                 ))}

@@ -16,6 +16,15 @@ const getPlantById = async (plantId: number): Promise<Plant | undefined> => {
     return plant;
 };
 
+const deletePlantById = async (id: number) => {
+  try {
+    const deletePlant = await plantDB.deleteById(id);
+    return deletePlant;
+  } catch (error) {
+    throw new Error(`Failed to delete plant: ${id}`)
+  }
+}
+
 const getUserPlants = async (username: string): Promise<Plant[]> => {
     try {
       const user = await userDB.getUserByUsername({ username });
@@ -45,4 +54,4 @@ const addPlant = async (name: string, type: string, family: string, wateringFreq
     return await plantDB.addPlant(plant);
 };
 
-export default { getAllPlants, getPlantById, addPlant, getUserPlants };
+export default { getAllPlants, getPlantById, addPlant, getUserPlants, deletePlantById };

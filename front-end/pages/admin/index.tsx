@@ -2,7 +2,7 @@ import Head from "next/head";
 import styles from "@/styles/settings.module.css";
 import React, { useEffect, useState } from "react";
 import { useNotifications } from "@/components/utils/notifications";
-import { Plant } from "@/types/types";
+import { Plant, User } from "@/types/types";
 import { getUserRole } from "@/components/auth/auth";
 import PlantService from "@/services/PlantService";
 import PlantCard from "@/components/plants/PlantCard";
@@ -10,14 +10,19 @@ import AdminPlantCard from "@/components/plants/AdminPlantCard";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "react-i18next";
+import UserService from "@/services/UserService";
+import AdminUserList from "@/components/plants/AdminUserList";
 
 const Settings = () => {
   const [plants, setPlants] = useState<Plant[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
   const { sendNotification } = useNotifications();
   const [isClient, setIsClient] = useState(false);
   const [role, setRole] = useState<string | null>(null);
   const [searchInput, setSearchInput] = useState("");
+  const [searchUserInput, setSearchUserInput] = useState("");
   const { t } = useTranslation();
+  const [showPlants, setShowPlants] = useState(true);
 
   const fetchPlants = async () => {
     try {
@@ -26,8 +31,21 @@ const Settings = () => {
     } catch (error) {}
   };
 
+  const fetchUsers = async () => {
+    try {
+      const users = await UserService.getAllUsers();
+      setUsers(users);
+    } catch (error) {}
+  };
+
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchInput(event.target.value);
+  };
+
+  const handleSearchUserChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setSearchUserInput(event.target.value);
   };
 
   const filteredPlants = plants.filter((plant) => {
@@ -40,10 +58,20 @@ const Settings = () => {
     );
   });
 
+  const filteredUsers = users.filter((user) => {
+    const lowerCaseQuery = searchUserInput.toLowerCase();
+    return (
+      user.username.toLowerCase().includes(lowerCaseQuery) ||
+      user.email.toLowerCase().includes(lowerCaseQuery)
+    );
+  });
+
   useEffect(() => {
     setIsClient(true);
     fetchPlants();
+    fetchUsers();
   }, []);
+
   return (
     <>
       <Head>
@@ -54,52 +82,82 @@ const Settings = () => {
       <main className="min-h-screen flex flex-col items-center mt-5 text-white">
         <h1 className="font-bold text-lg">Admin Dashboard</h1>
         <div className="flex flex-row gap-5 mt-1">
-          <button className="font-semibold text-md p-1">Plants</button>
-          <button className="font-semibold text-md p-1">Users</button>
+          <button
+            onClick={() => setShowPlants(true)}
+            className="font-semibold text-md p-1"
+          >
+            Plants
+          </button>
+          <button
+            onClick={() => setShowPlants(false)}
+            className="font-semibold text-md p-1"
+          >
+            Users
+          </button>
         </div>
-        <section>
-          <hr className="mb-3 mt-2 bg-white w-full" />
-          <div className="gap-4 mb-3">
-            <div className="px-6 w-fit pb-1 font-semibold rounded-lg flex flex-row after:bg-white relative after:absolute after:h-[1px] after:w-0 after:bottom-0 after:left-0 focus-within:after:w-full after:transition-all after:duration-300">
-              <FaMagnifyingGlass className="mt-1 mr-2" />
-              <input
-                className="bg-transparent placeholder:text-white outline-none"
-                type="text"
-                placeholder="Search a plant"
-                value={searchInput}
-                onChange={handleSearchChange}
-              />
+        {showPlants ? (
+          <section>
+            <hr className="mb-3 mt-2 bg-white w-full" />
+            <div className="gap-4 mb-3">
+              <div className="px-6 w-fit pb-1 font-semibold rounded-lg flex flex-row after:bg-white relative after:absolute after:h-[1px] after:w-0 after:bottom-0 after:left-0 focus-within:after:w-full after:transition-all after:duration-300">
+                <FaMagnifyingGlass className="mt-1 mr-2" />
+                <input
+                  className="bg-transparent placeholder:text-white outline-none"
+                  type="text"
+                  placeholder="Search a plant"
+                  value={searchInput}
+                  onChange={handleSearchChange}
+                />
+              </div>
             </div>
-          </div>
-          {isClient ? (
-            filteredPlants.length > 0 ? (
-              <ul className="w-fit flex flex-col items-center gap-4">
-                {filteredPlants.map((plant) => (
-                  <li key={plant.id} className="w-full">
-                    <AdminPlantCard
-                      plant={{
-                        id: plant.id,
-                        name: plant.name,
-                        type: plant.type,
-                        family: plant.family,
-                        wateringFreq: plant.wateringFreq,
-                        sunlight: plant.sunlight,
-                        user: plant.user,
-                        email: plant.email,
-                        sms: plant.sms,
-                        created: plant.created,
-                      }}
-                    />
-                  </li>
-                ))}
-              </ul>
+            {isClient ? (
+              filteredPlants.length > 0 ? (
+                <ul className="w-fit flex flex-col items-center gap-4">
+                  {filteredPlants.map((plant) => (
+                    <li key={plant.id} className="w-full">
+                      <AdminPlantCard
+                        plant={{
+                          id: plant.id,
+                          name: plant.name,
+                          type: plant.type,
+                          family: plant.family,
+                          wateringFreq: plant.wateringFreq,
+                          sunlight: plant.sunlight,
+                          user: plant.user,
+                          email: plant.email,
+                          sms: plant.sms,
+                          created: plant.created,
+                        }}
+                        onDelete={fetchPlants}
+                      />
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p>No plants found</p>
+              )
             ) : (
-              <p>No plants found</p>
-            )
-          ) : (
-            <p>Loading</p>
-          )}
-        </section>
+              <p>Loading</p>
+            )}
+          </section>
+        ) : (
+          <section>
+            <hr className="mb-3 mt-2 bg-white w-full" />
+            <div className="gap-4 mb-3">
+              <div className="px-6 w-fit pb-1 font-semibold rounded-lg flex flex-row after:bg-white relative after:absolute after:h-[1px] after:w-0 after:bottom-0 after:left-0 focus-within:after:w-full after:transition-all after:duration-300">
+                <FaMagnifyingGlass className="mt-1 mr-2" />
+                <input
+                  className="bg-transparent placeholder:text-white outline-none"
+                  type="text"
+                  placeholder="Search a user"
+                  value={searchUserInput}
+                  onChange={handleSearchUserChange}
+                />
+              </div>
+              <AdminUserList users={filteredUsers} />
+            </div>
+          </section>
+        )}
       </main>
     </>
   );

@@ -2,6 +2,34 @@ import { User } from "@/types/types";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
+const getAllUsers = async (): Promise<any> => {
+  const loggedInUser = localStorage.getItem("loggedInUser");
+  let token = "";
+  if (loggedInUser) {
+    try {
+      const parsedUser = JSON.parse(loggedInUser);
+      token = parsedUser.token || "";
+    } catch (error) {
+      throw error;
+    }
+  }
+  try {
+    const response = await fetch(`${API_URL}/users`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token ? `Bearer ${token}` : "",
+      },
+    });
+    if (!response.ok) {
+      throw new Error("Failed to fetch users");
+    }
+    return await response.json();
+  } catch (error) {
+    throw error;
+  }
+};
+
 const login = async (user: User) => {
   const token = localStorage.getItem("loggedInUser");
 
@@ -82,6 +110,7 @@ const UserService = {
   logout,
   register,
   getLoggedInUser,
+  getAllUsers,
 };
 
 export default UserService;

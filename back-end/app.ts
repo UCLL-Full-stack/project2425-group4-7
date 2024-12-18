@@ -42,6 +42,7 @@ app.use(
             '/plants/user/:username',
             '/plants/add',
             '/users/name/:username',
+            '/plants/delete/:id',
         ],
     })
 );

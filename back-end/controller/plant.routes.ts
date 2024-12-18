@@ -35,8 +35,21 @@ plantRouter.post('/add', async (req: Request, res: Response, next: NextFunction)
         const newPlant = await plantService.addPlant(name, type, family, wateringFreq, sunlight, email, sms, user, created);
         res.status(200).json(newPlant);
     } catch (error) {
-        next(error);
+        console.error(error);
+        res.status(500).json({ message: error });
     }
 });
+
+plantRouter.delete('/delete/:id', async (req, res) => {
+    const {id} = req.params;
+    const numId = Number(id);
+    try {
+        const deletePlant = await plantService.deletePlantById(numId);
+        res.status(200).json({ message: "Deleted plant"});
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: error });
+    }
+})
 
 export default plantRouter;

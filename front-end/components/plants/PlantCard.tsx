@@ -3,12 +3,14 @@ import { useEffect, useState } from "react";
 import { FaPenToSquare, FaTrash } from "react-icons/fa6";
 import { useNotifications } from "../utils/notifications";
 import { useTranslation } from "react-i18next";
+import PlantService from "@/services/PlantService";
 
 type PlantCardProps = {
   plant: Plant;
+  onDelete: () => void;
 };
 
-const PlantCard: React.FC<PlantCardProps> = ({ plant }) => {
+const PlantCard: React.FC<PlantCardProps> = ({ plant, onDelete }) => {
   const [timeLeft, setTimeLeft] = useState<string>("");
   const { sendNotification } = useNotifications();
   const { t } = useTranslation();
@@ -69,6 +71,16 @@ const PlantCard: React.FC<PlantCardProps> = ({ plant }) => {
     return () => clearInterval(intervalId);
   }, [plant.wateringFreq, plant.created]);
 
+  const deletePlant = () => {
+    if (plant.id) {
+      PlantService.deletePlant(plant.id);
+      sendNotification(`Successfully deleted plant: ${plant.name}`, "success");
+      onDelete();
+    } else {
+      console.error("Plant ID is undefined");
+    }
+  };
+
   return (
     <div className="bg-white border-[3px] border-white py-5 px-4 bg-opacity-15 shadow-md rounded-md flex flex-row">
       <img src="/plant-icon.png" className="h-[8.1rem] my-auto" alt="" />
@@ -80,7 +92,10 @@ const PlantCard: React.FC<PlantCardProps> = ({ plant }) => {
               <FaPenToSquare className="mt-[3px] mr-1" />
               Edit
             </button>
-            <button className="flex flex-row ml-3 text-sm hover:underline">
+            <button
+              onClick={deletePlant}
+              className="flex flex-row ml-3 text-sm hover:underline"
+            >
               <FaTrash className="mt-[3px] mr-1" />
               Delete
             </button>

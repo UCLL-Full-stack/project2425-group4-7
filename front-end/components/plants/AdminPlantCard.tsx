@@ -2,12 +2,14 @@ import { Plant, User } from "@/types/types";
 import { useEffect, useState } from "react";
 import { FaPenToSquare, FaTrash } from "react-icons/fa6";
 import { useNotifications } from "../utils/notifications";
+import PlantService from "@/services/PlantService";
 
 type PlantCardProps = {
   plant: Plant;
+  onDelete: () => void;
 };
 
-const AdminPlantCard: React.FC<PlantCardProps> = ({ plant }) => {
+const AdminPlantCard: React.FC<PlantCardProps> = ({ plant, onDelete }) => {
   const [timeLeft, setTimeLeft] = useState<string>("");
   const { sendNotification } = useNotifications();
 
@@ -19,6 +21,16 @@ const AdminPlantCard: React.FC<PlantCardProps> = ({ plant }) => {
     "2-weeks": 14 * 24 * 60 * 60 * 1000,
     monthly: 30 * 24 * 60 * 60 * 1000,
     "no-water": null,
+  };
+
+  const deletePlant = () => {
+    if (plant.id) {
+      PlantService.deletePlant(plant.id);
+      sendNotification(`Successfully deleted plant: ${plant.name}`, "success");
+      onDelete();
+    } else {
+      console.error("Plant ID is undefined");
+    }
   };
 
   useEffect(() => {
@@ -77,7 +89,10 @@ const AdminPlantCard: React.FC<PlantCardProps> = ({ plant }) => {
               <FaPenToSquare className="mt-[3px] mr-1" />
               Edit
             </button>
-            <button className="flex flex-row ml-3 text-sm hover:underline">
+            <button
+              onClick={deletePlant}
+              className="flex flex-row ml-3 text-sm hover:underline"
+            >
               <FaTrash className="mt-[3px] mr-1" />
               Delete
             </button>

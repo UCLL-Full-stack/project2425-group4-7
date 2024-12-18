@@ -52,6 +52,18 @@ const addPlant = async (plant: Plant): Promise<Plant> => {
     }
 };
 
+const deleteById = async (id: number): Promise<Boolean> => {
+    try {
+        const deletePlant = await database.plant.delete({
+            where: { id },
+        });
+        return !!deletePlant;
+    } catch (error) {
+        console.error(error);
+        throw new Error('Database error');
+    }
+}
+
 const getPlantByNameAndUser = async ({ name, userId }: { name: string, userId: number }): Promise<Plant | null> => {
     try {
         const plantPrisma = await database.plant.findFirst({
@@ -86,4 +98,5 @@ export default {
     getPlantById,
     getPlantByNameAndUser,
     getPlantsByUserId,
+    deleteById,
 }

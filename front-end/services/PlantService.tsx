@@ -84,10 +84,41 @@ const addPlant = async (plant: any): Promise<any> => {
   }
 };
 
+const deletePlant = async (plantId: number): Promise<any> => {
+  const loggedInUser = localStorage.getItem("loggedInUser");
+  let token = "";
+  if (loggedInUser) {
+    try {
+      const parsedUser = JSON.parse(loggedInUser);
+      token = parsedUser.token || "";
+    } catch (error) {
+      throw error;
+    }
+  }
+  try {
+    const response = await fetch(`${API_URL}/plants/delete/${plantId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token ? `Bearer ${token}` : "",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to delete plant: ${plantId}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    throw error;
+  }
+};
+
 const PlantService = {
   getAllPlants,
   getUserPlants,
   addPlant,
+  deletePlant,
 };
 
 export default PlantService;
