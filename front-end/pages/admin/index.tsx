@@ -80,19 +80,19 @@ const Settings = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="min-h-screen flex flex-col items-center mt-5 text-white">
-        <h1 className="font-bold text-lg">Admin Dashboard</h1>
+        <h1 className="font-bold text-lg">{t("admin.dashboard")}</h1>
         <div className="flex flex-row gap-5 mt-1">
           <button
             onClick={() => setShowPlants(true)}
             className="font-semibold text-md p-1"
           >
-            Plants
+            {t("admin.plants")}
           </button>
           <button
             onClick={() => setShowPlants(false)}
             className="font-semibold text-md p-1"
           >
-            Users
+            {t("admin.users")}
           </button>
         </div>
         {showPlants ? (
@@ -104,7 +104,7 @@ const Settings = () => {
                 <input
                   className="bg-transparent placeholder:text-white outline-none"
                   type="text"
-                  placeholder="Search a plant"
+                  placeholder={t("admin.search_plants")}
                   value={searchInput}
                   onChange={handleSearchChange}
                 />
@@ -134,10 +134,10 @@ const Settings = () => {
                   ))}
                 </ul>
               ) : (
-                <p>No plants found</p>
+                <p>{t("admin.noplants")}</p>
               )
             ) : (
-              <p>Loading</p>
+              <p>{t("admin.loading")}</p>
             )}
           </section>
         ) : (
@@ -149,7 +149,7 @@ const Settings = () => {
                 <input
                   className="bg-transparent placeholder:text-white outline-none"
                   type="text"
-                  placeholder="Search a user"
+                  placeholder={t("admin.search_users")}
                   value={searchUserInput}
                   onChange={handleSearchUserChange}
                 />

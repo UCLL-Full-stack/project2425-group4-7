@@ -28,7 +28,7 @@ const PlantCard: React.FC<PlantCardProps> = ({ plant, onDelete }) => {
   useEffect(() => {
     const intervalMs = wateringIntervals[plant.wateringFreq];
     if (intervalMs === null) {
-      setTimeLeft("Plant doesn't need water");
+      setTimeLeft(`${t("plantCard.no_water_needed")}`);
       return;
     }
     if (!intervalMs) {
@@ -41,7 +41,7 @@ const PlantCard: React.FC<PlantCardProps> = ({ plant, onDelete }) => {
       : new Date().getTime();
 
     if (plantCreatedAt === null) {
-      setTimeLeft(`No watering needed`);
+      setTimeLeft(`${t("plantCard.no_water_needed")}`);
       return;
     }
 
@@ -60,9 +60,11 @@ const PlantCard: React.FC<PlantCardProps> = ({ plant, onDelete }) => {
       const seconds = Math.floor((remainingTime % (60 * 1000)) / 1000);
 
       setTimeLeft(
-        `${
-          days > 0 ? `${days} days, ` : ""
-        }${hours} hours, ${minutes} minutes, ${seconds} seconds`
+        `${days > 0 ? `${days} ${t("plantCard.days")}, ` : ""}${hours} ${t(
+          "plantCard.hours"
+        )}, ${minutes} ${t("plantCard.minutes")}, ${seconds} ${t(
+          "plantCard.seconds"
+        )}`
       );
     };
 
@@ -74,7 +76,10 @@ const PlantCard: React.FC<PlantCardProps> = ({ plant, onDelete }) => {
   const deletePlant = () => {
     if (plant.id) {
       PlantService.deletePlant(plant.id);
-      sendNotification(`Successfully deleted plant: ${plant.name}`, "success");
+      sendNotification(
+        `${t("plantCard.delete_success")}: ${plant.name}`,
+        "success"
+      );
       onDelete();
     } else {
       console.error("Plant ID is undefined");
@@ -90,35 +95,35 @@ const PlantCard: React.FC<PlantCardProps> = ({ plant, onDelete }) => {
           <div className="ml-10 flex flex-row mt-[8px]">
             <button className="flex flex-row text-sm hover:underline">
               <FaPenToSquare className="mt-[3px] mr-1" />
-              Edit
+              {t("plantCard.edit")}
             </button>
             <button
               onClick={deletePlant}
               className="flex flex-row ml-3 text-sm hover:underline"
             >
               <FaTrash className="mt-[3px] mr-1" />
-              Delete
+              {t("plantCard.delete")}
             </button>
           </div>
         </div>
         <hr className="my-1.5" />
         <div className="flex flex-row gap-6">
           <div className="text-sm">
-            <strong>Type</strong>
+            <strong>{t("plantCard.type")}</strong>
             <p>{plant.type}</p>
           </div>
           <div className="text-sm">
-            <strong>Family</strong>
+            <strong>{t("plantCard.family")}</strong>
             <p>{plant.family}</p>
           </div>
           <div className="text-sm">
-            <strong>Sunlight</strong>
+            <strong>{t("plantCard.sunlight")}</strong>
             <p>{plant.sunlight}</p>
           </div>
         </div>
         <hr className="my-1.5" />
         <div className="text-sm">
-          <strong>Next Watering</strong>
+          <strong>{t("plantCard.timeLeft")}</strong>
           <p>{timeLeft}</p>
         </div>
       </div>

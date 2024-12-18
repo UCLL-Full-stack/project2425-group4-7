@@ -2,11 +2,10 @@
     "homepage" : {
         "title" : "Rootz",
         "home_tekst" : "Home still needs to be created, MyPlants is already partially completed."
-        
     },
 
     "header" : {
-        "notification" : "Succesfully logged out of your account",
+        "notification" : "Successfully logged out of your account",
         "myPlants" : "My Plants",
         "settings" : "Settings",
         "logout" : "Logout",
@@ -17,13 +16,16 @@
 
     "addPlant" : {
         "add_new_plant" : "Adding a new plant",
+        "name_plant" : "Name:",
         "type_plant" : "Type of Plant:",
         "family" : "Family:",
         "watering_frequency" : "Watering Frequency:",
         "select_frequency" : "Select watering frequency",
         "every_day" : "Every day",
+        "once_two_days" : "Once every 2 days",
+        "once_three_days" : "Once every 3 days",
         "once_week" : "Once a week",
-        "once_two_week" : "Once in 2 weeks",
+        "once_two_week" : "Once every 2 weeks",
         "once_month" : "Once a month",
         "never" : "Never",
         "amount_sunlight" : "Amount of Sunlight:",
@@ -33,23 +35,53 @@
         "high" : "High",
         "email" : "Email",
         "sms" : "SMS",
-        "add_plant" : "Add Plant"
+        "add_plant" : "Add Plant",
+        "reminders" : "Reminders:",
+        "cancel" : "Cancel"
     },
 
     "plantCard" : {
         "type" : "Type:",
         "family" : "Family:",
-        "watering_frequency" :"Watering Frequency:",
+        "watering_frequency" : "Watering Frequency:",
         "sunlight" : "Sunlight:",
         "email_reminder" : "Email Reminder:",
         "sms_reminder" : "SMS Reminder",
         "yes" : "Yes",
-        "no" : "No"    
+        "no" : "No",
+        "delete_success": "Successfully deleted plant",
+        "no_water_needed": "Plant doesn't need water",
+        "days_short": "d",
+        "hours_short": "u",
+        "minutes_short": "m",
+        "seconds_short": "s",
+        "days": "day(s)",
+        "hours": "hour(s)",
+        "minutes": "minute(s)",
+        "seconds": "second(s)",
+        "edit": "Edit",
+        "delete": "Delete",
+        "name": "Naam",
+        "timeLeft": "Next Watering:"
     },
 
     "admin" : {
         "title" : "Rootz | Admin",
-        "admin" : "Admin"
+        "admin" : "Admin",
+        "plants" : "Plants",
+        "users" : "Users",
+        "dashboard" : "Admin Dashboard",
+        "search_users" : "Search a user",
+        "search_plants" : "Search a plant",
+        "noplants" : "No plants found",
+        "loading" : "Loading..."
+    },
+
+    "AdminUserList" : {
+        "id" : "ID",
+        "username" : "Username",
+        "email" : "Email",
+        "role" : "Role"
     },
 
     "login" : {
@@ -61,14 +93,17 @@
         "notification_failed_to_fetch_unauthorized" : "Failed to fetch plants: Unauthorized",
         "notification_failed_to_fetch" : "Failed to fetch plants",
         "title" : "Rootz | My Plants",
+        "subtitle" : "My Plants",
         "type" : "Type:",
         "family" : "Family:",
-        "watering_frequency" :"Watering Frequency:",
+        "watering_frequency" : "Watering Frequency:",
         "sunlight" : "Sunlight:",
         "sms_reminder" : "SMS Reminder",
-        "email_reminder" :"Email Reminder:",
+        "email_reminder" : "Email Reminder:",
         "no_plants_found" : "No plants found",
-        "loading" : "Loading"
+        "loading" : "Loading",
+        "search_plants" : "Search a plant",
+        "new_plant" : "New Plant"
     },
 
     "settings" : {
@@ -80,7 +115,7 @@
         "notification_username_empty" : "Username cannot be empty.",
         "notification_password_empty" : "Password cannot be empty.",
         "notification_incorrect_username_password" : "Incorrect username and/or password. Please try again.",
-        "notification_succesfully_logged_in" : "Succesfully logged in to your account",
+        "notification_succesfully_logged_in" : "Successfully logged in to your account",
         "notification_login_failed" : "Login failed, please try again later",
         "placeholder_username" : "Username",
         "placeholder_password" : "Password",
@@ -93,13 +128,13 @@
         "notification_username_required" : "Username is required",
         "notification_email_required" : "Email is required",
         "notification_password_required" : "Password is required",
-        "notification_password_match" : "Passwords does not match",
+        "notification_password_match" : "Passwords do not match",
         "notification_registration_failed" : "Registration failed, please try again",
         "notification_successfully_created" : "Successfully created your account",
         "notification_failed_login" : "Failed to login to your account",
         "notification_failed_try_again" : "Login failed, please try again later",
         "notification_error" : "Error:",
-        "notification_registration_failed_try_again" : "registration failed, please try again",
+        "notification_registration_failed_try_again" : "Registration failed, please try again",
         "placeholder_username" : "Username",
         "placeholder_email" : "Email",
         "placeholder_password" : "Password",

@@ -3,6 +3,7 @@
         "title": "Rootz",
         "home_tekst": "La page d'accueil doit encore être créée, Mes Plantes est déjà partiellement terminée."
     },
+
     "header": {
         "notification": "Déconnexion réussie de votre compte",
         "myPlants": "Mes Plantes",
@@ -12,61 +13,104 @@
         "login": "Se Connecter",
         "admin": "Admin"
     },
+
     "addPlant": {
         "add_new_plant": "Ajouter une nouvelle plante",
-        "type_plant": "Type de plante :",
-        "family": "Famille :",
-        "watering_frequency": "Fréquence d'arrosage :",
-        "select_frequency": "Sélectionnez la fréquence d'arrosage",
+        "name_plant": "Nom:",
+        "type_plant": "Type de Plante:",
+        "family": "Famille:",
+        "watering_frequency": "Fréquence d'arrosage:",
+        "select_frequency": "Sélectionner la fréquence d'arrosage",
         "every_day": "Tous les jours",
+        "once_two_days": "Une fois tous les 2 jours",
+        "once_three_days": "Une fois tous les 3 jours",
         "once_week": "Une fois par semaine",
         "once_two_week": "Une fois toutes les 2 semaines",
         "once_month": "Une fois par mois",
         "never": "Jamais",
-        "amount_sunlight": "Quantité de lumière solaire :",
-        "select_sunlight": "Sélectionnez la quantité de lumière",
+        "amount_sunlight": "Quantité de lumière solaire:",
+        "select_sunlight": "Sélectionner la quantité de lumière",
         "low": "Faible",
         "medium": "Moyenne",
         "high": "Forte",
         "email": "E-mail",
         "sms": "SMS",
-        "add_plant": "Ajouter la plante"
+        "add_plant": "Ajouter la plante",
+        "reminders": "Rappels:",
+        "cancel": "Annuler"
     },
+
     "plantCard": {
-        "type": "Type :",
-        "family": "Famille :",
-        "watering_frequency": "Fréquence d'arrosage :",
-        "sunlight": "Lumière solaire :",
-        "email_reminder": "Rappel par e-mail :",
-        "sms_reminder": "Rappel par SMS :",
+        "type": "Type:",
+        "family": "Famille:",
+        "watering_frequency": "Fréquence d'arrosage:",
+        "sunlight": "Lumière solaire:",
+        "email_reminder": "Rappel par e-mail:",
+        "sms_reminder": "Rappel par SMS",
         "yes": "Oui",
-        "no": "Non"
+        "no": "Non",
+        "delete_success": "Plante supprimée avec succès",
+        "no_water_needed": "La plante n'a pas besoin d'eau",
+        "days_short": "j",
+        "hours_short": "h",
+        "minutes_short": "m",
+        "seconds_short": "s",
+        "days": "jour(s)",
+        "hours": "heure(s)",
+        "minutes": "minute(s)",
+        "seconds": "seconde(s)",
+        "edit": "Éditer",
+        "delete": "Supprimer",
+        "name": "Nom",
+        "timeLeft": "Prochain arrosage:"
     },
+
     "admin": {
         "title": "Rootz | Admin",
-        "admin": "Admin"
+        "admin": "Admin",
+        "plants": "Plantes",
+        "users": "Utilisateurs",
+        "dashboard": "Tableau de bord Admin",
+        "search_users": "Rechercher un utilisateur",
+        "search_plants": "Rechercher une plante",
+        "noplants": "Aucune plante trouvée",
+        "loading": "Chargement..."
     },
+
+    "AdminUserList": {
+        "id": "ID",
+        "username": "Nom d'utilisateur",
+        "email": "E-mail",
+        "role": "Rôle"
+    },
+
     "login": {
         "title": "Rootz | Connexion"
     },
+
     "myPlants": {
         "notification_authorized": "Non autorisé à récupérer les plantes",
         "notification_failed_to_fetch_unauthorized": "Échec de récupération des plantes : Non autorisé",
         "notification_failed_to_fetch": "Échec de récupération des plantes",
         "title": "Rootz | Mes Plantes",
-        "type": "Type :",
-        "family": "Famille :",
-        "watering_frequency": "Fréquence d'arrosage :",
-        "sunlight": "Lumière solaire :",
+        "subtitle": "Mes Plantes",
+        "type": "Type:",
+        "family": "Famille:",
+        "watering_frequency": "Fréquence d'arrosage:",
+        "sunlight": "Lumière solaire:",
         "sms_reminder": "Rappel par SMS",
-        "email_reminder": "Rappel par e-mail :",
+        "email_reminder": "Rappel par e-mail:",
         "no_plants_found": "Aucune plante trouvée",
-        "loading": "Chargement"
+        "loading": "Chargement",
+        "search_plants": "Rechercher une plante",
+        "new_plant": "Nouvelle Plante"
     },
+
     "settings": {
         "title": "Rootz | Paramètres",
         "settings": "Paramètres"
     },
+
     "loginForm": {
         "notification_username_empty": "Le nom d'utilisateur ne peut pas être vide.",
         "notification_password_empty": "Le mot de passe ne peut pas être vide.",
@@ -79,6 +123,7 @@
         "no_account": "Pas encore de compte ?",
         "register_here": "Inscrivez-vous ici"
     },
+
     "registerForm": {
         "notification_username_required": "Le nom d'utilisateur est requis",
         "notification_email_required": "L'e-mail est requis",
@@ -86,7 +131,7 @@
         "notification_password_match": "Les mots de passe ne correspondent pas",
         "notification_registration_failed": "Échec de l'inscription, veuillez réessayer",
         "notification_successfully_created": "Compte créé avec succès",
-        "notification_failed_login": "Connexion échouée",
+        "notification_failed_login": "Échec de connexion",
         "notification_failed_try_again": "Échec de la connexion, veuillez réessayer plus tard",
         "notification_error": "Erreur :",
         "notification_registration_failed_try_again": "Échec de l'inscription, veuillez réessayer",

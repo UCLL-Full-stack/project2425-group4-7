@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { FaPenToSquare, FaTrash } from "react-icons/fa6";
 import { useNotifications } from "../utils/notifications";
 import PlantService from "@/services/PlantService";
+import { useTranslation } from "react-i18next";
 
 type PlantCardProps = {
   plant: Plant;
@@ -12,6 +13,7 @@ type PlantCardProps = {
 const AdminPlantCard: React.FC<PlantCardProps> = ({ plant, onDelete }) => {
   const [timeLeft, setTimeLeft] = useState<string>("");
   const { sendNotification } = useNotifications();
+  const { t } = useTranslation();
 
   const wateringIntervals: Record<string, number | null> = {
     daily: 24 * 60 * 60 * 1000,
@@ -26,7 +28,10 @@ const AdminPlantCard: React.FC<PlantCardProps> = ({ plant, onDelete }) => {
   const deletePlant = () => {
     if (plant.id) {
       PlantService.deletePlant(plant.id);
-      sendNotification(`Successfully deleted plant: ${plant.name}`, "success");
+      sendNotification(
+        `${t("plantCard.delete_success")}: ${plant.name}`,
+        "success"
+      );
       onDelete();
     } else {
       console.error("Plant ID is undefined");
@@ -36,7 +41,7 @@ const AdminPlantCard: React.FC<PlantCardProps> = ({ plant, onDelete }) => {
   useEffect(() => {
     const intervalMs = wateringIntervals[plant.wateringFreq];
     if (intervalMs === null) {
-      setTimeLeft("Plant doesn't need water");
+      setTimeLeft(`${t("plantCard.no_water_needed")}`);
       return;
     }
     if (!intervalMs) {
@@ -49,7 +54,7 @@ const AdminPlantCard: React.FC<PlantCardProps> = ({ plant, onDelete }) => {
       : new Date().getTime();
 
     if (plantCreatedAt === null) {
-      setTimeLeft(`No watering needed`);
+      setTimeLeft(`${t("plantCard.no_water_needed")}`);
       return;
     }
 
@@ -68,7 +73,11 @@ const AdminPlantCard: React.FC<PlantCardProps> = ({ plant, onDelete }) => {
       const seconds = Math.floor((remainingTime % (60 * 1000)) / 1000);
 
       setTimeLeft(
-        `${days > 0 ? `${days}d ` : ""}${hours}h, ${minutes}m, ${seconds}s`
+        `${days > 0 ? `${days}${t("plantCard.days_short")} ` : ""}${hours}${t(
+          "plantCard.hours_short"
+        )}, ${minutes}${t("plantCard.minutes_short")}, ${seconds}${t(
+          "plantCard.seconds_short"
+        )}`
       );
     };
 
@@ -87,37 +96,37 @@ const AdminPlantCard: React.FC<PlantCardProps> = ({ plant, onDelete }) => {
           <div className=" flex flex-row mt-[7px]">
             <button className="flex flex-row text-sm hover:underline">
               <FaPenToSquare className="mt-[3px] mr-1" />
-              Edit
+              {t("plantCard.edit")}
             </button>
             <button
               onClick={deletePlant}
               className="flex flex-row ml-3 text-sm hover:underline"
             >
               <FaTrash className="mt-[3px] mr-1" />
-              Delete
+              {t("plantCard.delete")}
             </button>
           </div>
         </div>
         <hr className="my-1.5" />
         <div className="flex flex-row gap-6">
           <div className="text-sm">
-            <strong>Name</strong>
+            <strong>{t("plantCard.name")}</strong>
             <p>{plant.name}</p>
           </div>
           <div className="text-sm">
-            <strong>Type</strong>
+            <strong>{t("plantCard.type")}</strong>
             <p>{plant.type}</p>
           </div>
           <div className="text-sm">
-            <strong>Family</strong>
+            <strong>{t("plantCard.family")}</strong>
             <p>{plant.family}</p>
           </div>
           <div className="text-sm">
-            <strong>Sunlight</strong>
+            <strong>{t("plantCard.sunlight")}</strong>
             <p>{plant.sunlight}</p>
           </div>
           <div className="text-sm">
-            <strong>Next Watering</strong>
+            <strong>{t("plantCard.timeLeft")}</strong>
             <p>{timeLeft}</p>
           </div>
         </div>

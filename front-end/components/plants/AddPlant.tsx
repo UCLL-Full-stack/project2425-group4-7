@@ -93,7 +93,7 @@ const AddPlant: React.FC<AddPlantProps> = ({ onAddPlant, onClose }) => {
             onClick={handleClose}
           >
             <FaXmark className="mt-[5px] mr-0.5" />
-            Cancel
+            {t("addPlant.cancel")}
           </button>
         </div>
         <hr className="mb-4 mt-2" />
@@ -142,7 +142,7 @@ const AddPlant: React.FC<AddPlantProps> = ({ onAddPlant, onClose }) => {
               <option value="2-days">{t("addPlant.once_two_days")}</option>
               <option value="3-days">{t("addPlant.once_three_days")}</option>
               <option value="weekly">{t("addPlant.once_week")}</option>
-              <option value="2-weeks">{t("addPlant.once_two_weeks")}</option>
+              <option value="2-weeks">{t("addPlant.once_two_week")}</option>
               <option value="monthly">{t("addPlant.once_month")}</option>
               <option value="never">{t("addPlant.never")}</option>
             </select>

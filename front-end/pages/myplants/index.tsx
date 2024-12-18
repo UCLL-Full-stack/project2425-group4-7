@@ -73,7 +73,7 @@ const MyPlants = () => {
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <main className="min-h-screen flex flex-col items-center mt-5 text-white">
-          <h1 className="font-bold text-lg">My Plants</h1>
+          <h1 className="font-bold text-lg">{t("myPlants.subtitle")}</h1>
           <hr className="mb-3 mt-2 bg-white w-[26.8rem]" />
           <div className="flex flex-row gap-4 mb-3">
             <div className="px-6 pb-2 font-semibold rounded-lg flex flex-row after:bg-white relative after:absolute after:h-[1px] after:w-0 after:bottom-0 after:left-0 focus-within:after:w-full after:transition-all after:duration-300">
@@ -81,7 +81,7 @@ const MyPlants = () => {
               <input
                 className="bg-transparent placeholder:text-white outline-none"
                 type="text"
-                placeholder="Search a plant"
+                placeholder={t("myPlants.search_plants")}
                 value={searchInput}
                 onChange={handleSearchChange}
               />
@@ -91,7 +91,7 @@ const MyPlants = () => {
               className="px-6 pb-2 font-semibold rounded-lg flex flex-row after:bg-white relative after:absolute after:h-[1px] after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-300"
             >
               <FaPlus className="mt-1 mr-1" />
-              New Plant
+              {t("myPlants.new_plant")}
             </button>
           </div>
 
