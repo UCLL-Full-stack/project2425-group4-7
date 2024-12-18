@@ -95,7 +95,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ toggleForm }) => {
           </div>
           <div className="flex flex-col">
             <input
-              placeholder={t("loginForm.placeholder.password")}
+              placeholder={t("loginForm.placeholder_password")}
               type="password"
               onChange={(e) => setPassword(e.target.value)}
               className="bg-transparent rounded-md border border-white placeholder:text-white pl-2 p-0.5"
