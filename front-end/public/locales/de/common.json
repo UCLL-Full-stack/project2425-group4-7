@@ -1,0 +1,101 @@
+{
+    "homepage": {
+        "title": "Rootz",
+        "home_tekst": "Startseite muss noch erstellt werden, Meine Pflanzen ist bereits teilweise fertig."
+    },
+    "header": {
+        "notification": "Erfolgreich abgemeldet",
+        "myPlants": "Meine Pflanzen",
+        "settings": "Einstellungen",
+        "logout": "Abmelden",
+        "home": "Startseite",
+        "login": "Anmelden",
+        "admin": "Administrator"
+    },
+    "addPlant": {
+        "add_new_plant": "Eine neue Pflanze hinzufügen",
+        "type_plant": "Pflanzenart:",
+        "family": "Familie:",
+        "watering_frequency": "Bewässerungshäufigkeit:",
+        "select_frequency": "Bewässerungshäufigkeit auswählen",
+        "every_day": "Jeden Tag",
+        "once_week": "Einmal pro Woche",
+        "once_two_week": "Einmal alle 2 Wochen",
+        "once_month": "Einmal im Monat",
+        "never": "Nie",
+        "amount_sunlight": "Menge an Sonnenlicht:",
+        "select_sunlight": "Menge an Sonnenlicht auswählen",
+        "low": "Niedrig",
+        "medium": "Mittel",
+        "high": "Hoch",
+        "email": "E-Mail",
+        "sms": "SMS",
+        "add_plant": "Pflanze hinzufügen"
+    },
+    "plantCard": {
+        "type": "Typ:",
+        "family": "Familie:",
+        "watering_frequency": "Bewässerungshäufigkeit:",
+        "sunlight": "Sonnenlicht:",
+        "email_reminder": "E-Mail-Erinnerung:",
+        "sms_reminder": "SMS-Erinnerung:",
+        "yes": "Ja",
+        "no": "Nein"
+    },
+    "admin": {
+        "title": "Rootz | Administrator",
+        "admin": "Administrator"
+    },
+    "login": {
+        "title": "Rootz | Anmelden"
+    },
+    "myPlants": {
+        "notification_authorized": "Keine Berechtigung, Pflanzen abzurufen",
+        "notification_failed_to_fetch_unauthorized": "Pflanzen konnten nicht abgerufen werden: Nicht berechtigt",
+        "notification_failed_to_fetch": "Pflanzen konnten nicht abgerufen werden",
+        "title": "Rootz | Meine Pflanzen",
+        "type": "Typ:",
+        "family": "Familie:",
+        "watering_frequency": "Bewässerungshäufigkeit:",
+        "sunlight": "Sonnenlicht:",
+        "sms_reminder": "SMS-Erinnerung",
+        "email_reminder": "E-Mail-Erinnerung:",
+        "no_plants_found": "Keine Pflanzen gefunden",
+        "loading": "Laden"
+    },
+    "settings": {
+        "title": "Rootz | Einstellungen",
+        "settings": "Einstellungen"
+    },
+    "loginForm": {
+        "notification_username_empty": "Benutzername darf nicht leer sein.",
+        "notification_password_empty": "Passwort darf nicht leer sein.",
+        "notification_incorrect_username_password": "Falscher Benutzername und/oder Passwort. Bitte versuchen Sie es erneut.",
+        "notification_succesfully_logged_in": "Erfolgreich eingeloggt",
+        "notification_login_failed": "Anmeldung fehlgeschlagen, bitte versuchen Sie es später erneut",
+        "placeholder_username": "Benutzername",
+        "placeholder_password": "Passwort",
+        "login": "Anmelden",
+        "no_account": "Noch kein Konto?",
+        "register_here": "Hier registrieren"
+    },
+    "registerForm": {
+        "notification_username_required": "Benutzername ist erforderlich",
+        "notification_email_required": "E-Mail ist erforderlich",
+        "notification_password_required": "Passwort ist erforderlich",
+        "notification_password_match": "Passwörter stimmen nicht überein",
+        "notification_registration_failed": "Registrierung fehlgeschlagen, bitte versuchen Sie es erneut",
+        "notification_successfully_created": "Konto erfolgreich erstellt",
+        "notification_failed_login": "Anmeldung fehlgeschlagen",
+        "notification_failed_try_again": "Anmeldung fehlgeschlagen, bitte versuchen Sie es später erneut",
+        "notification_error": "Fehler:",
+        "notification_registration_failed_try_again": "Registrierung fehlgeschlagen, bitte versuchen Sie es erneut",
+        "placeholder_username": "Benutzername",
+        "placeholder_email": "E-Mail",
+        "placeholder_password": "Passwort",
+        "placeholder_repeat_password": "Passwort wiederholen",
+        "register": "Registrieren",
+        "already_have_an_account": "Haben Sie bereits ein Konto?",
+        "login_here": "Hier anmelden"
+    }
+}

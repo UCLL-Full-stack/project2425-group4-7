@@ -3,6 +3,7 @@ import { useNotifications } from "../utils/notifications";
 import UserService from "@/services/UserService";
 import { User } from "@/types/types";
 import { useRouter } from "next/router";
+import { useTranslation } from "react-i18next";
 
 interface RegisterFormProps {
   toggleForm: () => void;
@@ -15,18 +16,31 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ toggleForm }) => {
   const [email, setEmail] = useState("");
   const { sendNotification } = useNotifications();
   const router = useRouter();
+  const { t } = useTranslation();
 
   const onRegister = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (username.length === 0) {
-      sendNotification("Username is required", "error");
+      sendNotification(
+        `${t("registerForm.notification_username_required")}`,
+        "error"
+      );
     } else if (email.length === 0) {
-      sendNotification("Email is required", "error");
+      sendNotification(
+        `${t("registerForm.notification_email_required")}`,
+        "error"
+      );
     } else if (password.length === 0) {
-      sendNotification("Password is required", "error");
+      sendNotification(
+        `${t("registerForm.notification_password_required")}`,
+        "error"
+      );
     } else if (verifyPassword != password) {
-      sendNotification("Passwords does not match", "error");
+      sendNotification(
+        `${t("registerForm.notification_password_match")}`,
+        "error"
+      );
     } else {
       const newUser: User = {
         username: username,
@@ -42,11 +56,17 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ toggleForm }) => {
             const error = await response.json();
             sendNotification(error.message, "error");
           } catch {
-            sendNotification("Registration failed, please try again", "error");
+            sendNotification(
+              `${t("registerform.notification_registration_failed")}`,
+              "error"
+            );
           }
           return;
         }
-        sendNotification("Successfully created your account", "success");
+        sendNotification(
+          `${t("registerform.notification_successfully_created")}`,
+          "success"
+        );
         if (response.ok) {
           try {
             const loggedinUser: User = {
@@ -59,7 +79,10 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ toggleForm }) => {
                 const error = await response.json();
                 sendNotification(error.message, "error");
               } catch {
-                sendNotification("Failed to login to your account", "error");
+                sendNotification(
+                  `${t("registerform.notification_failed_login")}`,
+                  "error"
+                );
               }
               return;
             }
@@ -73,15 +96,27 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ toggleForm }) => {
                 });
               }, 2000);
             } catch (error) {
-              sendNotification("Login failed, please try again later", "error");
+              sendNotification(
+                `${t("registerform.notification_failed_try_again")}`,
+                "error"
+              );
             }
           } catch (error) {
-            sendNotification(`"Error:" ${error}`, "error");
+            sendNotification(
+              `${t("registerform.notification_error")} ${error}`,
+              "error"
+            );
           }
         }
       } catch (error) {
-        sendNotification("Registration failed, please try again", "error");
-        sendNotification(`"Error:" ${error}`, "error");
+        sendNotification(
+          `${t("registerform.notification_registration_failed_try_again")}`,
+          "error"
+        );
+        sendNotification(
+          `${t("registerform.notification_error")} ${error}`,
+          "error"
+        );
       }
     }
   };
@@ -97,7 +132,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ toggleForm }) => {
           <h1 className="font-semibold text-center text-lg mb-3">Register</h1>
           <div className="flex flex-col">
             <input
-              placeholder="Username"
+              placeholder={t("registerform.placeholder_username")}
               type="username"
               onChange={(e) => setUsername(e.target.value)}
               className="bg-transparent rounded-md border border-white placeholder:text-white p-0.5 mb-3 pl-2"
@@ -105,7 +140,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ toggleForm }) => {
           </div>
           <div className="flex flex-col">
             <input
-              placeholder="Email"
+              placeholder={t("registerform.placeholder_email")}
               type="email"
               onChange={(e) => setEmail(e.target.value)}
               className="bg-transparent rounded-md border border-white placeholder:text-white p-0.5 mb-3 pl-2"
@@ -113,7 +148,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ toggleForm }) => {
           </div>
           <div className="flex flex-col">
             <input
-              placeholder="Password"
+              placeholder={t("registerform.placeholder_password")}
               type="password"
               onChange={(e) => setPassword(e.target.value)}
               className="bg-transparent rounded-md border border-white placeholder:text-white p-0.5 mb-3 pl-2"
@@ -121,7 +156,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ toggleForm }) => {
           </div>
           <div className="flex flex-col">
             <input
-              placeholder="Repeat Password"
+              placeholder={t("registerform.placeholder_repeat_password")}
               type="password"
               onChange={(e) => setVerifyPassword(e.target.value)}
               className="bg-transparent rounded-md border border-white placeholder:text-white pl-2 p-0.5"
@@ -131,14 +166,14 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ toggleForm }) => {
             onClick={onRegister}
             className="bg-white w-full hover:bg-slate-200 text-gray-900 font-semibold mt-4 rounded-md p-1 text-sm"
           >
-            Register
+            {t("registerform.register")}
           </button>
         </form>
         <p className="font-light text-sm mt-3 text-center">
-          Already have an account?{" "}
+          {t("registerform.already_have_an_account")}{" "}
           <button className="font-semibold" onClick={toggleForm}>
             {" "}
-            Login here
+            {t("registerform.login_here")}
           </button>
         </p>
       </div>

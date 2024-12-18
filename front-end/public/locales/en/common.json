@@ -11,11 +11,12 @@
         "settings" : "Settings",
         "logout" : "Logout",
         "home" : "Home",
-        "login" : "Login"
+        "login" : "Login",
+        "admin" : "Admin"
     },
 
     "addPlant" : {
-        "add_plant" : "Adding a new plant",
+        "add_new_plant" : "Adding a new plant",
         "type_plant" : "Type of Plant:",
         "family" : "Family:",
         "watering_frequency" : "Watering Frequency:",
@@ -33,6 +34,78 @@
         "email" : "Email",
         "sms" : "SMS",
         "add_plant" : "Add Plant"
-    }
+    },
 
+    "plantCard" : {
+        "type" : "Type:",
+        "family" : "Family:",
+        "watering_frequency" :"Watering Frequency:",
+        "sunlight" : "Sunlight:",
+        "email_reminder" : "Email Reminder:",
+        "sms_reminder" : "SMS Reminder",
+        "yes" : "Yes",
+        "no" : "No"    
+    },
+
+    "admin" : {
+        "title" : "Rootz | Admin",
+        "admin" : "Admin"
+    },
+
+    "login" : {
+        "title" : "Rootz | Login"
+    },
+
+    "myPlants" : {
+        "notification_authorized" : "Not authorized to fetch plants",
+        "notification_failed_to_fetch_unauthorized" : "Failed to fetch plants: Unauthorized",
+        "notification_failed_to_fetch" : "Failed to fetch plants",
+        "title" : "Rootz | My Plants",
+        "type" : "Type:",
+        "family" : "Family:",
+        "watering_frequency" :"Watering Frequency:",
+        "sunlight" : "Sunlight:",
+        "sms_reminder" : "SMS Reminder",
+        "email_reminder" :"Email Reminder:",
+        "no_plants_found" : "No plants found",
+        "loading" : "Loading"
+    },
+
+    "settings" : {
+        "title" : "Rootz | Settings",
+        "settings" : "Settings"
+    },
+
+    "loginForm" : {
+        "notification_username_empty" : "Username cannot be empty.",
+        "notification_password_empty" : "Password cannot be empty.",
+        "notification_incorrect_username_password" : "Incorrect username and/or password. Please try again.",
+        "notification_succesfully_logged_in" : "Succesfully logged in to your account",
+        "notification_login_failed" : "Login failed, please try again later",
+        "placeholder_username" : "Username",
+        "placeholder_password" : "Password",
+        "login" : "Login",
+        "no_account" : "Don't have an account yet?",
+        "register_here" : "Register here"
+    },
+
+    "registerForm" : {
+        "notification_username_required" : "Username is required",
+        "notification_email_required" : "Email is required",
+        "notification_password_required" : "Password is required",
+        "notification_password_match" : "Passwords does not match",
+        "notification_registration_failed" : "Registration failed, please try again",
+        "notification_successfully_created" : "Successfully created your account",
+        "notification_failed_login" : "Failed to login to your account",
+        "notification_failed_try_again" : "Login failed, please try again later",
+        "notification_error" : "Error:",
+        "notification_registration_failed_try_again" : "registration failed, please try again",
+        "placeholder_username" : "Username",
+        "placeholder_email" : "Email",
+        "placeholder_password" : "Password",
+        "placeholder_repeat_password" : "Repeat Password",
+        "register" : "Register",
+        "already_have_an_account" : "Already have an account?",
+        "login_here" : "Login here"
+    }
 }

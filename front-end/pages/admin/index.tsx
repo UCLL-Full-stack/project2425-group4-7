@@ -1,20 +1,34 @@
 import Head from "next/head";
 import styles from "@/styles/settings.module.css";
 import React from "react";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "react-i18next";
+
+const { t } = useTranslation();
 
 const Settings = () => {
   return (
     <>
       <Head>
-        <title>Rootz | Admin</title>
+        <title>{t("admin.title")}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="min-h-screen flex justify-center">
-        <p className="mt-5 text-white font-semibold">Admin</p>
+        <p className="mt-5 text-white font-semibold">{t("admin.admin")}</p>
       </main>
     </>
   );
 };
 
 export default Settings;
+
+export const getServerSideProps = async (context: { locale: any }) => {
+  const { locale } = context;
+
+  return {
+    props: {
+      ...(await serverSideTranslations(locale ?? "en", ["common"])),
+    },
+  };
+};

@@ -3,6 +3,7 @@ import { useNotifications } from "../utils/notifications";
 import UserService from "@/services/UserService";
 import { useRouter } from "next/router";
 import { User } from "@/types/types";
+import { useTranslation } from "react-i18next";
 
 interface LoginFormProps {
   toggleForm: () => void;
@@ -13,13 +14,20 @@ const LoginForm: React.FC<LoginFormProps> = ({ toggleForm }) => {
   const [password, setPassword] = useState("");
   const { sendNotification } = useNotifications();
   const router = useRouter();
+  const { t } = useTranslation();
 
   const onLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     if (username.length == 0) {
-      sendNotification("Username cannot be empty.", "error");
+      sendNotification(
+        `${t("loginForm.notification_username_empty")}`,
+        "error"
+      );
     } else if (password.length == 0) {
-      sendNotification("Password cannot be empty.", "error");
+      sendNotification(
+        `${t("loginForm.notification_password_empty")}`,
+        "error"
+      );
     } else {
       const loggedinUser: User = {
         username: username,
@@ -35,7 +43,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ toggleForm }) => {
             sendNotification(error.message, "error");
           } catch {
             sendNotification(
-              "Incorrect username and/or password. Please try again.",
+              `${t("loginForm.notification_incorrect_username_password")}`,
               "error"
             );
           }
@@ -44,17 +52,26 @@ const LoginForm: React.FC<LoginFormProps> = ({ toggleForm }) => {
 
         try {
           const token = await response.json();
-          sendNotification("Successfully logged in to your account", "success");
+          sendNotification(
+            `${t("loginForm.notification_succesfully_logged_in")}`,
+            "success"
+          );
           localStorage.setItem("loggedInUser", JSON.stringify(token));
           setTimeout(() => {
             router.push("/");
           }, 1000);
         } catch (error) {
-          sendNotification("Login failed, please try again later", "error");
+          sendNotification(
+            `${t("loginForm.notification_login_failed")}`,
+            "error"
+          );
         }
       } catch (error) {
         console.error("Unexpected error:", error);
-        sendNotification("Login failed, please try again later", "error");
+        sendNotification(
+          `${t("loginForm.notification_login_failed")}`,
+          "error"
+        );
       }
     }
   };
@@ -70,7 +87,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ toggleForm }) => {
           <h1 className="font-semibold text-center text-lg mb-3">Login</h1>
           <div className="flex flex-col">
             <input
-              placeholder="Username"
+              placeholder={t("loginForm.placeholder_username")}
               type="username"
               onChange={(e) => setUsername(e.target.value)}
               className="bg-transparent rounded-md border border-white placeholder:text-white p-0.5 mb-3 pl-2"
@@ -78,21 +95,21 @@ const LoginForm: React.FC<LoginFormProps> = ({ toggleForm }) => {
           </div>
           <div className="flex flex-col">
             <input
-              placeholder="Password"
+              placeholder={t("loginForm.placeholder.password")}
               type="password"
               onChange={(e) => setPassword(e.target.value)}
               className="bg-transparent rounded-md border border-white placeholder:text-white pl-2 p-0.5"
             />
           </div>
           <button className="bg-white w-full hover:bg-slate-200 text-gray-900 font-semibold mt-4 rounded-md p-1 text-sm">
-            Login
+            {t("loginForm.login")}
           </button>
         </form>
         <p className="font-light text-sm mt-3 text-center">
-          Don't have an account yet?{" "}
+          {t("loginForm.no_account")}{" "}
           <button className="font-semibold" onClick={toggleForm}>
             {" "}
-            Register here
+            {t("loginForm.register_here")}
           </button>
         </p>
       </div>

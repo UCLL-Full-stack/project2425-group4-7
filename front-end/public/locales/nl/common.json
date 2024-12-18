@@ -1,16 +1,101 @@
 {
-    "homepage" : {
-        "title" : "Rootz",
-        "home_tekst" : "Home moet nog gemaakt worden, MyPlants is wel al voor een stuk af."
+    "homepage": {
+        "title": "Rootz",
+        "home_tekst": "Home moet nog worden gemaakt, MijnPlanten is al gedeeltelijk voltooid."
     },
-
     "header": {
         "notification": "Succesvol uitgelogd van je account",
         "myPlants": "Mijn Planten",
         "settings": "Instellingen",
         "logout": "Uitloggen",
         "home": "Home",
-        "login": "Inloggen"
+        "login": "Inloggen",
+        "admin": "Beheerder"
+    },
+    "addPlant": {
+        "add_new_plant": "Een nieuwe plant toevoegen",
+        "type_plant": "Type Plant:",
+        "family": "Familie:",
+        "watering_frequency": "Waterfrequentie:",
+        "select_frequency": "Selecteer waterfrequentie",
+        "every_day": "Elke dag",
+        "once_week": "Eén keer per week",
+        "once_two_week": "Eén keer in 2 weken",
+        "once_month": "Eén keer per maand",
+        "never": "Nooit",
+        "amount_sunlight": "Hoeveelheid Zonlicht:",
+        "select_sunlight": "Selecteer hoeveelheid zonlicht",
+        "low": "Laag",
+        "medium": "Gemiddeld",
+        "high": "Hoog",
+        "email": "E-mail",
+        "sms": "SMS",
+        "add_plant": "Plant Toevoegen"
+    },
+    "plantCard": {
+        "type": "Type:",
+        "family": "Familie:",
+        "watering_frequency": "Waterfrequentie:",
+        "sunlight": "Zonlicht:",
+        "email_reminder": "E-mail Herinnering:",
+        "sms_reminder": "SMS Herinnering:",
+        "yes": "Ja",
+        "no": "Nee"
+    },
+    "admin": {
+        "title": "Rootz | Beheerder",
+        "admin": "Beheerder"
+    },
+    "login": {
+        "title": "Rootz | Inloggen"
+    },
+    "myPlants": {
+        "notification_authorized": "Geen toestemming om planten op te halen",
+        "notification_failed_to_fetch_unauthorized": "Kon planten niet ophalen: Geen toestemming",
+        "notification_failed_to_fetch": "Kon planten niet ophalen",
+        "title": "Rootz | Mijn Planten",
+        "type": "Type:",
+        "family": "Familie:",
+        "watering_frequency": "Waterfrequentie:",
+        "sunlight": "Zonlicht:",
+        "sms_reminder": "SMS Herinnering",
+        "email_reminder": "E-mail Herinnering:",
+        "no_plants_found": "Geen planten gevonden",
+        "loading": "Laden"
+    },
+    "settings": {
+        "title": "Rootz | Instellingen",
+        "settings": "Instellingen"
+    },
+    "loginForm": {
+        "notification_username_empty": "Gebruikersnaam mag niet leeg zijn.",
+        "notification_password_empty": "Wachtwoord mag niet leeg zijn.",
+        "notification_incorrect_username_password": "Onjuiste gebruikersnaam en/of wachtwoord. Probeer opnieuw.",
+        "notification_succesfully_logged_in": "Succesvol ingelogd op je account",
+        "notification_login_failed": "Inloggen mislukt, probeer het later opnieuw",
+        "placeholder_username": "Gebruikersnaam",
+        "placeholder_password": "Wachtwoord",
+        "login": "Inloggen",
+        "no_account": "Nog geen account?",
+        "register_here": "Registreer hier"
+    },
+    "registerForm": {
+        "notification_username_required": "Gebruikersnaam is verplicht",
+        "notification_email_required": "E-mail is verplicht",
+        "notification_password_required": "Wachtwoord is verplicht",
+        "notification_password_match": "Wachtwoorden komen niet overeen",
+        "notification_registration_failed": "Registratie mislukt, probeer opnieuw",
+        "notification_successfully_created": "Account succesvol aangemaakt",
+        "notification_failed_login": "Inloggen mislukt",
+        "notification_failed_try_again": "Inloggen mislukt, probeer het later opnieuw",
+        "notification_error": "Fout:",
+        "notification_registration_failed_try_again": "Registratie mislukt, probeer opnieuw",
+        "placeholder_username": "Gebruikersnaam",
+        "placeholder_email": "E-mail",
+        "placeholder_password": "Wachtwoord",
+        "placeholder_repeat_password": "Herhaal Wachtwoord",
+        "register": "Registreren",
+        "already_have_an_account": "Heb je al een account?",
+        "login_here": "Log hier in"
     }
-
 }

@@ -56,7 +56,7 @@ const AddPlant: React.FC<AddPlantProps> = ({ onAddPlant, onClose }) => {
 
   return (
     <form className={`${styles.addContainer}`} onSubmit={handleSubmit}>
-      <h3>{t("addPlant.add_plant")}</h3>
+      <h3>{t("addPlant.add_new_plant")}</h3>
       <label>{t("addPlant.type_plant")}</label>
       <input
         type="text"

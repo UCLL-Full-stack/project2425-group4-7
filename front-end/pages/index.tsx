@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 export default function Home() {
-  const { t } = useTranslation("common");
+  const { t } = useTranslation();
   return (
     <>
       <div className={`${styles.container}`}>

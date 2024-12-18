@@ -28,7 +28,13 @@ export default function LanguageDropdown() {
         onClick={handleToggle}
       >
         <FaLanguage className="mr-1.5 xl:mr-2 text-[27px] mt-0.5 flex-shrink-0" />
-        {locale === "en" ? "English" : "Nederlands"}
+        {locale === "en"
+          ? "English"
+          : locale === "nl"
+          ? "Nederlands"
+          : locale === "fr"
+          ? "Français"
+          : "Deutsch"}
       </button>
 
       {isOpen && (

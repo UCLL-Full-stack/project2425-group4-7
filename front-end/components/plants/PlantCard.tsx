@@ -1,30 +1,35 @@
 import { Plant } from "@/types/types";
+import { useTranslation } from "react-i18next";
 
 type PlantCardProps = {
   plant: Plant;
 };
+const { t } = useTranslation();
 
 const PlantCard: React.FC<PlantCardProps> = ({ plant }) => {
   return (
     <div>
       <h2>{plant.name}</h2>
       <p>
-        <strong>Type:</strong> {plant.type}
+        <strong>{t("plantCard.type")}</strong> {plant.type}
       </p>
       <p>
-        <strong>Family:</strong> {plant.family}
+        <strong>{t("plantCard.family")}</strong> {plant.family}
       </p>
       <p>
-        <strong>Watering Frequency:</strong> {plant.wateringFreq}
+        <strong>{t("plantCard.watering_frequency")}</strong>{" "}
+        {plant.wateringFreq}
       </p>
       <p>
-        <strong>Sunlight:</strong> {plant.sunlight}
+        <strong>{t("plantCard.sunlight")}</strong> {plant.sunlight}
       </p>
       <p>
-        <strong>Email Reminder:</strong> {plant.email ? "Yes" : "No"}
+        <strong>{t("plantCard.email_reminder")}</strong>{" "}
+        {plant.email ? `${t("plantCard.yes")}` : `${t("plantCard.no")}`}
       </p>
       <p>
-        <strong>SMS Reminder:</strong> {plant.sms ? "Yes" : "No"}
+        <strong>{t("plantCard.sms_reminder")}</strong>{" "}
+        {plant.sms ? `${t("plantCard.yes")}` : `${t("plantCard.no")}`}
       </p>
     </div>
   );
