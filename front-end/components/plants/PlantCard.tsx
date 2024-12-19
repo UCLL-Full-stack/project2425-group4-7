@@ -106,7 +106,10 @@ const PlantCard: React.FC<PlantCardProps> = ({ plant, onDelete }) => {
   const handleEdited = () => {
     setShowEditPlant(false);
     onDelete();
-    sendNotification(`Successful edited plant:  + ${plant.name}`, "success");
+    sendNotification(
+      `${t("plantCard.edit_success")}: ${plant.name}`,
+      "success"
+    );
   };
 
   return (

@@ -75,7 +75,8 @@
         "timeLeft": "Nächste Bewässerung:",
         "sunlight_low": "Wenig",
         "sunlight_medium": "Mittel",
-        "sunlight_high": "Viel"
+        "sunlight_high": "Viel",
+        "edit_success": "Pflanze erfolgreich bearbeitet"
     },
 
     "admin": {
