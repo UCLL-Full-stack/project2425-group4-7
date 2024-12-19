@@ -14,12 +14,14 @@ const getAllPlants = async (): Promise<Plant[]> => {
     }
 };
 
-const getPlantById = async ({ id }: { id: number }): Promise<Plant | null> => {
+const getPlantById = async (id: number) => {
     try {
         const plantPrisma = await database.plant.findUnique({
             where: { id },
+            include: {
+                user: true,
+            }
         });
-
         return plantPrisma ? Plant.from(plantPrisma) : null;
     } catch (error) {
         console.error(error);
@@ -59,39 +61,34 @@ const addPlant = async (plant: PlantInput): Promise<Plant> => {
     }
 };
 
-const editPlantById = async (id: number, { name, type, family, wateringFreq, sunlight, user }: Partial<PlantInput>): Promise<Plant | null> => {
+const editPlantById = async (id: number, plantInput: PlantInput) => {
     try {
         const plantPrisma = await database.plant.findUnique({
             where: { id },
+            include: {
+                user: true,
+            }
         });
+
         if (!plantPrisma) {
             throw new Error(`Plant: ${id} not found`);
         }
-        if (name) plantPrisma.name = name;
-        if (type) plantPrisma.type = type;
-        if (family) plantPrisma.family = family;
-        if (wateringFreq) plantPrisma.wateringFreq = wateringFreq;
-        if (sunlight) plantPrisma.sunlight = sunlight;
-        if (user) {
-            if (user.id) {
-                plantPrisma.userId = user.id;
-            }
-        }
-        const updatedPlantPrisma = await database.plant.update({
-            where: { id },
+
+        const updatedPlant = await database.plant.update({
+            where: { id: id },
             data: {
-                name: plantPrisma.name,
-                type: plantPrisma.type,
-                family: plantPrisma.family,
-                wateringFreq: plantPrisma.wateringFreq,
-                sunlight: plantPrisma.sunlight,
-                userId: plantPrisma.userId,
+                name: plantInput.name,
+                type: plantInput.type,
+                family: plantInput.family,
+                wateringFreq: plantInput.wateringFreq,
+                sunlight: plantInput.sunlight,
+                reminderEmail: plantInput.email,
+                reminderSms: plantInput.sms,
             },
-            include: { user: true },
         });
-        return Plant.from(updatedPlantPrisma);
+        return updatedPlant;
     } catch (error) {
-        console.error(error);
+        console.error('Database error while editing plant:', error);
         throw new Error('Database error');
     }
 };

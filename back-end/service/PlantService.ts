@@ -9,9 +9,9 @@ const getAllPlants = async (): Promise<Plant[]> => {
 };
 
 const getPlantById = async (plantId: number): Promise<Plant | undefined> => {
-    const plant = await plantDB.getPlantById({id: plantId});
+    const plant = await plantDB.getPlantById(plantId);
     if (!plant) {
-        throw new Error(`Plant with ID: ${plantId} does not exist.`);
+        throw new Error(`Plant: ${plantId} doesnt exist`);
     }
     return plant;
 };
@@ -43,51 +43,37 @@ const getUserPlants = async (username: string): Promise<Plant[]> => {
     }
   };
 
-    const addPlant = async (plantInput: PlantInput): Promise<Plant> => {
-
-      if (!plantInput.user) {
-        throw new Error('User may not be null');
-      }
-
-      const plant: PlantInput = {
-        name: plantInput.name ?? 'Unknown Plant',
-        type: plantInput.type,
-        family: plantInput.family,
-        wateringFreq: plantInput.wateringFreq ?? 'never',
-        sunlight: plantInput.sunlight ?? 'low',
-        email: plantInput.email,
-        sms: plantInput.sms,
-        user: plantInput.user,
-        created: new Date(),
-      };
-
-    return await plantDB.addPlant(plant);
+const addPlant = async (plantInput: PlantInput): Promise<Plant> => {
+  if (!plantInput.user) {
+    throw new Error('User may not be null');
+  }
+  const plant: PlantInput = {
+    name: plantInput.name ?? 'Unknown Plant',
+    type: plantInput.type,
+    family: plantInput.family,
+    wateringFreq: plantInput.wateringFreq ?? 'never',
+    sunlight: plantInput.sunlight ?? 'low',
+    email: plantInput.email,
+    sms: plantInput.sms,
+    user: plantInput.user,
+    created: new Date(),
   };
-
-  const editPlant = async (id: number, { name, type, family, wateringFreq, sunlight, user }: { name?: string, type?: string, family?: string, wateringFreq?: string, sunlight?: string, user?: { id: number } }): Promise<Plant | null> => {
-    try {
-        const plant = await plantDB.getPlantById({ id });
-        if (!plant) {
-            throw new Error(`Plant: ${id} not found`);
-        }
-        const updatedData: any = {};
-        if (name) updatedData.name = name;
-        if (type) updatedData.type = type;
-        if (family) updatedData.family = family;
-        if (wateringFreq) updatedData.wateringFreq = wateringFreq;
-        if (sunlight) updatedData.sunlight = sunlight;
-        if (user && user.id) {
-            updatedData.userId = user.id;
-        }
-
-        const updatedPlant = await plantDB.editPlantById(id, updatedData);
-        return updatedPlant;
-    } catch (error) {
-        console.error(error);
-        throw new Error('Error editing plant');
-    }
+    return await plantDB.addPlant(plant);
 };
 
+const editPlant = async (id: number, plantInput: PlantInput) => {
+  try {
+    const plant = await plantDB.getPlantById(id);
+    if (!plant) {
+        return null;
+    }
+    const updatedPlant = await plantDB.editPlantById(id, plantInput);
+    return updatedPlant;
+} catch (error) {
+    console.error('Error in editPlant service:', error);
+    throw new Error('Failed to edit plant');
+}
+};
 
 
 export default { getAllPlants, getPlantById, addPlant, getUserPlants, deletePlantById, editPlant };
