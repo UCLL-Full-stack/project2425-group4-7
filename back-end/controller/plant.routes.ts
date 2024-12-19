@@ -32,7 +32,18 @@ plantRouter.post('/add', async (req: Request, res: Response, next: NextFunction)
     console.log(req.body);
     try {
         const created = new Date();
-        const newPlant = await plantService.addPlant(name, type, family, wateringFreq, sunlight, email, sms, user, created);
+        const plantInput: PlantInput = {
+            name: name ?? 'Unknown Plant',
+            type: type,
+            family: family,
+            wateringFreq: wateringFreq ?? 'never',
+            sunlight: sunlight ?? 'low',
+            email: email,
+            sms: sms,
+            user: user,
+            created: created
+        };
+        const newPlant = await plantService.addPlant(plantInput);
         res.status(200).json(newPlant);
     } catch (error) {
         console.error(error);

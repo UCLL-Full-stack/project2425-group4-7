@@ -62,7 +62,10 @@
         "edit": "Bewerken",
         "delete": "Verwijderen",
         "name": "Naam",
-        "timeLeft": "Volgende bewatering:"
+        "timeLeft": "Volgende bewatering:",
+        "sunlight_low": "Weinig",
+        "sunlight_medium": "Gemiddeld",
+        "sunlight_high": "Veel"
     },
 
     "admin": {

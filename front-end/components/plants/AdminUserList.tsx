@@ -8,7 +8,7 @@ type AdminUserListProps = {
 const AdminUserList: React.FC<AdminUserListProps> = ({ users }) => {
   const { t } = useTranslation();
   return (
-    <div className="overflow-x-auto">
+    <div className="overflow-x-auto max-h-[60vh] overflow-y-scroll">
       <table className="min-w-full table-auto text-white">
         <thead>
           <tr>

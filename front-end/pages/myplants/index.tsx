@@ -98,7 +98,7 @@ const MyPlants = () => {
           {isClient ? (
             filteredPlants.length > 0 ? (
               <ul
-                className={`w-fit items-center ${
+                className={`w-fit items-center max-h-[70vh] overflow-y-scroll ${
                   filteredPlants.length === 1
                     ? "flex-col"
                     : "grid grid-cols-2 gap-6"

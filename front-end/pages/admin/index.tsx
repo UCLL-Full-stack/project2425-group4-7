@@ -112,7 +112,7 @@ const Settings = () => {
             </div>
             {isClient ? (
               filteredPlants.length > 0 ? (
-                <ul className="w-fit flex flex-col items-center gap-4">
+                <ul className="w-fit flex flex-col items-center gap-4 max-h-[65vh] overflow-y-scroll">
                   {filteredPlants.map((plant) => (
                     <li key={plant.id} className="w-full">
                       <AdminPlantCard

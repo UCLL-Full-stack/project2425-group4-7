@@ -37,7 +37,10 @@
         "sms": "SMS",
         "add_plant": "Ajouter la plante",
         "reminders": "Rappels:",
-        "cancel": "Annuler"
+        "cancel": "Annuler",
+        "sunlight_low": "Faible",
+        "sunlight_medium": "Moyen",
+        "sunlight_high": "Élevé"
     },
 
     "plantCard": {

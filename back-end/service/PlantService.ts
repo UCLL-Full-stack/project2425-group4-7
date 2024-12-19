@@ -1,6 +1,6 @@
 import { Plant } from "../model/Plant";
 import { User } from "../model/User";
-import { PlantInput } from '../types/index'
+import { PlantInput, PlantUserInput, Profile } from '../types/index'
 import plantDB from '../repository/plant.db';
 import userDB from '../repository/user.db';
 
@@ -43,15 +43,25 @@ const getUserPlants = async (username: string): Promise<Plant[]> => {
     }
   };
 
-const addPlant = async (name: string, type: string, family: string, wateringFreq: string, sunlight: string, email: boolean, sms: boolean, user: User, created: Date): Promise<Plant> => {
+    const addPlant = async (plantInput: PlantInput): Promise<Plant> => {
 
-    if (user == null) {
-      throw new Error('User may not be null')
-    }
-    
-    const plant = new Plant({name, type, family, wateringFreq, sunlight, email, sms, user, created});
+      if (!plantInput.user) {
+        throw new Error('User may not be null');
+      }
+
+      const plant: PlantInput = {
+        name: plantInput.name ?? 'Unknown Plant',
+        type: plantInput.type,
+        family: plantInput.family,
+        wateringFreq: plantInput.wateringFreq ?? 'never',
+        sunlight: plantInput.sunlight ?? 'low',
+        email: plantInput.email,
+        sms: plantInput.sms,
+        user: plantInput.user,
+        created: new Date(),
+      };
 
     return await plantDB.addPlant(plant);
-};
+  };
 
 export default { getAllPlants, getPlantById, addPlant, getUserPlants, deletePlantById };

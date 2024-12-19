@@ -1,4 +1,5 @@
 import { Plant } from '../model/Plant';
+import { PlantInput } from '../types';
 import database from './database';
 
 const getAllPlants = async (): Promise<Plant[]> => {
@@ -26,22 +27,28 @@ const getPlantById = async ({ id }: { id: number }): Promise<Plant | null> => {
     }
 };
 
-const addPlant = async (plant: Plant): Promise<Plant> => {
+const addPlant = async (plant: PlantInput): Promise<Plant> => {
     try {
-        const userId = plant.getUser().getId();
+        const userId = plant.user.id;
         if (userId === undefined) {
             throw new Error('User ID is required');
         }
+        const reminderSms = plant.sms ?? false;
+        const reminderEmail = plant.email ?? false;
+        console.log('User ID for new plant:', userId);
         const plantPrisma = await database.plant.create({
             data: {
-                name: plant.getName(),
-                type: plant.getType(),
-                family: plant.getFamily(),
-                wateringFreq: plant.getWateringFreq(),
-                sunlight: plant.getSunlight(),
+                name: plant.name,
+                type: plant.type,
+                family: plant.family,
+                wateringFreq: plant.wateringFreq,
+                sunlight: plant.sunlight,
                 userId: userId,
-                reminderSms: plant.getSms(),
-                reminderEmail: plant.getEmail(),
+                reminderSms: reminderSms,
+                reminderEmail: reminderEmail,
+            },
+            include: {
+                user: true,
             },
         });
 

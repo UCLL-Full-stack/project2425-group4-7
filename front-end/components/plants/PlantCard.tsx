@@ -14,6 +14,7 @@ const PlantCard: React.FC<PlantCardProps> = ({ plant, onDelete }) => {
   const [timeLeft, setTimeLeft] = useState<string>("");
   const { sendNotification } = useNotifications();
   const { t } = useTranslation();
+  const [sunlightString, setSunlightString] = useState("");
 
   const wateringIntervals: Record<string, number | null> = {
     daily: 24 * 60 * 60 * 1000,
@@ -44,6 +45,20 @@ const PlantCard: React.FC<PlantCardProps> = ({ plant, onDelete }) => {
       setTimeLeft(`${t("plantCard.no_water_needed")}`);
       return;
     }
+
+    const handleSunlightString = () => {
+      if (plant.sunlight == "low") {
+        setSunlightString(`${t("plantCard.sunlight_low")}`);
+      }
+      if (plant.sunlight == "medium") {
+        setSunlightString(`${t("plantCard.sunlight_medium")}`);
+      }
+      if (plant.sunlight == "high") {
+        setSunlightString(`${t("plantCard.sunlight_high")}`);
+      }
+    };
+
+    handleSunlightString();
 
     const updateCountdown = () => {
       const now = new Date().getTime();
@@ -118,7 +133,7 @@ const PlantCard: React.FC<PlantCardProps> = ({ plant, onDelete }) => {
           </div>
           <div className="text-sm">
             <strong>{t("plantCard.sunlight")}</strong>
-            <p>{plant.sunlight}</p>
+            <p>{sunlightString}</p>
           </div>
         </div>
         <hr className="my-1.5" />

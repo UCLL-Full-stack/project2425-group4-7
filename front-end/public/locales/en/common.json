@@ -62,7 +62,10 @@
         "edit": "Edit",
         "delete": "Delete",
         "name": "Naam",
-        "timeLeft": "Next Watering:"
+        "timeLeft": "Next Watering:",
+        "sunlight_low": "Low",
+        "sunlight_medium": "Medium",
+        "sunlight_high": "High"
     },
 
     "admin" : {

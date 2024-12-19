@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { FaPlus, FaXmark } from "react-icons/fa6";
 import UserService from "@/services/UserService";
 import { User } from "@/types/types";
+import { useNotifications } from "../utils/notifications";
 
 type AddPlantProps = {
   onAddPlant: () => void;
@@ -17,9 +18,10 @@ const AddPlant: React.FC<AddPlantProps> = ({ onAddPlant, onClose }) => {
   const [wateringFreq, setWateringFreq] = useState("daily");
   const [sunlight, setSunlight] = useState("low");
   const [user, setUser] = useState<User | undefined>(undefined);
-  const [emailReminder, setEmailReminder] = useState(false);
-  const [smsReminder, setSmsReminder] = useState(false);
+  const [reminderEmail, setEmailReminder] = useState(false);
+  const [reminderSms, setSmsReminder] = useState(false);
   const { t } = useTranslation();
+  const { sendNotification } = useNotifications();
 
   const handleReminderChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = event.target;
@@ -39,8 +41,8 @@ const AddPlant: React.FC<AddPlantProps> = ({ onAddPlant, onClose }) => {
       wateringFreq,
       sunlight,
       user,
-      emailReminder,
-      smsReminder,
+      reminderEmail,
+      reminderSms,
     };
 
     try {
@@ -54,6 +56,8 @@ const AddPlant: React.FC<AddPlantProps> = ({ onAddPlant, onClose }) => {
       setSunlight("");
       setEmailReminder(false);
       setSmsReminder(false);
+      onClose();
+      sendNotification(`Successfully added plant: ${name}`, "success");
     } catch (error) {
       console.error(error);
     }
@@ -170,7 +174,7 @@ const AddPlant: React.FC<AddPlantProps> = ({ onAddPlant, onClose }) => {
                     className="w-3.5 h-3.5 mr-2 mt-1.5"
                     type="checkbox"
                     name="email"
-                    checked={emailReminder}
+                    checked={reminderEmail}
                     onChange={handleReminderChange}
                   />
                   {t("addPlant.email")}
@@ -180,7 +184,7 @@ const AddPlant: React.FC<AddPlantProps> = ({ onAddPlant, onClose }) => {
                     className="w-3.5 h-3.5 mr-2 mt-1.5"
                     type="checkbox"
                     name="sms"
-                    checked={smsReminder}
+                    checked={reminderSms}
                     onChange={handleReminderChange}
                   />
                   {t("addPlant.sms")}

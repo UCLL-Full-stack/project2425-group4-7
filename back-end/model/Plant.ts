@@ -7,12 +7,12 @@ export class Plant {
     private family: string;
     private wateringFreq: string;
     private sunlight: string;
-    private email: boolean;
-    private sms: boolean;
+    private reminderEmail: boolean;
+    private reminderSms: boolean;
     private user: User;
     private created: Date;
 
-    constructor(plant: {id?: number, name: string, type: string, family: string, wateringFreq: string, sunlight: string, email: boolean, sms: boolean, user: User, created: Date}) {
+    constructor(plant: {id?: number, name: string, type: string, family: string, wateringFreq: string, sunlight: string, reminderEmail: boolean, reminderSms: boolean, user: User, created: Date}) {
         this.validate(plant.name, plant.type, plant.family);
         this.id = plant.id;
         this.name = plant.name;
@@ -20,8 +20,8 @@ export class Plant {
         this.family = plant.family;
         this.wateringFreq = plant.wateringFreq;
         this.sunlight = plant.sunlight;
-        this.email = plant.email;
-        this.sms = plant.sms;
+        this.reminderEmail = plant.reminderEmail;
+        this.reminderSms = plant.reminderSms;
         this.user = plant.user;
         this.created = plant.created || new Date();
     }
@@ -62,12 +62,12 @@ export class Plant {
         return this.sunlight;
     }
 
-    getEmail(): boolean {
-        return this.email;
+    getreminderEmail(): boolean {
+        return this.reminderEmail;
     }
 
-    getSms(): boolean {
-        return this.sms;
+    getreminderSms(): boolean {
+        return this.reminderSms;
     }
 
     getUser(): User {
@@ -117,12 +117,12 @@ export class Plant {
         this.sunlight = value;
     }
 
-    setEmail(value: boolean) {
-        this.email = value;
+    setreminderEmail(value: boolean) {
+        this.reminderEmail = value;
     }
 
-    setSms(value: boolean) {
-        this.sms = value;
+    setreminderSms(value: boolean) {
+        this.reminderSms = value;
     }
 
     setUser(value: User) {
@@ -133,7 +133,7 @@ export class Plant {
         this.created = value;
     }
 
-    static from({ id, name, type, family, wateringFreq, sunlight, email, sms, user, created }: any): Plant {
+    static from({ id, name, type, family, wateringFreq, sunlight, reminderEmail, reminderSms, user, created }: any): Plant {
         if (!user) {
             throw new Error("Plant doesnt have a user");
         }
@@ -144,8 +144,8 @@ export class Plant {
             family,
             wateringFreq,
             sunlight,
-            email,
-            sms,
+            reminderEmail,
+            reminderSms,
             user: User.from(user),
             created,
         });

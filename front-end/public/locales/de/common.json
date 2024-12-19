@@ -62,7 +62,10 @@
         "edit": "Bearbeiten",
         "delete": "Löschen",
         "name": "Name",
-        "timeLeft": "Nächste Bewässerung:"
+        "timeLeft": "Nächste Bewässerung:",
+        "sunlight_low": "Wenig",
+        "sunlight_medium": "Mittel",
+        "sunlight_high": "Viel"
     },
 
     "admin": {

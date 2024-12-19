@@ -1,18 +1,34 @@
-import { Profile } from "@prisma/client";
-
 export type Role = 'user' | 'premium' | 'admin';
 
 export type PlantInput = {
     id?: number;
-    name?: string;
+    name: string;
     type: string;
     family: string;
-    wateringFreq?: string;
-    sunlight?: string;
+    wateringFreq: string;
+    sunlight: string;
     email: boolean;
     sms: boolean;
-    user: UserInput;
-}
+    user: PlantUserInput;
+    created: Date;
+  };
+
+export type PlantUserInput = {
+    id?: number;
+    username?: string;
+    password?: string;
+    email?: string;
+    profile?: Profile;
+    role?: Role;
+};
+
+export interface Profile {
+    id?: number;
+    firstName?: string;
+    lastName?: string;
+    phoneNumber?: string | null;
+    userId?: number;
+};
 
 export type UserInput = {
     id?: number;
