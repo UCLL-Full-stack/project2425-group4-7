@@ -11,7 +11,7 @@ export type PlantInput = {
     sms: boolean;
     user: PlantUserInput;
     created: Date;
-  };
+};
 
 export type PlantUserInput = {
     id?: number;
@@ -28,7 +28,7 @@ export interface Profile {
     lastName?: string;
     phoneNumber?: string | null;
     userId?: number;
-};
+}
 
 export type UserInput = {
     id?: number;
@@ -43,4 +43,4 @@ export type AuthenticationResponse = {
     token: string;
     username: string;
     role: string;
-  };
+};

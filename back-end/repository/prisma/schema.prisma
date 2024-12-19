@@ -14,34 +14,34 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  username  String   @unique
-  email     String   @unique
-  password  String
-  role      String
-  profile   Profile? @relation("UserProfile")
-  plants    Plant[]  @relation("UserPlants")
+  id       Int      @id @default(autoincrement())
+  username String   @unique
+  email    String   @unique
+  password String
+  role     String
+  profile  Profile? @relation("UserProfile")
+  plants   Plant[]  @relation("UserPlants")
 }
 
 model Profile {
-  id        Int      @id @default(autoincrement())
-  firstName String
-  lastName  String
+  id          Int     @id @default(autoincrement())
+  firstName   String
+  lastName    String
   phoneNumber String?
-  userId    Int      @unique
-  user      User     @relation("UserProfile", fields: [userId], references: [id])
+  userId      Int     @unique
+  user        User    @relation("UserProfile", fields: [userId], references: [id])
 }
 
 model Plant {
-  id        Int      @id @default(autoincrement())
-  name      String
-  type      String
-  family    String
-  wateringFreq String
-  sunlight  String
-  userId    Int
+  id            Int      @id @default(autoincrement())
+  name          String   @default("Unknown Plant")
+  type          String
+  family        String
+  wateringFreq  String
+  sunlight      String
+  userId        Int
   reminderEmail Boolean
   reminderSms   Boolean
-  created   DateTime @default(now())
-  user      User     @relation("UserPlants", fields: [userId], references: [id])
+  created       DateTime @default(now())
+  user          User     @relation("UserPlants", fields: [userId], references: [id])
 }
