@@ -72,6 +72,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ toggleForm }) => {
             const loggedinUser: User = {
               username: username,
               password: password,
+              email: "",
             };
             const response = await UserService.login(loggedinUser);
             if (!response.ok) {
@@ -123,12 +124,12 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ toggleForm }) => {
 
   return (
     <div className="fixed flex flex-row shadow-md border border-white text-white bg-white bg-opacity-15 p-5 h-max w-max rounded-md mt-8">
-      <div className="h-auto flex">
+      <div className="h-auto hidden mini:flex">
         <img src="/rootz3.png" className="w-[10rem] my-auto" alt="" />
       </div>
-      <div className="w-[0.5px] bg-white bg-opacity-80 ml-5 mr-8 rounded-md"></div>
+      <div className="w-[0.5px] mini:flex hidden bg-white bg-opacity-80 ml-5 mr-8 rounded-md"></div>
       <div className="mr-3">
-        <form className="">
+        <form className="ml-3 mini:ml-0">
           <h1 className="font-semibold text-center text-lg mb-3">Register</h1>
           <div className="flex flex-col">
             <input
@@ -182,3 +183,4 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ toggleForm }) => {
 };
 
 export default RegisterForm;
+// ROOTZ (Simon Denruyter / Ewout Servranckx)

@@ -1,7 +1,7 @@
 {
     "homepage": {
         "title": "Rootz",
-        "home_tekst": "De startpagina moet nog worden gemaakt, Mijn Planten is al gedeeltelijk voltooid."
+        "home_tekst": "Bij Rootz maak je eenvoudig je eigen plantenverzameling aan en houd je ze gezond en gelukkig. Voeg planten toe, stel herinneringen in, en ontvang notificaties wanneer het tijd is om ze water te geven. Zo vergeet je nooit meer je groene vrienden te verzorgen. Rootz maakt planten verzorgen simpel, georganiseerd en leuk!"
     },
 
     "header": {
@@ -38,6 +38,13 @@
         "add_plant": "Plant toevoegen",
         "reminders": "Herinneringen:",
         "cancel": "Annuleren"
+    },
+
+    "editPlant": {
+        "edit_title": "Een plant bewerken",
+        "edit_plant": "Wijzigingen bevestigen",
+        "edit_success": "Plant succesvol bewerkt",
+        "cant_find": "Kan plant niet vinden, probeer opnieuw"
     },
 
     "plantCard": {
@@ -83,6 +90,9 @@
     "AdminUserList": {
         "id": "ID",
         "username": "Gebruikersnaam",
+        "firstname": "Voornaam",
+        "lastname": "Achternaam",
+        "phone": "Telefoon",
         "email": "E-mail",
         "role": "Rol"
     },
@@ -111,7 +121,19 @@
 
     "settings": {
         "title": "Rootz | Instellingen",
-        "settings": "Instellingen"
+        "settings": "Instellingen",
+        "confirm_changes": "Wijzigingen bevestigen",
+        "firstname": "Voornaam",
+        "lastname": "Achternaam",
+        "email": "E-mail",
+        "phone": "Telefoonnummer",
+        "changepassword_title": "Wijzig je wachtwoord",
+        "changepassword_button": "Wachtwoord wijzigen",
+        "password": "Wachtwoord",
+        "repeat_password": "Herhaal wachtwoord",
+        "password_success": "Wachtwoord succesvol gewijzigd",
+        "password_error": "Fout bij het wijzigen van je wachtwoord, probeer opnieuw",
+        "password_nomatch": "Wachtwoorden komen niet overeen, probeer opnieuw"
     },
 
     "loginForm": {

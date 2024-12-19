@@ -10,6 +10,7 @@ dotenv.config();
 
 const main = async () => {
     await prisma.plant.deleteMany();
+    await prisma.profile.deleteMany();
     await prisma.user.deleteMany();
 
     const user1 = await prisma.user.create({
@@ -23,6 +24,15 @@ const main = async () => {
             },
     });
 
+    const profile1 = await prisma.profile.create({
+        data: {
+                    firstName: 'Peter',
+                    lastName: 'Parker',
+                    phoneNumber: '0478446728',
+                    userId: user1.id
+        }
+    })
+
     const user2 = await prisma.user.create({
         data: {
                     username: 'tony',
@@ -33,6 +43,15 @@ const main = async () => {
                     plants: { create: [] },
             },
     });
+
+    const profile2 = await prisma.profile.create({
+        data: {
+                    firstName: 'Tony',
+                    lastName: 'Stark',
+                    phoneNumber: '0497685437',
+                    userId: user2.id
+        }
+    })
 
     const admin = await prisma.user.create({
         data: {

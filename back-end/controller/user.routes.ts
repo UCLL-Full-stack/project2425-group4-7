@@ -157,9 +157,38 @@ userRouter.get('/name/:username', async (req, res) => {
     const { username } = req.params;
     try {
         const user = await userService.getUserByUsername({username});
+        //console.log(user);
         res.status(200).json(user);
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: error });
+    }
+});
+
+userRouter.put('/edit/:id', async (req: Request, res: Response, next: NextFunction) => {
+    const { id } = req.params;
+    const userInput = <UserInput>req.body;
+    try {
+        const editedUser = await userService.editUser(Number(id), userInput);
+        if (!editedUser) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.status(200).json(editedUser);
+    } catch (error) {
+        next(error);
+    }
+});
+
+userRouter.put('/edit/password/:id', async (req: Request, res: Response, next: NextFunction) => {
+    const { id } = req.params;
+    const { password } = req.body;
+    try {
+        const editedUser = await userService.editPassword(Number(id), password);
+        if (!editedUser) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.status(200).json(editedUser);
+    } catch (error) {
+        next(error);
     }
 });

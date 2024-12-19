@@ -14,8 +14,19 @@ export default function Home() {
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        <main className={`${styles.main}`}>
-          <p className="text-white"> {t("homepage.home_tekst")}</p>
+        <main className="min-h-screen flex flex-col items-center mt-10 text-white">
+          <div className="flex flex-row mt-10 p-5 text-center xsm:text-left">
+            <img
+              src="/rootz3.png"
+              className="h-[13rem] p-1 hidden xsm:flex"
+              alt=""
+            />
+            <div className="w-[0.5px] xsm:flex hidden bg-white bg-opacity-80 ml-5 mr-8 rounded-md"></div>
+            <div className="max-w-[35rem] my-auto">
+              <h1 className="text-2xl font-bold">Welcome to Rootz</h1>
+              <p className="text-white mt-2">{t("homepage.home_tekst")}</p>
+            </div>
+          </div>
         </main>
       </div>
     </>

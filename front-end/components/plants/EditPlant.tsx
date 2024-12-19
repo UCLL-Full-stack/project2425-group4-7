@@ -1,27 +1,36 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import PlantService from "@/services/PlantService";
 import { useTranslation } from "react-i18next";
-import { FaPlus, FaXmark } from "react-icons/fa6";
+import { FaPencil, FaPlus, FaXmark } from "react-icons/fa6";
 import UserService from "@/services/UserService";
-import { User } from "@/types/types";
+import { Plant, User } from "@/types/types";
 import { useNotifications } from "../utils/notifications";
 
-type AddPlantProps = {
-  onAddPlant: () => void;
-  onClose: () => void;
+type EditPlantProps = {
+  plant: Plant;
+  onEditPlant: () => void;
+  onEditClose: () => void;
 };
 
-const AddPlant: React.FC<AddPlantProps> = ({ onAddPlant, onClose }) => {
-  const [name, setName] = useState("");
-  const [type, setType] = useState("");
-  const [family, setFamily] = useState("");
-  const [wateringFreq, setWateringFreq] = useState("daily");
-  const [sunlight, setSunlight] = useState("low");
-  const [user, setUser] = useState<User | undefined>(undefined);
-  const [reminderEmail, setEmailReminder] = useState(false);
-  const [reminderSms, setSmsReminder] = useState(false);
+const AddPlant: React.FC<EditPlantProps> = ({
+  plant,
+  onEditClose,
+  onEditPlant,
+}) => {
+  const [name, setName] = useState(plant.name);
+  const [type, setType] = useState(plant.type);
+  const [family, setFamily] = useState(plant.family);
+  const [wateringFreq, setWateringFreq] = useState(plant.wateringFreq);
+  const [sunlight, setSunlight] = useState(plant.sunlight);
+  const [user, setUser] = useState<User | undefined>(plant.user);
+  const [reminderEmail, setEmailReminder] = useState(plant.email ?? false);
+  const [reminderSms, setSmsReminder] = useState(plant.sms ?? false);
   const { t } = useTranslation();
   const { sendNotification } = useNotifications();
+
+  const handleClose = () => {
+    onEditClose();
+  };
 
   const handleReminderChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = event.target;
@@ -34,7 +43,8 @@ const AddPlant: React.FC<AddPlantProps> = ({ onAddPlant, onClose }) => {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const plantData = {
+    const editedPlantData = {
+      ...plant,
       name,
       type,
       family,
@@ -46,40 +56,18 @@ const AddPlant: React.FC<AddPlantProps> = ({ onAddPlant, onClose }) => {
     };
 
     try {
-      await PlantService.addPlant(plantData);
-      onAddPlant();
-      onClose();
-      setName("");
-      setType("");
-      setFamily("");
-      setWateringFreq("");
-      setSunlight("");
-      setEmailReminder(false);
-      setSmsReminder(false);
-      onClose();
-      sendNotification(`Successfully added plant: ${name}`, "success");
+      if (plant.id === undefined) {
+        sendNotification(`${t("editPlant.cant_find")}`, "error");
+        return;
+      }
+      await PlantService.editPlant(plant.id, editedPlantData);
+      onEditPlant();
+      onEditClose();
+      sendNotification(`${t("editPlant.edit_success")}: ${name}`, "success");
     } catch (error) {
       console.error(error);
     }
   };
-
-  const handleClose = () => {
-    onClose();
-  };
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      const user: User = await UserService.getLoggedInUser();
-      setUser(user);
-    };
-    fetchUser();
-  }, []);
-
-  useEffect(() => {
-    if (user !== null) {
-      console.log("USER:", user);
-    }
-  }, [user]);
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
@@ -89,9 +77,7 @@ const AddPlant: React.FC<AddPlantProps> = ({ onAddPlant, onClose }) => {
         onSubmit={handleSubmit}
       >
         <div className="flex flex-row justify-between">
-          <h1 className="text-lg font-semibold">
-            {t("addPlant.add_new_plant")}
-          </h1>
+          <h1 className="text-lg font-semibold">{t("editPlant.edit_title")}</h1>
           <button
             className="flex flex-row hover:underline"
             onClick={handleClose}
@@ -195,8 +181,8 @@ const AddPlant: React.FC<AddPlantProps> = ({ onAddPlant, onClose }) => {
               type="submit"
               className="mt-6 font-semibold rounded-lg flex flex-row after:bg-white relative after:absolute after:h-[1px] after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-300 pb-1"
             >
-              <FaPlus className="mr-1 mt-1" />
-              {t("addPlant.add_plant")}
+              <FaPencil className="mr-1 mt-1" />
+              {t("editPlant.edit_plant")}
             </button>
           </div>
         </div>

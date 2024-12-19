@@ -22,7 +22,7 @@ export default function LanguageDropdown() {
   return (
     <div className="z-20 space-x-4 xl:ml-[55px] xl:text-white flex flew-row relative">
       <button
-        className={`w-full py-3 xl:py-0 px-[1.35rem] xl:px-6 text-[20px] hover:bg-slate-200 xl:hover:bg-transparent font-semibold xl:rounded-lg flex flex-rows after:bg-black xl:after:bg-white xl:relative xl:after:absolute xl:after:h-0.5 xl:after:w-0 xl:after:bottom-0 xl:after:left-0 xl:hover:after:w-full xl:after:transition-all xl:after:duration-300 ${
+        className={`w-full py-3 xl:py-0 px-[1.35rem] xl:px-6 text-[20px] hover:bg-zinc-700 xl:hover:bg-transparent font-semibold xl:rounded-lg flex flex-rows after:bg-black xl:after:bg-white xl:relative xl:after:absolute xl:after:h-0.5 xl:after:w-0 xl:after:bottom-0 xl:after:left-0 xl:hover:after:w-full xl:after:transition-all xl:after:duration-300 ${
           isOpen ? "after:w-full" : "after:w-0"
         }`}
         onClick={handleToggle}
@@ -88,3 +88,4 @@ export default function LanguageDropdown() {
     </div>
   );
 }
+// ROOTZ (Simon Denruyter / Ewout Servranckx)

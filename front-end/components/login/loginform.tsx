@@ -32,6 +32,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ toggleForm }) => {
       const loggedinUser: User = {
         username: username,
         password: password,
+        email: "",
       };
 
       try {
@@ -79,12 +80,12 @@ const LoginForm: React.FC<LoginFormProps> = ({ toggleForm }) => {
 
   return (
     <div className="fixed flex flex-row shadow-md border border-white text-white bg-white bg-opacity-15 p-5 h-max w-max rounded-md mt-[10vh]">
-      <div>
+      <div className="mini:flex hidden">
         <img src="/rootz3.png" className="w-[10rem]" alt="" />
       </div>
-      <div className="w-[0.5px] bg-white bg-opacity-80 ml-5 mr-8 rounded-md"></div>
+      <div className="hidden mini:flex w-[0.5px] bg-white bg-opacity-80 ml-5 mr-8 rounded-md"></div>
       <div className="mr-3">
-        <form onSubmit={onLogin} className="">
+        <form onSubmit={onLogin} className="ml-3 mini:ml-0">
           <h1 className="font-semibold text-center text-lg mb-3">Login</h1>
           <div className="flex flex-col">
             <input
@@ -119,3 +120,4 @@ const LoginForm: React.FC<LoginFormProps> = ({ toggleForm }) => {
 };
 
 export default LoginForm;
+// ROOTZ (Simon Denruyter / Ewout Servranckx)
