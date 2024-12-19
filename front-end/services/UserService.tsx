@@ -105,12 +105,80 @@ const getLoggedInUser = async (): Promise<any> => {
   }
 };
 
+const editUser = async (userId: string, editedUser: User): Promise<any> => {
+  const loggedInUser = localStorage.getItem("loggedInUser");
+  let token = "";
+  if (loggedInUser) {
+    try {
+      const parsedUser = JSON.parse(loggedInUser);
+      token = parsedUser.token || "";
+    } catch (error) {
+      throw error;
+    }
+  }
+  try {
+    const response = await fetch(`${API_URL}/users/edit/${userId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token ? `Bearer ${token}` : "",
+      },
+      body: JSON.stringify(editedUser),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to update user");
+    }
+
+    return await response.json();
+  } catch (error) {
+    throw error;
+  }
+};
+
+const editPassword = async (
+  userId: string,
+  newPassword: string
+): Promise<any> => {
+  const loggedInUser = localStorage.getItem("loggedInUser");
+  let token = "";
+  if (loggedInUser) {
+    try {
+      const parsedUser = JSON.parse(loggedInUser);
+      token = parsedUser.token || "";
+    } catch (error) {
+      throw error;
+    }
+  }
+  try {
+    const response = await fetch(`${API_URL}/users/edit/password/${userId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token ? `Bearer ${token}` : "",
+      },
+      body: JSON.stringify({
+        password: newPassword,
+      }),
+    });
+    if (!response.ok) {
+      throw new Error("Failed to change pasword");
+    }
+
+    return await response.json();
+  } catch (error) {
+    throw error;
+  }
+};
+
 const UserService = {
   login,
   logout,
   register,
   getLoggedInUser,
   getAllUsers,
+  editUser,
+  editPassword,
 };
 
 export default UserService;

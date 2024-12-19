@@ -84,6 +84,38 @@ const addPlant = async (plant: any): Promise<any> => {
   }
 };
 
+const editPlant = async (id: number, editedPlant: any): Promise<any> => {
+  try {
+    const loggedInUser = localStorage.getItem("loggedInUser");
+    let token = "";
+    if (loggedInUser) {
+      try {
+        const parsedUser = JSON.parse(loggedInUser);
+        token = parsedUser.token || "";
+      } catch (error) {
+        throw error;
+      }
+    }
+    const response = await fetch(`${API_URL}/plants/edit/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token ? `Bearer ${token}` : "",
+      },
+      body: JSON.stringify(editedPlant),
+    });
+
+    if (!response.ok) {
+      //console.log(`Token: ${token}`);
+      throw new Error("Error editing plant");
+    }
+
+    return await response.json();
+  } catch (error) {
+    throw error;
+  }
+};
+
 const deletePlant = async (plantId: number): Promise<any> => {
   const loggedInUser = localStorage.getItem("loggedInUser");
   let token = "";
@@ -119,6 +151,7 @@ const PlantService = {
   getUserPlants,
   addPlant,
   deletePlant,
+  editPlant,
 };
 
 export default PlantService;

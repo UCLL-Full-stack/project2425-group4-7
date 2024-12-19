@@ -29,7 +29,7 @@ plantRouter.get('/user/:username', async (req, res) => {
 
 plantRouter.post('/add', async (req: Request, res: Response, next: NextFunction) => {
     const { name, type, family, wateringFreq, sunlight, user, email, sms } = req.body;
-    console.log(req.body);
+    //console.log(req.body);
     try {
         const created = new Date();
         const plantInput: PlantInput = {
@@ -51,6 +51,23 @@ plantRouter.post('/add', async (req: Request, res: Response, next: NextFunction)
     }
 });
 
+plantRouter.put('/edit/:id', async (req: Request, res: Response, next: NextFunction) => {
+    const { id } = req.params;
+    const plantInput = <PlantInput>req.body;
+    console.log(plantInput);
+    console.log(id);
+    try {
+        const editedPlant = await plantService.editPlant(Number(id), plantInput);
+        if (!editedPlant) {
+            return res.status(404).json({ message: `Plant: ${id} not found` });
+        }
+        res.status(200).json(editedPlant);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: error });
+    }
+});
+
 plantRouter.delete('/delete/:id', async (req, res) => {
     const {id} = req.params;
     const numId = Number(id);
@@ -61,6 +78,6 @@ plantRouter.delete('/delete/:id', async (req, res) => {
         console.error(error);
         res.status(500).json({ message: error });
     }
-})
+});
 
 export default plantRouter;

@@ -19,6 +19,13 @@ module.exports = {
 					to: { opacity: 1 },
 				},
 			},
+      screens: {
+        'xl': '1350px',
+        'md': '1200px',
+        'sm': "950px",
+        'xsm': "600px",
+        'mini': "480px"
+      },
     },
   },
   plugins: [],

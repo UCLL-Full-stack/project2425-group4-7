@@ -50,3 +50,5 @@ export const logout = (): void => {
     window.dispatchEvent(new Event("storage"));
   }
 };
+
+// ROOTZ (Simon Denruyter / Ewout Servranckx)

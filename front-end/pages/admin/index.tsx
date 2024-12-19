@@ -62,7 +62,9 @@ const Settings = () => {
     const lowerCaseQuery = searchUserInput.toLowerCase();
     return (
       user.username.toLowerCase().includes(lowerCaseQuery) ||
-      user.email.toLowerCase().includes(lowerCaseQuery)
+      user.email.toLowerCase().includes(lowerCaseQuery) ||
+      user.profile?.firstName?.toLowerCase().includes(lowerCaseQuery) ||
+      user.profile?.lastName?.toLowerCase().includes(lowerCaseQuery)
     );
   });
 
@@ -84,13 +86,13 @@ const Settings = () => {
         <div className="flex flex-row gap-5 mt-1">
           <button
             onClick={() => setShowPlants(true)}
-            className="font-semibold text-md p-1"
+            className="font-semibold text-md p-1 flex flex-row after:bg-white relative after:absolute after:h-[1px] after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-300"
           >
             {t("admin.plants")}
           </button>
           <button
             onClick={() => setShowPlants(false)}
-            className="font-semibold text-md p-1"
+            className="font-semibold text-md p-1 flex flex-row after:bg-white relative after:absolute after:h-[1px] after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-300"
           >
             {t("admin.users")}
           </button>
@@ -112,7 +114,7 @@ const Settings = () => {
             </div>
             {isClient ? (
               filteredPlants.length > 0 ? (
-                <ul className="w-fit flex flex-col items-center gap-4 max-h-[65vh] overflow-y-scroll">
+                <ul className="w-fit flex flex-col items-center gap-2 max-h-[65vh] overflow-y-scroll">
                   {filteredPlants.map((plant) => (
                     <li key={plant.id} className="w-full">
                       <AdminPlantCard

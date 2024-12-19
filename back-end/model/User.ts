@@ -90,6 +90,27 @@ export class User {
         this.plants?.push(plant);
     }
 
+    setUsername(value: string) {
+        if (!value) {
+            throw new Error("Username is required");
+        }
+        this.username = value;
+    }
+
+    setEmail(value: string) {
+        if (!value) {
+            throw new Error("Email is required");
+        }
+        this.email = value;
+    }
+
+    setPassword(value: string) {
+        if (!value) {
+            throw new Error("Password is required");
+        }
+        this.password = value;
+    }
+
     static from(userPrisma: UserPrisma & { plants?: Plant[]; profile?: Profile }): User {
         return new User({
             id: userPrisma.id,

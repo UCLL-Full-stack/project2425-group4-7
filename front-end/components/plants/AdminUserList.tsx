@@ -16,6 +16,13 @@ const AdminUserList: React.FC<AdminUserListProps> = ({ users }) => {
             <th className="py-2 px-4 border-b">
               {t("AdminUserList.username")}
             </th>
+            <th className="py-2 px-4 border-b">
+              {t("AdminUserList.firstname")}
+            </th>
+            <th className="py-2 px-4 border-b">
+              {t("AdminUserList.lastname")}
+            </th>
+            <th className="py-2 px-4 border-b">{t("AdminUserList.phone")}</th>
             <th className="py-2 px-4 border-b">{t("AdminUserList.email")}</th>
             <th className="py-2 px-4 border-b">{t("AdminUserList.role")}</th>
           </tr>
@@ -25,6 +32,11 @@ const AdminUserList: React.FC<AdminUserListProps> = ({ users }) => {
             <tr key={user.id} className="hover:bg-zinc-800">
               <td className="py-2 px-4 border-b">{user.id}</td>
               <td className="py-2 px-4 border-b">{user.username}</td>
+              <td className="py-2 px-4 border-b">{user.profile?.firstName}</td>
+              <td className="py-2 px-4 border-b">{user.profile?.lastName}</td>
+              <td className="py-2 px-4 border-b">
+                {user.profile?.phoneNumber}
+              </td>
               <td className="py-2 px-4 border-b">{user.email}</td>
               <td className="py-2 px-4 border-b">{user.role}</td>
             </tr>
@@ -36,3 +48,4 @@ const AdminUserList: React.FC<AdminUserListProps> = ({ users }) => {
 };
 
 export default AdminUserList;
+// ROOTZ (Simon Denruyter / Ewout Servranckx)

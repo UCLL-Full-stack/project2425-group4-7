@@ -59,6 +59,43 @@ const addPlant = async (plant: PlantInput): Promise<Plant> => {
     }
 };
 
+const editPlantById = async (id: number, { name, type, family, wateringFreq, sunlight, user }: Partial<PlantInput>): Promise<Plant | null> => {
+    try {
+        const plantPrisma = await database.plant.findUnique({
+            where: { id },
+        });
+        if (!plantPrisma) {
+            throw new Error(`Plant: ${id} not found`);
+        }
+        if (name) plantPrisma.name = name;
+        if (type) plantPrisma.type = type;
+        if (family) plantPrisma.family = family;
+        if (wateringFreq) plantPrisma.wateringFreq = wateringFreq;
+        if (sunlight) plantPrisma.sunlight = sunlight;
+        if (user) {
+            if (user.id) {
+                plantPrisma.userId = user.id;
+            }
+        }
+        const updatedPlantPrisma = await database.plant.update({
+            where: { id },
+            data: {
+                name: plantPrisma.name,
+                type: plantPrisma.type,
+                family: plantPrisma.family,
+                wateringFreq: plantPrisma.wateringFreq,
+                sunlight: plantPrisma.sunlight,
+                userId: plantPrisma.userId,
+            },
+            include: { user: true },
+        });
+        return Plant.from(updatedPlantPrisma);
+    } catch (error) {
+        console.error(error);
+        throw new Error('Database error');
+    }
+};
+
 const deleteById = async (id: number): Promise<Boolean> => {
     try {
         const deletePlant = await database.plant.delete({
@@ -106,4 +143,5 @@ export default {
     getPlantByNameAndUser,
     getPlantsByUserId,
     deleteById,
+    editPlantById,
 }

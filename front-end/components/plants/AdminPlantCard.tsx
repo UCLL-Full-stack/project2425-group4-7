@@ -87,7 +87,7 @@ const AdminPlantCard: React.FC<PlantCardProps> = ({ plant, onDelete }) => {
   }, [plant.wateringFreq, plant.created]);
 
   return (
-    <div className="bg-white border border-white py-4 px-3 bg-opacity-15 shadow-md rounded-md flex flex-row w-full">
+    <div className="bg-white border border-white py-4 px-3 bg-opacity-15 shadow-md rounded-md flex flex-row w-full mb-1">
       <div className="mx-4 w-full">
         <div className="flex flex-row justify-between">
           <h2 className="text-white font-bold text-md my-1">
@@ -108,7 +108,7 @@ const AdminPlantCard: React.FC<PlantCardProps> = ({ plant, onDelete }) => {
           </div>
         </div>
         <hr className="my-1.5" />
-        <div className="flex flex-row gap-6">
+        <div className="mini:flex mini:flex-row grid grid-cols-2 gap-1 mini:gap-6">
           <div className="text-sm">
             <strong>{t("plantCard.name")}</strong>
             <p>{plant.name}</p>
@@ -136,3 +136,4 @@ const AdminPlantCard: React.FC<PlantCardProps> = ({ plant, onDelete }) => {
 };
 
 export default AdminPlantCard;
+// ROOTZ (Simon Denruyter / Ewout Servranckx)

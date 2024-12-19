@@ -62,6 +62,7 @@ const MyPlants = () => {
 
   const toggleAddPlant = () => {
     setIsAddingPlant((prev) => !prev);
+    fetchPlants();
   };
 
   return (
@@ -76,7 +77,7 @@ const MyPlants = () => {
           <h1 className="font-bold text-lg">{t("myPlants.subtitle")}</h1>
           <hr className="mb-3 mt-2 bg-white w-[26.8rem]" />
           <div className="flex flex-row gap-4 mb-3">
-            <div className="px-6 pb-2 font-semibold rounded-lg flex flex-row after:bg-white relative after:absolute after:h-[1px] after:w-0 after:bottom-0 after:left-0 focus-within:after:w-full after:transition-all after:duration-300">
+            <div className="px-6 mini:w-fit w-[10rem] pb-2 font-semibold rounded-lg flex flex-row after:bg-white relative after:absolute after:h-[1px] after:w-0 after:bottom-0 after:left-0 focus-within:after:w-full after:transition-all after:duration-300">
               <FaMagnifyingGlass className="mt-1 mr-2" />
               <input
                 className="bg-transparent placeholder:text-white outline-none"
@@ -101,7 +102,7 @@ const MyPlants = () => {
                 className={`w-fit items-center max-h-[70vh] overflow-y-scroll ${
                   filteredPlants.length === 1
                     ? "flex-col"
-                    : "grid grid-cols-2 gap-6"
+                    : "grid md:grid-cols-2 gap-6"
                 }`}
               >
                 {filteredPlants.map((plant) => (

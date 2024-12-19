@@ -1,6 +1,6 @@
 import { Plant } from "../model/Plant";
 import { User } from "../model/User";
-import { PlantInput, PlantUserInput, Profile } from '../types/index'
+import { PlantInput, PlantUserInput, Profile, Role } from '../types/index'
 import plantDB from '../repository/plant.db';
 import userDB from '../repository/user.db';
 
@@ -64,4 +64,30 @@ const getUserPlants = async (username: string): Promise<Plant[]> => {
     return await plantDB.addPlant(plant);
   };
 
-export default { getAllPlants, getPlantById, addPlant, getUserPlants, deletePlantById };
+  const editPlant = async (id: number, { name, type, family, wateringFreq, sunlight, user }: { name?: string, type?: string, family?: string, wateringFreq?: string, sunlight?: string, user?: { id: number } }): Promise<Plant | null> => {
+    try {
+        const plant = await plantDB.getPlantById({ id });
+        if (!plant) {
+            throw new Error(`Plant: ${id} not found`);
+        }
+        const updatedData: any = {};
+        if (name) updatedData.name = name;
+        if (type) updatedData.type = type;
+        if (family) updatedData.family = family;
+        if (wateringFreq) updatedData.wateringFreq = wateringFreq;
+        if (sunlight) updatedData.sunlight = sunlight;
+        if (user && user.id) {
+            updatedData.userId = user.id;
+        }
+
+        const updatedPlant = await plantDB.editPlantById(id, updatedData);
+        return updatedPlant;
+    } catch (error) {
+        console.error(error);
+        throw new Error('Error editing plant');
+    }
+};
+
+
+
+export default { getAllPlants, getPlantById, addPlant, getUserPlants, deletePlantById, editPlant };

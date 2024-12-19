@@ -1,7 +1,7 @@
 {
     "homepage": {
         "title": "Rootz",
-        "home_tekst": "Die Startseite muss noch erstellt werden, Meine Pflanzen ist bereits teilweise abgeschlossen."
+        "home_tekst": "Mit Rootz kannst du ganz einfach deine eigene Pflanzensammlung erstellen und sie gesund und glücklich halten. Füge Pflanzen hinzu, stelle Erinnerungen ein und erhalte Benachrichtigungen, wenn es Zeit ist, sie zu gießen. So vergisst du nie wieder, dich um deine grünen Freunde zu kümmern. Rootz macht Pflanzenpflege einfach, organisiert und unterhaltsam!"
     },
 
     "header": {
@@ -37,7 +37,17 @@
         "sms": "SMS",
         "add_plant": "Pflanze hinzufügen",
         "reminders": "Erinnerungen:",
-        "cancel": "Abbrechen"
+        "cancel": "Abbrechen",
+        "sunlight_low": "Wenig",
+        "sunlight_medium": "Mittel",
+        "sunlight_high": "Viel"
+    },
+
+    "editPlant": {
+        "edit_title": "Pflanze bearbeiten",
+        "edit_plant": "Änderungen bestätigen",
+        "edit_success": "Pflanze erfolgreich bearbeitet",
+        "cant_find": "Pflanze konnte nicht gefunden werden, bitte versuche es erneut"
     },
 
     "plantCard": {
@@ -83,6 +93,9 @@
     "AdminUserList": {
         "id": "ID",
         "username": "Benutzername",
+        "firstname": "Vorname",
+        "lastname": "Nachname",
+        "phone": "Telefon",
         "email": "E-Mail",
         "role": "Rolle"
     },
@@ -111,7 +124,19 @@
 
     "settings": {
         "title": "Rootz | Einstellungen",
-        "settings": "Einstellungen"
+        "settings": "Einstellungen",
+        "confirm_changes": "Änderungen bestätigen",
+        "firstname": "Vorname",
+        "lastname": "Nachname",
+        "email": "E-Mail",
+        "phone": "Telefonnummer",
+        "changepassword_title": "Passwort ändern",
+        "changepassword_button": "Passwort ändern",
+        "password": "Passwort",
+        "repeat_password": "Passwort wiederholen",
+        "password_success": "Passwort erfolgreich geändert",
+        "password_error": "Fehler beim Ändern des Passworts, bitte versuche es erneut",
+        "password_nomatch": "Passwörter stimmen nicht überein, bitte versuche es erneut"
     },
 
     "loginForm": {

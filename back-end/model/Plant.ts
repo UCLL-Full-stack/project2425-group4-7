@@ -134,9 +134,6 @@ export class Plant {
     }
 
     static from({ id, name, type, family, wateringFreq, sunlight, reminderEmail, reminderSms, user, created }: any): Plant {
-        if (!user) {
-            throw new Error("Plant doesnt have a user");
-        }
         return new Plant({
             id,
             name,

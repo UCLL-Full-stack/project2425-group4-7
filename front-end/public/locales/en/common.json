@@ -1,7 +1,7 @@
 {
     "homepage" : {
         "title" : "Rootz",
-        "home_tekst" : "Home still needs to be created, MyPlants is already partially completed."
+        "home_tekst" : "With Rootz, you can easily create your own plant collection and keep them healthy and happy. Add plants, set reminders, and receive notifications when it’s time to water them. Never forget to care for your green friends again. Rootz makes plant care simple, organized, and fun!"
     },
 
     "header" : {
@@ -38,6 +38,13 @@
         "add_plant" : "Add Plant",
         "reminders" : "Reminders:",
         "cancel" : "Cancel"
+    },
+
+    "editPlant" : {
+        "edit_title" : "Editing a plant",
+        "edit_plant" : "Confirm Changes",
+        "edit_success" : "Successfully edited plant",
+        "cant_find" : "Can't find plant, please try again"
     },
 
     "plantCard" : {
@@ -83,6 +90,9 @@
     "AdminUserList" : {
         "id" : "ID",
         "username" : "Username",
+        "firstname": "First Name",
+        "lastname": "Last Name",
+        "phone": "Phone",
         "email" : "Email",
         "role" : "Role"
     },
@@ -111,7 +121,19 @@
 
     "settings" : {
         "title" : "Rootz | Settings",
-        "settings" : "Settings"
+        "settings" : "Settings",
+        "confirm_changes" : "Confirm Changes",
+        "firstname" : "First Name",
+        "lastname" : "Last Name",
+        "email" : "E-mail",
+        "phone" : "Phone Number",
+        "changepassword_title" : "Change your password",
+        "changepassword_button" : "Change Password",
+        "password" : "Password",
+        "repeat_password" : "Repeat Password",
+        "password_success" : "Successfully changed your password",
+        "password_error" : "Error while changing your password, please try again",
+        "password_nomatch" : "Passwords do not match, please try again"
     },
 
     "loginForm" : {

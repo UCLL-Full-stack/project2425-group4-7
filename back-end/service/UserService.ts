@@ -1,8 +1,10 @@
 import bcrypt from 'bcrypt';
 import userDB from '../repository/user.db';
+import profileDB from '../repository/profile.db';
 import { AuthenticationResponse, UserInput } from '../types';
 import { generateJwtToken } from '../util/jwt';
 import { User } from '../model/User';
+import { Profile } from '../model/profile';
 
 const getAllUsers = async (): Promise<User[]> => userDB.getAllUsers();
 
@@ -57,4 +59,67 @@ const createUser = async ({
     return await userDB.createUser(user);
 };
 
-export default { getUserByUsername, authenticate, createUser, getAllUsers, getUserById };
+const editUser = async (id: number, { username, password, email, profile }: UserInput): Promise<User> => {
+    const user = await userDB.getUserById({ id });
+    if (!user) {
+        throw new Error(`User with id: ${id} does not exist.`);
+    }
+    user.setUsername(username);
+    user.setEmail(email);
+    if (password) {
+        const hashedPassword = await bcrypt.hash(password, 12);
+        user.setPassword(hashedPassword);
+    }
+    if (profile) {
+        let existingProfile = await userDB.getProfileByUserId({ userId: id });
+
+        if (!existingProfile) {
+            existingProfile = new Profile(id, profile.firstName ?? "", profile.lastName ?? "", id, profile.phoneNumber ?? "");
+            const createdProfileData = {
+                firstName: existingProfile.getFirstName(),
+                lastName: existingProfile.getLastName(),
+                phoneNumber: existingProfile.getPhoneNumber()
+            };
+            await profileDB.addProfile(id, createdProfileData);
+        } else {
+            existingProfile.setFirstName(profile.firstName ?? "");
+            existingProfile.setLastName(profile.lastName ?? "");
+            existingProfile.setPhoneNumber(profile.phoneNumber ?? "");
+
+            const updatedProfileData = {
+                firstName: existingProfile.getFirstName(),
+                lastName: existingProfile.getLastName(),
+                phoneNumber: existingProfile.getPhoneNumber()
+            };
+
+            await profileDB.editProfile(id, updatedProfileData);
+        }
+    }
+
+    const updatedUser = await userDB.editUser(id, {
+        username: user.getUsername(),
+        password: user.getPassword(),
+        email: user.getEmail(),
+        role: user.getRole(),
+    });
+
+    return updatedUser;
+};
+
+const editPassword = async (userId: number, newPassword: string): Promise<User> => {
+    const user = await userDB.getUserById({ id: userId });
+    if (!user) {
+        throw new Error();
+    }
+    const hashedPassword = await bcrypt.hash(newPassword, 12);
+    user.setPassword(hashedPassword);
+    const updatedUser = await userDB.editUser(userId, {
+        username: user.getUsername(),
+        password: user.getPassword(),
+        email: user.getEmail(),
+        role: user.getRole(),
+    });
+    return updatedUser;
+};
+
+export default { getUserByUsername, authenticate, createUser, getAllUsers, getUserById, editUser, editPassword };

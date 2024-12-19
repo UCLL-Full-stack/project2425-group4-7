@@ -1,7 +1,7 @@
 {
     "homepage": {
         "title": "Rootz",
-        "home_tekst": "La page d'accueil doit encore être créée, Mes Plantes est déjà partiellement terminée."
+        "home_tekst": "Avec Rootz, créez facilement votre propre collection de plantes et gardez-les en bonne santé et épanouies. Ajoutez vos plantes, configurez des rappels et recevez des notifications quand il est temps de les arroser. Ne laissez plus jamais vos amis verts dépérir. Rootz rend l'entretien des plantes simple, organisé et amusant!"
     },
 
     "header": {
@@ -39,8 +39,15 @@
         "reminders": "Rappels:",
         "cancel": "Annuler",
         "sunlight_low": "Faible",
-        "sunlight_medium": "Moyen",
-        "sunlight_high": "Élevé"
+        "sunlight_medium": "Moyenne",
+        "sunlight_high": "Forte"
+    },
+
+    "editPlant": {
+        "edit_title": "Modifier une plante",
+        "edit_plant": "Confirmer les modifications",
+        "edit_success": "Plante modifiée avec succès",
+        "cant_find": "Impossible de trouver la plante, veuillez réessayer"
     },
 
     "plantCard": {
@@ -65,7 +72,10 @@
         "edit": "Éditer",
         "delete": "Supprimer",
         "name": "Nom",
-        "timeLeft": "Prochain arrosage:"
+        "timeLeft": "Prochain arrosage:",
+        "sunlight_low": "Faible",
+        "sunlight_medium": "Moyenne",
+        "sunlight_high": "Forte"
     },
 
     "admin": {
@@ -83,6 +93,9 @@
     "AdminUserList": {
         "id": "ID",
         "username": "Nom d'utilisateur",
+        "firstname": "Prénom",
+        "lastname": "Nom",
+        "phone": "Téléphone",
         "email": "E-mail",
         "role": "Rôle"
     },
@@ -111,7 +124,19 @@
 
     "settings": {
         "title": "Rootz | Paramètres",
-        "settings": "Paramètres"
+        "settings": "Paramètres",
+        "confirm_changes": "Confirmer les modifications",
+        "firstname": "Prénom",
+        "lastname": "Nom",
+        "email": "E-mail",
+        "phone": "Numéro de téléphone",
+        "changepassword_title": "Changer votre mot de passe",
+        "changepassword_button": "Changer le mot de passe",
+        "password": "Mot de passe",
+        "repeat_password": "Répétez le mot de passe",
+        "password_success": "Mot de passe changé avec succès",
+        "password_error": "Erreur lors du changement de mot de passe, veuillez réessayer",
+        "password_nomatch": "Les mots de passe ne correspondent pas, veuillez réessayer"
     },
 
     "loginForm": {

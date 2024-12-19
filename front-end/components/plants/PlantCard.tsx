@@ -4,6 +4,7 @@ import { FaPenToSquare, FaTrash } from "react-icons/fa6";
 import { useNotifications } from "../utils/notifications";
 import { useTranslation } from "react-i18next";
 import PlantService from "@/services/PlantService";
+import EditPlant from "./EditPlant";
 
 type PlantCardProps = {
   plant: Plant;
@@ -15,6 +16,7 @@ const PlantCard: React.FC<PlantCardProps> = ({ plant, onDelete }) => {
   const { sendNotification } = useNotifications();
   const { t } = useTranslation();
   const [sunlightString, setSunlightString] = useState("");
+  const [showEditPlant, setShowEditPlant] = useState(false);
 
   const wateringIntervals: Record<string, number | null> = {
     daily: 24 * 60 * 60 * 1000,
@@ -88,9 +90,9 @@ const PlantCard: React.FC<PlantCardProps> = ({ plant, onDelete }) => {
     return () => clearInterval(intervalId);
   }, [plant.wateringFreq, plant.created]);
 
-  const deletePlant = () => {
+  const deletePlant = async () => {
     if (plant.id) {
-      PlantService.deletePlant(plant.id);
+      await PlantService.deletePlant(plant.id);
       sendNotification(
         `${t("plantCard.delete_success")}: ${plant.name}`,
         "success"
@@ -102,48 +104,87 @@ const PlantCard: React.FC<PlantCardProps> = ({ plant, onDelete }) => {
   };
 
   return (
-    <div className="bg-white border-[3px] border-white py-5 px-4 bg-opacity-15 shadow-md rounded-md flex flex-row">
-      <img src="/plant-icon.png" className="h-[8.1rem] my-auto" alt="" />
-      <div className="ml-4">
-        <div className="flex flex-row">
-          <h2 className="text-white font-bold text-lg my-1">{plant.name}</h2>
-          <div className="ml-10 flex flex-row mt-[8px]">
-            <button className="flex flex-row text-sm hover:underline">
-              <FaPenToSquare className="mt-[3px] mr-1" />
-              {t("plantCard.edit")}
-            </button>
-            <button
-              onClick={deletePlant}
-              className="flex flex-row ml-3 text-sm hover:underline"
-            >
-              <FaTrash className="mt-[3px] mr-1" />
-              {t("plantCard.delete")}
-            </button>
+    <>
+      <div className="bg-white border-[3px] border-white py-5 px-4 bg-opacity-15 shadow-md rounded-md flex flex-row">
+        <img
+          src="/plant-icon.png"
+          className="hidden mini:flex h-[8.1rem] my-auto"
+          alt=""
+        />
+        <div className="ml-4 w-full">
+          <div className="flex flex-row justify-between">
+            <h2 className="text-white font-bold text-lg my-1 mr-3">
+              {plant.name}
+            </h2>
+            <div className="flex flex-row mt-[8px]">
+              <button
+                onClick={() => setShowEditPlant(true)}
+                className="flex flex-row text-sm after:bg-white h-fit pb-1 relative after:absolute after:h-[1px] after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-300"
+              >
+                <FaPenToSquare className="mt-[3px] mr-1" />
+                {t("plantCard.edit")}
+              </button>
+              <button
+                onClick={deletePlant}
+                className="flex flex-row ml-3 text-sm after:bg-white h-fit pb-1 relative after:absolute after:h-[1px] after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-300"
+              >
+                <FaTrash className="mt-[3px] mr-1" />
+                {t("plantCard.delete")}
+              </button>
+            </div>
           </div>
-        </div>
-        <hr className="my-1.5" />
-        <div className="flex flex-row gap-6">
+          <hr className="my-1.5" />
+          <div className="flex flex-row gap-6">
+            <div className="text-sm">
+              <strong>{t("plantCard.type")}</strong>
+              <p>{plant.type}</p>
+            </div>
+            <div className="text-sm">
+              <strong>{t("plantCard.family")}</strong>
+              <p>{plant.family}</p>
+            </div>
+            <div className="text-sm">
+              <strong>{t("plantCard.sunlight")}</strong>
+              <p>{sunlightString}</p>
+            </div>
+          </div>
+          <hr className="my-1.5" />
           <div className="text-sm">
-            <strong>{t("plantCard.type")}</strong>
-            <p>{plant.type}</p>
+            <strong>{t("plantCard.timeLeft")}</strong>
+            <p>{timeLeft}</p>
           </div>
-          <div className="text-sm">
-            <strong>{t("plantCard.family")}</strong>
-            <p>{plant.family}</p>
-          </div>
-          <div className="text-sm">
-            <strong>{t("plantCard.sunlight")}</strong>
-            <p>{sunlightString}</p>
-          </div>
-        </div>
-        <hr className="my-1.5" />
-        <div className="text-sm">
-          <strong>{t("plantCard.timeLeft")}</strong>
-          <p>{timeLeft}</p>
         </div>
       </div>
-    </div>
+      {showEditPlant && (
+        <EditPlant
+          plant={{
+            id: plant.id,
+            name: plant.name,
+            type: plant.type,
+            family: plant.family,
+            wateringFreq: plant.wateringFreq,
+            sunlight: plant.sunlight,
+            email: plant.email,
+            sms: plant.sms,
+            user: {
+              id: plant.user.id,
+              username: plant.user.username,
+              password: plant.user.password,
+              email: plant.user.email,
+              role: plant.user.role,
+              profile: plant.user.profile,
+            },
+            created: plant.created,
+          }}
+          onEditPlant={function (): void {
+            throw new Error("Function not implemented.");
+          }}
+          onEditClose={() => setShowEditPlant(false)}
+        ></EditPlant>
+      )}
+    </>
   );
 };
 
 export default PlantCard;
+// ROOTZ (Simon Denruyter / Ewout Servranckx)
