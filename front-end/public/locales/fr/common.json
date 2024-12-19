@@ -75,7 +75,8 @@
         "timeLeft": "Prochain arrosage:",
         "sunlight_low": "Faible",
         "sunlight_medium": "Moyenne",
-        "sunlight_high": "Forte"
+        "sunlight_high": "Forte",
+        "edit_success": "Plante modifiée avec succès"
     },
 
     "admin": {

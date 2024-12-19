@@ -133,7 +133,18 @@ export class Plant {
         this.created = value;
     }
 
-    static from({ id, name, type, family, wateringFreq, sunlight, reminderEmail, reminderSms, user, created }: any): Plant {
+    static from({
+        id,
+        name,
+        type,
+        family,
+        wateringFreq,
+        sunlight,
+        reminderEmail,
+        reminderSms,
+        user,
+        created,
+    }: any): Plant {
         return new Plant({
             id,
             name,
@@ -143,9 +154,8 @@ export class Plant {
             sunlight,
             reminderEmail,
             reminderSms,
-            user: User.from(user),
+            user: user ? User.from(user) : new User({ id: 0, username: '', email: '', password: '', role: 'user' }),
             created,
         });
     }
-    
 }

@@ -72,7 +72,8 @@
         "timeLeft": "Volgende bewatering:",
         "sunlight_low": "Weinig",
         "sunlight_medium": "Gemiddeld",
-        "sunlight_high": "Veel"
+        "sunlight_high": "Veel",
+        "edit_success": "Plant succesvol bewerkt"
     },
 
     "admin": {

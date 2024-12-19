@@ -72,7 +72,8 @@
         "timeLeft": "Next Watering:",
         "sunlight_low": "Low",
         "sunlight_medium": "Medium",
-        "sunlight_high": "High"
+        "sunlight_high": "High",
+        "edit_success": "Successful edited plant"
     },
 
     "admin" : {

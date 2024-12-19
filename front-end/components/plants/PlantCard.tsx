@@ -103,6 +103,15 @@ const PlantCard: React.FC<PlantCardProps> = ({ plant, onDelete }) => {
     }
   };
 
+  const handleEdited = () => {
+    setShowEditPlant(false);
+    onDelete();
+    sendNotification(
+      `${t("plantCard.edit_success")}: ${plant.name}`,
+      "success"
+    );
+  };
+
   return (
     <>
       <div className="bg-white border-[3px] border-white py-5 px-4 bg-opacity-15 shadow-md rounded-md flex flex-row">
@@ -176,9 +185,7 @@ const PlantCard: React.FC<PlantCardProps> = ({ plant, onDelete }) => {
             },
             created: plant.created,
           }}
-          onEditPlant={function (): void {
-            throw new Error("Function not implemented.");
-          }}
+          onEditPlant={handleEdited}
           onEditClose={() => setShowEditPlant(false)}
         ></EditPlant>
       )}

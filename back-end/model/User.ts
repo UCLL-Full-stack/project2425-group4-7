@@ -111,17 +111,24 @@ export class User {
         this.password = value;
     }
 
-    static from(userPrisma: UserPrisma & { plants?: Plant[]; profile?: Profile }): User {
+    static from(userPrisma: UserPrisma & { plants?: Plant[]; profile?: Profile } | null): User {
+        if (!userPrisma) {
+            throw new Error('Invalid user data: user is null or undefined');
+        }
+    
+        if (!userPrisma.username) {
+            throw new Error('Invalid user data: username is missing');
+        }
+    
         return new User({
             id: userPrisma.id,
-            username: userPrisma.username,
-            email: userPrisma.email,
-            password: userPrisma.password,
+            username: userPrisma.username || "",
+            email: userPrisma.email || "",
+            password: userPrisma.password || "",
             role: userPrisma.role as Role,
             plants: userPrisma.plants?.map(Plant.from),
             profile: userPrisma.profile,
         });
-    }    
-
+    }
 }
 

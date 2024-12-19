@@ -53,9 +53,13 @@ plantRouter.post('/add', async (req: Request, res: Response, next: NextFunction)
 
 plantRouter.put('/edit/:id', async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
-    const plantInput = <PlantInput>req.body;
-    console.log(plantInput);
-    console.log(id);
+    const plantInput: PlantInput = req.body;
+    console.log('Received Plant Input:', plantInput);
+    console.log('Plant ID from params:', id);
+    if (!plantInput.user || !plantInput.user.id) {
+        return res.status(400).json({ message: 'Invalid user data provided' });
+    }
+
     try {
         const editedPlant = await plantService.editPlant(Number(id), plantInput);
         if (!editedPlant) {
@@ -63,8 +67,8 @@ plantRouter.put('/edit/:id', async (req: Request, res: Response, next: NextFunct
         }
         res.status(200).json(editedPlant);
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: error });
+        console.error('Error editing plant:', error);
+        res.status(500).json();
     }
 });
 
