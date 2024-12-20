@@ -26,7 +26,7 @@ export class Profile{
         }
     }
 
-    getId(): number {
+    getId(): number | undefined {
         return this.id;
     }
 

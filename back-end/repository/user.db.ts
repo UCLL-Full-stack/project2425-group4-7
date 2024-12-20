@@ -1,4 +1,4 @@
-import { Profile } from '../model/profile';
+import { Profile } from '../model/Profile';
 import { User } from '../model/User';
 import { Role } from '../types';
 import database from './database';

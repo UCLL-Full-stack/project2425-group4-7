@@ -44,7 +44,7 @@ export class User {
         if (user.username.length < 3) {
             throw new Error("Username must be at least 3 characters long.");
         }
-        if (user.password.length < 6) {
+        if (!user.password || user.password.length < 6) {
             throw new Error("Password must be at least 6 characters long.");
         }
         if (!user.email?.trim()) {
@@ -52,9 +52,6 @@ export class User {
         }
         if (!emailRegex.test(user.email)) {
             throw new Error("Email must have the correct format");
-        }
-        if (!user.password?.trim()) {
-            throw new Error('Password is required');
         }
     }
 

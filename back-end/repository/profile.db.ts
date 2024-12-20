@@ -1,4 +1,4 @@
-import { Profile } from '../model/profile';
+import { Profile } from '../model/Profile';
 import database from './database';
 
 const editProfile = async (userId: number, { firstName, lastName, phoneNumber }: { firstName: string, lastName: string, phoneNumber?: string }): Promise<Profile> => {

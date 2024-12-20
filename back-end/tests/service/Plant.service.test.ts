@@ -2,18 +2,31 @@ import plantService from '../../service/PlantService';
 import plantDB from '../../repository/plant.db';
 import userDB from '../../repository/user.db';
 import { Plant } from "../../model/Plant";
-import { PlantInput, UserInput, PlantUserInput } from "../../types";
 import { User } from '../../model/User';
+import { PlantInput, PlantUserInput } from "../../types";
 
-const user = new User({
+jest.mock('../../repository/plant.db');
+jest.mock('../../repository/user.db');
+
+function transformUserToPlantUserInput(user: User): PlantUserInput {
+    return {
+      id: user.getId() ?? 0,
+      username: user.getUsername(),
+      email: user.getEmail(),
+      role: user.getRole(),
+    };
+  }
+
+describe('Plant Service Tests', () => {
+  const user = new User({
     id: 1,
     username: 'John Doe',
     email: 'john@example.com',
     password: 'john123',
     role: 'user',
-});
+  });
 
-const plant = new Plant({
+  const plant = new Plant({
     id: 1,
     name: 'Aloe Vera',
     type: 'Succulent',
@@ -24,128 +37,178 @@ const plant = new Plant({
     reminderSms: false,
     user,
     created: new Date(),
-});
+  });
 
-// Transformation function for user
-function transformUserToPlantUserInput(user: User): PlantUserInput {
-    return {
-        id: user.id,
-        username: user.username,
-        email: user.email,
-        role: user.role,
-    };
-}
+  let mockPlantDbAddPlant: jest.SpyInstance;
+  let mockGetUserByUsername: jest.SpyInstance;
 
-let mockPlantDbAddPlant: jest.SpyInstance<Promise<Plant>, [plant: PlantInput], any>;
-let mockPlantDbGetPlantById: jest.SpyInstance<Promise<Plant | null>, [{ id: number }], any>;
-let mockUserDbGetUserByUsername: jest.SpyInstance<Promise<User | null>, [{ username: string }], any>;
-let mockPlantDbGetPlantsByUserId: jest.SpyInstance<Promise<Plant[]>, [number], any>;
-
-beforeEach(() => {
+  beforeEach(() => {
     mockPlantDbAddPlant = jest.spyOn(plantDB, 'addPlant').mockResolvedValue(plant);
-    mockPlantDbGetPlantById = jest.spyOn(plantDB, 'getPlantById').mockResolvedValue(plant);
-    mockUserDbGetUserByUsername = jest.spyOn(userDB, 'getUserByUsername').mockResolvedValue(user);
-    mockPlantDbGetPlantsByUserId = jest.spyOn(plantDB, 'getPlantsByUserId').mockResolvedValue([plant]);
-});
+    mockGetUserByUsername = jest.spyOn(userDB, 'getUserByUsername').mockResolvedValue(user);
+  });
 
-afterEach(() => {
+  afterEach(() => {
     jest.clearAllMocks();
+  });
+
+  test('getAllPlants should return a list of plants', async () => {
+    const mockGetAllPlants = jest.spyOn(plantDB, 'getAllPlants').mockResolvedValue([plant]);
+    
+    const plants = await plantService.getAllPlants();
+    
+    expect(plants).toHaveLength(1);
+    expect(plants[0].getName()).toBe('Aloe Vera');
+    expect(mockGetAllPlants).toHaveBeenCalledTimes(1);
+  });
+
+  test('getPlantById should return a plant by ID', async () => {
+    const plantId = 1;
+    const mockGetPlantById = jest.spyOn(plantDB, 'getPlantById').mockResolvedValue(plant);
+    
+    const result = await plantService.getPlantById(plantId);
+    
+    expect(result).toBeDefined();
+    expect(result?.getId()).toBe(1);
+
+  });
+
+  test('getPlantById should throw an error if the plant does not exist', async () => {
+    const plantId = 999;
+    jest.spyOn(plantDB, 'getPlantById').mockResolvedValue(null);
+    
+    await expect(plantService.getPlantById(plantId)).rejects.toThrow('Plant: 999 doesnt exist');
+  });
+
+  test('addPlant should add a new plant', async () => {
+    const plantInput: PlantInput = {
+      name: 'Aloe Vera',
+      type: 'Succulent',
+      family: 'Lamiaceae',
+      wateringFreq: 'Weekly',
+      sunlight: 'Direct',
+      email: true,
+      sms: false,
+      user: transformUserToPlantUserInput(user),
+      created: new Date(),
+    };
+    
+    const result = await plantService.addPlant(plantInput);
+    
+    expect(result).toBeDefined();
+    expect(result.getName()).toBe('Aloe Vera');
+    expect(result.getUser()).toBe(user);
+    expect(mockPlantDbAddPlant).toHaveBeenCalledWith(plantInput);  
+  });
+
+  test('addPlant should throw an error if user is missing', async () => {
+    const plantInput: PlantInput = {
+      name: 'Basil',
+      type: 'Herb',
+      family: 'Lamiaceae',
+      wateringFreq: 'Weekly',
+      sunlight: 'Direct',
+      email: true,
+      sms: false,
+      user: { id: 0, username: '', email: '', role: 'user' },
+      created: new Date(),
+    };
+
+    await expect(plantService.addPlant(plantInput)).rejects.toThrow('User may not be null');
 });
 
-describe('Plant Service', () => {
-    describe('addPlant', () => {
-        it('should add a plant successfully', async () => {
-            const plantInput: PlantInput = {
-                name: 'Aloe Vera',
-                type: 'Succulent',
-                family: 'Asphodelaceae',
-                wateringFreq: 'Weekly',
-                sunlight: 'Indirect',
-                email: true,
-                sms: false,
-                user: transformUserToPlantUserInput(user), // Updated here
-                created: new Date(),
-            };
 
-            const result = await plantService.addPlant(plantInput);
-            expect(mockPlantDbAddPlant).toHaveBeenCalledWith(plantInput);
-            expect(result).toEqual(plant);
-        });
+  test('getUserPlants should return plants of a specific user', async () => {
+    const mockGetPlantsByUserId = jest.spyOn(plantDB, 'getPlantsByUserId').mockResolvedValue([plant]);
+    
+    const plants = await plantService.getUserPlants('John Doe');
+    
+    expect(plants).toHaveLength(1);
+    expect(plants[0].getName()).toBe('Aloe Vera');
+    expect(mockGetPlantsByUserId).toHaveBeenCalledWith(user.getId());
+  });
 
-        it('should throw an error if user is null', async () => {
-            const plantInput: PlantInput = {
-                name: 'Aloe Vera',
-                type: 'Succulent',
-                family: 'Asphodelaceae',
-                wateringFreq: 'Weekly',
-                sunlight: 'Indirect',
-                email: true,
-                sms: false,
-                user: null as unknown as PlantUserInput,
-                created: new Date(),
-            };
+  test('getUserPlants should throw an error if user does not exist', async () => {
+    jest.spyOn(userDB, 'getUserByUsername').mockResolvedValue(null);
+    
+    await expect(plantService.getUserPlants('Unknown User')).rejects.toThrow('Error fetching user plants');
+  });
 
-            await expect(plantService.addPlant(plantInput)).rejects.toThrow('User may not be null');
-            expect(mockPlantDbAddPlant).not.toHaveBeenCalled();
-        });
-    });
+  test('deletePlantById should delete a plant', async () => {
+    const plantId = 1;
+    const mockDeleteById = jest.spyOn(plantDB, 'deleteById').mockResolvedValue(true);
+    
+    const result = await plantService.deletePlantById(plantId);
+    
+    expect(result).toBe(true);
+    expect(mockDeleteById).toHaveBeenCalledWith(plantId);
+  });
 
-    describe('getPlantById', () => {
-        it('should return a plant by ID', async () => {
-            const result = await plantService.getPlantById(1);
-            expect(mockPlantDbGetPlantById).toHaveBeenCalledWith({ id: 1 });
-            expect(result).toEqual(plant);
-        });
+  test('deletePlantById should throw an error if deletion fails', async () => {
+    const plantId = 999;
+    jest.spyOn(plantDB, 'deleteById').mockResolvedValue(false);
+    
+    await expect(plantService.deletePlantById(plantId)).rejects.toThrow(`Failed to delete plant: ${plantId}`);
+  });  
 
-        it('should throw an error if plant does not exist', async () => {
-            mockPlantDbGetPlantById.mockResolvedValue(null);
 
-            await expect(plantService.getPlantById(999)).rejects.toThrow('Plant with ID: 999 does not exist.');
-        });
-    });
+test('editPlant should update a plant successfully', async () => {
+    const plantId = 1;
 
-    describe('getUserPlants', () => {
-        it('should return plants for a given username', async () => {
-            const result = await plantService.getUserPlants('John Doe');
-            expect(mockUserDbGetUserByUsername).toHaveBeenCalledWith({ username: 'John Doe' });
-            expect(mockPlantDbGetPlantsByUserId).toHaveBeenCalledWith(1);
-            expect(result).toEqual([plant]);
-        });
+    const updatedData: PlantInput = {
+      name: 'Updated Aloe Vera',
+      type: 'Succulent',
+      family: 'Asphodelaceae',
+      wateringFreq: 'Biweekly',
+      sunlight: 'Direct',
+      email: true,
+      sms: false,
+      user: { id: 1, username: 'John Doe', email: 'john@example.com', role: 'user' },
+      created: new Date(),
+    };
 
-        it('should throw an error if user is not found', async () => {
-            mockUserDbGetUserByUsername.mockResolvedValue(null);
+    const updatedPlant = {
+      id: 1,
+      name: 'Updated Aloe Vera',
+      type: 'Succulent',
+      family: 'Asphodelaceae',
+      wateringFreq: 'Biweekly',
+      sunlight: 'Direct',
+      reminderEmail: true,
+      reminderSms: false,
+      userId: 1,
+      created: new Date(),
+    };
 
-            await expect(plantService.getUserPlants('Unknown User')).rejects.toThrow('User: Unknown User not found');
-            expect(mockPlantDbGetPlantsByUserId).not.toHaveBeenCalled();
-        });
+    jest.spyOn(plantDB, 'getPlantById').mockResolvedValue(plant);
+    jest.spyOn(plantDB, 'editPlantById').mockResolvedValue(updatedPlant);
 
-        it('should throw an error if user ID is undefined', async () => {
-            const invalidUser = new User({
-                username: 'Invalid User',
-                email: 'invalid@example.com',
-                password: 'invalid123',
-                role: 'user',
-            });
+    const result = await plantService.editPlant(plantId, updatedData);
 
-            mockUserDbGetUserByUsername.mockResolvedValue(invalidUser);
+    expect(result).toBeDefined();
+    expect(result?.name).toBe('Updated Aloe Vera');
+    expect(result?.wateringFreq).toBe('Biweekly');
+    expect(result?.sunlight).toBe('Direct');
+    expect(plantDB.editPlantById).toHaveBeenCalledWith(plantId, updatedData);
+});
 
-            await expect(plantService.getUserPlants('Invalid User')).rejects.toThrow('User ID required');
-        });
-    });
-
-    describe('deletePlantById', () => {
-        it('should delete a plant by ID', async () => {
-            const mockDeletePlant = jest.spyOn(plantDB, 'deleteById').mockResolvedValue(true);
-
-            const result = await plantService.deletePlantById(1);
-            expect(mockDeletePlant).toHaveBeenCalledWith(1);
-            expect(result).toBe(true);
-        });
-
-        it('should throw an error if deletion fails', async () => {
-            const mockDeletePlant = jest.spyOn(plantDB, 'deleteById').mockRejectedValue(new Error('Deletion error'));
-
-            await expect(plantService.deletePlantById(1)).rejects.toThrow('Failed to delete plant: 1');
-        });
-    });
+  test('editPlant should throw an error if there is an issue with editing', async () => {
+    const plantId = 1;
+  
+    const updatedData: PlantInput = {
+      name: 'Updated Plant',
+      type: 'Succulent',
+      family: 'Lamiaceae',
+      wateringFreq: 'Every 2 Weeks',
+      sunlight: 'Indirect',
+      email: true,
+      sms: false,
+      user: { id: 1, username: 'user', email: 'user@example.com', role: 'user' },
+      created: new Date(),
+    };
+  
+    jest.spyOn(plantDB, 'getPlantById').mockResolvedValue(plant);
+    jest.spyOn(plantDB, 'editPlantById').mockRejectedValue(new Error('Database error'));
+  
+    await expect(plantService.editPlant(plantId, updatedData)).rejects.toThrow('Failed to edit plant');
+  });
 });

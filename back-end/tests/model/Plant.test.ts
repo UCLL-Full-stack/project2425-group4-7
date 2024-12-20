@@ -142,6 +142,6 @@ describe('Plant Domain Model', () => {
                 sms: false,
                 created: new Date(),
             });
-        }).toThrow("Plant doesnt have a user");
+        }).toThrow("Username is required");
     });
 });

@@ -14,7 +14,7 @@ export type PlantInput = {
 };
 
 export type PlantUserInput = {
-    id: number;
+    id?: number;
     username?: string;
     password?: string;
     email?: string;

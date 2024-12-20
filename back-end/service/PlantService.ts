@@ -17,13 +17,12 @@ const getPlantById = async (plantId: number): Promise<Plant | undefined> => {
 };
 
 const deletePlantById = async (id: number) => {
-  try {
-    const deletePlant = await plantDB.deleteById(id);
-    return deletePlant;
-  } catch (error) {
-    throw new Error(`Failed to delete plant: ${id}`)
+  const deletePlant = await plantDB.deleteById(id);
+  if (!deletePlant) {
+    throw new Error(`Failed to delete plant: ${id}`);
   }
-}
+  return deletePlant;
+};
 
 const getUserPlants = async (username: string): Promise<Plant[]> => {
     try {
@@ -44,7 +43,7 @@ const getUserPlants = async (username: string): Promise<Plant[]> => {
   };
 
 const addPlant = async (plantInput: PlantInput): Promise<Plant> => {
-  if (!plantInput.user) {
+  if (!plantInput.user?.id || plantInput.user.id <= 0) {
     throw new Error('User may not be null');
   }
   const plant: PlantInput = {

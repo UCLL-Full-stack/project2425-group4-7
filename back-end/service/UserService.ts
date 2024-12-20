@@ -4,7 +4,7 @@ import profileDB from '../repository/profile.db';
 import { AuthenticationResponse, UserInput } from '../types';
 import { generateJwtToken } from '../util/jwt';
 import { User } from '../model/User';
-import { Profile } from '../model/profile';
+import { Profile } from '../model/Profile';
 
 const getAllUsers = async (): Promise<User[]> => userDB.getAllUsers();
 
