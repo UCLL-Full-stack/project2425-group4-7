@@ -113,11 +113,11 @@ export class User {
 
     static from(userPrisma: UserPrisma & { plants?: Plant[]; profile?: Profile } | null): User {
         if (!userPrisma) {
-            throw new Error('Invalid user data: user is null or undefined');
+            throw new Error('User may not be null');
         }
     
         if (!userPrisma.username) {
-            throw new Error('Invalid user data: username is missing');
+            throw new Error('Username is missing');
         }
     
         return new User({

@@ -62,7 +62,16 @@ const getUserPlants = async (username: string): Promise<any> => {
 
 const addPlant = async (plant: any): Promise<any> => {
   try {
-    const token = localStorage.getItem("loggedInUser");
+    const loggedInUser = localStorage.getItem("loggedInUser");
+    let token = "";
+    if (loggedInUser) {
+      try {
+        const parsedUser = JSON.parse(loggedInUser);
+        token = parsedUser.token || "";
+      } catch (error) {
+        throw error;
+      }
+    }
     const response = await fetch(`${API_URL}/plants/add`, {
       method: "POST",
       headers: {

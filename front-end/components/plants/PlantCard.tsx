@@ -35,7 +35,7 @@ const PlantCard: React.FC<PlantCardProps> = ({ plant, onDelete }) => {
       return;
     }
     if (!intervalMs) {
-      setTimeLeft("Invalid");
+      setTimeLeft(`${t("plantCard.no_water_needed")}`);
       return;
     }
 

@@ -5,7 +5,7 @@ import router from "next/router";
 
 export default function LanguageDropdown() {
   const [isOpen, setIsOpen] = useState(false);
-  const [locale, setLocale] = useState("nl");
+  const [locale, setLocale] = useState("en");
 
   const handleToggle = () => setIsOpen(!isOpen);
   const handleSelect = (value: string) => {
@@ -14,6 +14,9 @@ export default function LanguageDropdown() {
     if (i18n && i18n.language !== value) {
       i18n.changeLanguage(value);
       const { pathname, asPath, query } = router;
+      console.log("Pushing route:", { pathname, query }, asPath, {
+        locale: value,
+      });
       router.push({ pathname, query }, asPath, { locale: value });
     }
     setIsOpen(false);

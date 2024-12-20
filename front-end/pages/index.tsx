@@ -23,7 +23,7 @@ export default function Home() {
             />
             <div className="w-[0.5px] xsm:flex hidden bg-white bg-opacity-80 ml-5 mr-8 rounded-md"></div>
             <div className="max-w-[35rem] my-auto">
-              <h1 className="text-2xl font-bold">Welcome to Rootz</h1>
+              <h1 className="text-2xl font-bold">{t("homepage.subtitle")}</h1>
               <p className="text-white mt-2">{t("homepage.home_tekst")}</p>
             </div>
           </div>
