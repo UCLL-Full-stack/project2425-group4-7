@@ -153,6 +153,28 @@ userRouter.post('/register', async (req: Request, res: Response, next: NextFunct
     }
 });
 
+/**
+ * @swagger
+ * /users/name/{username}:
+ *   get:
+ *     summary: Get a user by their username
+ *     parameters:
+ *       - in: path
+ *         name: username
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The user's username
+ *     responses:
+ *       200:
+ *         description: The user object
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *       404:
+ *         description: User not found
+ */
 userRouter.get('/name/:username', async (req, res) => {
     const { username } = req.params;
     try {
@@ -165,6 +187,34 @@ userRouter.get('/name/:username', async (req, res) => {
     }
 });
 
+/**
+ * @swagger
+ * /users/edit/{id}:
+ *   put:
+ *     summary: Edit a user
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: Id of the user
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/UserInput'
+ *     responses:
+ *       200:
+ *         description: Edited user
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *       404:
+ *         description: User not found
+ */
 userRouter.put('/edit/:id', async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
     const userInput = <UserInput>req.body;
@@ -179,6 +229,34 @@ userRouter.put('/edit/:id', async (req: Request, res: Response, next: NextFuncti
     }
 });
 
+/**
+ * @swagger
+ * /users/edit/password/{id}:
+ *   put:
+ *     summary: Update user password
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID of the password's user
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               password:
+ *                 type: string
+ *                 description: New password
+ *     responses:
+ *       200:
+ *         description: Password updated successfully
+ *       404:
+ *         description: User not found
+ */
 userRouter.put('/edit/password/:id', async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
     const { password } = req.body;

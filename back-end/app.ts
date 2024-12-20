@@ -21,7 +21,7 @@ const swaggerOpts = {
     definition: {
         openapi: '3.0.0',
         info: {
-            title: 'Courses API',
+            title: 'Rootz API',
             version: '1.0.0',
         },
     },
@@ -36,18 +36,8 @@ app.use(
         algorithms: ['HS256'],
     }).unless({
         path: [
-            '/login',
             '/users/login',
             '/users/register',
-            '/plants/all',
-            '/plants/user/:username',
-            '/plants/add',
-            '/users/name/:username',
-            '/plants/delete/:id',
-            '/plants/edit/:id',
-            '/users/edit/:id',
-            '/profiles/:userId',
-            '/users/edit/password/:id'
         ],
     })
 );

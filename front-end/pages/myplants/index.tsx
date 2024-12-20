@@ -10,6 +10,7 @@ import PlantCard from "@/components/plants/PlantCard";
 import { FaMagnifyingGlass, FaPlus } from "react-icons/fa6";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "react-i18next";
+import { useRouter } from "next/router";
 
 const MyPlants = () => {
   const [isAddingPlant, setIsAddingPlant] = useState(false);
@@ -18,6 +19,14 @@ const MyPlants = () => {
   const [isClient, setIsClient] = useState(false);
   const [searchInput, setSearchInput] = useState("");
   const { t } = useTranslation();
+  const router = useRouter();
+
+  const checkRolePerms = () => {
+    const loggedInUser = localStorage.getItem("loggedInUser");
+    if (!loggedInUser) {
+      router.push("/unauthorized");
+    }
+  };
 
   const fetchPlants = async () => {
     const loggedInUser = localStorage.getItem("loggedInUser");
@@ -39,6 +48,7 @@ const MyPlants = () => {
   };
 
   useEffect(() => {
+    checkRolePerms();
     setIsClient(true);
     fetchPlants();
   }, []);

@@ -168,5 +168,11 @@
         "register": "Registreren",
         "already_have_an_account": "Heb je al een account?",
         "login_here": "Log hier in"
+    },
+
+    "unauthorized": {
+    "message": "Je bent niet geautoriseerd om deze pagina te bekijken.",
+    "title": "Niet Geautoriseerd",
+    "button": "Inloggen / Registreren"
     }
 }

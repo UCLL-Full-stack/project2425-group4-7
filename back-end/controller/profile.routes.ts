@@ -31,12 +31,12 @@ export const profileRouter = express.Router();
  *   get:
  *     security:
  *       - bearerAuth: []
- *     summary: Get the profile from a specific user
+ *     summary: Get the profile of a user
  *     parameters:
  *       - name: userId
  *         in: path
  *         required: true
- *         description: ID of the user (profile owner)
+ *         description: User's ID
  *         schema:
  *           type: integer
  *           format: int64

@@ -6,6 +6,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "react-i18next";
 import UserService from "@/services/UserService";
 import { useNotifications } from "@/components/utils/notifications";
+import { useRouter } from "next/router";
 
 const Settings = () => {
   const { t } = useTranslation();
@@ -26,8 +27,17 @@ const Settings = () => {
     password: "",
     repeatPassword: "",
   });
+  const router = useRouter();
+
+  const checkRolePerms = () => {
+    const loggedInUser = localStorage.getItem("loggedInUser");
+    if (!loggedInUser) {
+      router.push("/unauthorized");
+    }
+  };
 
   useEffect(() => {
+    checkRolePerms();
     const fetchUserData = async () => {
       try {
         const user = await UserService.getLoggedInUser();

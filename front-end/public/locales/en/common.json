@@ -168,5 +168,11 @@
         "register" : "Register",
         "already_have_an_account" : "Already have an account?",
         "login_here" : "Login here"
+    },
+    
+    "unauthorized" : {
+        "message": "You're not authorized to access this page.",
+        "title": "Unauthorized",
+        "button": "Login / Register"
     }
 }

@@ -23,6 +23,32 @@ const Login = () => {
         ) : (
           <RegisterForm toggleForm={toggleForm} />
         )}
+        <table className="text-zinc-400 w-fit table-auto h-fit fixed right-10 bottom-10">
+          <thead>
+            <tr>
+              <th className="py-2 px-4 border-b border-zinc-400">Username</th>
+              <th className="py-2 px-4 border-b border-zinc-400">Password</th>
+              <th className="py-2 px-4 border-b border-zinc-400">Role</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className="py-2 px-4 border-b border-zinc-400">peter</td>
+              <td className="py-2 px-4 border-b border-zinc-400">spiderman</td>
+              <td className="py-2 px-4 border-b border-zinc-400">User</td>
+            </tr>
+            <tr>
+              <td className="py-2 px-4 border-b border-zinc-400">tony</td>
+              <td className="py-2 px-4 border-b border-zinc-400">stark</td>
+              <td className="py-2 px-4 border-b border-zinc-400">Premium</td>
+            </tr>
+            <tr>
+              <td className="py-2 px-4 border-b border-zinc-400">admin</td>
+              <td className="py-2 px-4 border-b border-zinc-400">admin123</td>
+              <td className="py-2 px-4 border-b border-zinc-400">Admin</td>
+            </tr>
+          </tbody>
+        </table>
       </main>
     </>
   );

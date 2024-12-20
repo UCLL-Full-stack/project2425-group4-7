@@ -6,12 +6,13 @@ import { Plant, User } from "@/types/types";
 import { getUserRole } from "@/components/auth/auth";
 import PlantService from "@/services/PlantService";
 import PlantCard from "@/components/plants/PlantCard";
-import AdminPlantCard from "@/components/plants/AdminPlantCard";
+import AdminPlantCard from "@/components/admin/AdminPlantCard";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "react-i18next";
 import UserService from "@/services/UserService";
-import AdminUserList from "@/components/plants/AdminUserList";
+import AdminUserList from "@/components/admin/AdminUserList";
+import { useRouter } from "next/router";
 
 const Settings = () => {
   const [plants, setPlants] = useState<Plant[]>([]);
@@ -23,6 +24,25 @@ const Settings = () => {
   const [searchUserInput, setSearchUserInput] = useState("");
   const { t } = useTranslation();
   const [showPlants, setShowPlants] = useState(true);
+  const router = useRouter();
+
+  const checkRolePerms = () => {
+    const loggedInUser = localStorage.getItem("loggedInUser");
+    if (loggedInUser) {
+      try {
+        const parsedUser = JSON.parse(loggedInUser);
+        const role = parsedUser.role || "";
+        if (role !== "admin") {
+          router.push("/unauthorized");
+        }
+      } catch (error) {
+        console.error("Error parsing user:", error);
+        router.push("/unauthorized");
+      }
+    } else {
+      router.push("/unauthorized");
+    }
+  };
 
   const fetchPlants = async () => {
     try {
@@ -69,6 +89,7 @@ const Settings = () => {
   });
 
   useEffect(() => {
+    checkRolePerms();
     setIsClient(true);
     fetchPlants();
     fetchUsers();

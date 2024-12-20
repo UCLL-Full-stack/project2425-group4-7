@@ -171,5 +171,11 @@
         "register": "Registrieren",
         "already_have_an_account": "Hast du bereits ein Konto?",
         "login_here": "Hier einloggen"
+    },
+
+    "unauthorized": {
+    "message": "Sie sind nicht berechtigt, auf diese Seite zuzugreifen.",
+    "title": "Nicht Autorisiert",
+    "button": "Anmelden / Registrieren"
     }
 }

@@ -171,5 +171,11 @@
         "register": "S'inscrire",
         "already_have_an_account": "Vous avez déjà un compte ?",
         "login_here": "Connectez-vous ici"
+    },
+
+    "unauthorized": {
+    "message": "Vous n'êtes pas autorisé à accéder à cette page.",
+    "title": "Non Autorisé",
+    "button": "Connexion / Inscription"
     }
 }
